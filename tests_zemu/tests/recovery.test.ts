@@ -39,7 +39,7 @@ async function activateSecretMode(sim: any) {
 
   // Activate secret features
   for (let i = 0; i < 10; i += 1) {
-    await sim.clickBoth()
+    await sim.clickBoth('', false)
   }
 
   const reviewSteps = sim.startOptions.model === 'nanos' ? 7 : 6
@@ -53,8 +53,8 @@ async function activateSecretMode(sim: any) {
   await sim.clickBoth()
 }
 
-describe('Standard', function () {
-  test.skip.each(models)('main secret menu (%s)', async function (m) {
+describe('Recovery', function () {
+  test.each(models)('main secret menu (%s)', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -62,21 +62,28 @@ describe('Standard', function () {
 
       const acala_expected_address = '21SdAbm9cbKEm8ZFXgKBdeLjPtM1JQDKLaUi1i1pohCV5KjS'
       const acala_expected_pk = '19306b58f9e46fc24a406534ec9bb7aea62f88b7b4965536c5dd1d80db1f4c11'
-
       const polkadot_expected_address = '25yY5dKSiDzv9heG4zPDQJLkPNSY7JL4NK5RQ9CWoNKrqsUY'
       const polkadot_expected_pk = 'e1b4d72d27b3e91b9b6116555b4ea17138ddc12ca7cdbab30e2e0509bd848419'
 
       let resp = await app.getAddress(0x80000000, 0x80000000, 0x80000000)
+
       console.log(resp)
       expect(resp.address).toEqual(acala_expected_address)
       expect(resp.pubKey).toEqual(acala_expected_pk)
 
+      expect(resp.return_code).toEqual(0x9000)
+      expect(resp.error_message).toEqual('No errors')
+
       await activateSecretMode(sim)
 
       resp = await app.getAddress(0x80000000, 0x80000000, 0x80000000)
+
       console.log(resp)
       expect(resp.address).toEqual(polkadot_expected_address)
       expect(resp.pubKey).toEqual(polkadot_expected_pk)
+
+      expect(resp.return_code).toEqual(0x9000)
+      expect(resp.error_message).toEqual('No errors')
     } finally {
       await sim.close()
     }
