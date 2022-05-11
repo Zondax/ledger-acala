@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2050.x
+# Acala  1.2060.x
 
 ## System
 
@@ -380,7 +380,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Propose |    | :heavy_check_mark: |   | `Hash` proposal_hash <br/>`Compactu128` amount <br/> |
+|Propose |    | :heavy_check_mark: |   | `Hash` proposal_hash <br/>`CompactBalance` amount <br/> |
 |Second |    | :heavy_check_mark: |   | `Compactu32` proposal <br/>`Compactu32` seconds_upper_bound <br/> |
 |Vote |    |   |   | `Compactu32` ref_index <br/>`AccountVote` vote <br/> |
 |Emergency cancel |    | :heavy_check_mark: |   | `ReferendumIndex` ref_index <br/> |

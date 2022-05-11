@@ -688,7 +688,7 @@ parser_error_t _toStringAccessListItem_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringEvmAddress_V1(&v->address, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringVecH256(&v->storageKeys, outValue, outValueLen, 0, &pages[1]))
 
@@ -828,10 +828,10 @@ parser_error_t _toStringAccountVote_V1(
     CLEAN_AND_CHECK()
     switch (v->value) {
     case 0:
-        _toStringAccountVoteStandard_V1(&v->voteStandard, outValue, outValueLen, pageIdx, pageCount);
+        CHECK_ERROR(_toStringAccountVoteStandard_V1(&v->voteStandard, outValue, outValueLen, pageIdx, pageCount));
         break;
     case 1:
-        _toStringAccountVoteSplit_V1(&v->voteSplit, outValue, outValueLen, pageIdx, pageCount);
+        CHECK_ERROR(_toStringAccountVoteSplit_V1(&v->voteSplit, outValue, outValueLen, pageIdx, pageCount));
         break;
     default:
         return parser_unexpected_value;
@@ -1044,7 +1044,7 @@ parser_error_t _toStringClassIdOfTTokenIdOfT_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringClassIdOfT_V1(&v->value1, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringTokenIdOfT_V1(&v->value2, outValue, outValueLen, 0, &pages[1]))
 
@@ -1172,7 +1172,7 @@ parser_error_t _toStringDexShareFixed_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringDexShare_V1(&v->dexShare1, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringDexShare_V1(&v->dexShare2, outValue, outValueLen, 0, &pages[1]))
 
@@ -1444,7 +1444,7 @@ parser_error_t _toStringPriority_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringu32(&v->stream_id, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringStreamDependency_V1(&v->dependency, outValue, outValueLen, 0, &pages[1]))
 
@@ -1572,7 +1572,7 @@ parser_error_t _toStringStreamDependency_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[3];
+    uint8_t pages[3] = { 0 };
     CHECK_ERROR(_toStringu32(&v->dependency_id, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringu16((const pd_u16_t*)&v->weight, outValue, outValueLen, 0, &pages[1]))
     CHECK_ERROR(_toStringbool(&v->is_exclusive, outValue, outValueLen, 0, &pages[2]))
@@ -1616,7 +1616,7 @@ parser_error_t _toStringSwapLimitBalance_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringBalance(&v->balance1, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringBalance(&v->balance2, outValue, outValueLen, 0, &pages[1]))
 
@@ -1664,7 +1664,7 @@ parser_error_t _toStringTimepoint_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[2];
+    uint8_t pages[2] = { 0 };
     CHECK_ERROR(_toStringBlockNumber(&v->height, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringu32(&v->index, outValue, outValueLen, 0, &pages[1]))
 
@@ -1876,7 +1876,7 @@ parser_error_t _toStringVestingScheduleOf_V1(
     CLEAN_AND_CHECK()
 
     // First measure number of pages
-    uint8_t pages[4];
+    uint8_t pages[4] = { 0 };
     CHECK_ERROR(_toStringBlockNumber(&v->start, outValue, outValueLen, 0, &pages[0]))
     CHECK_ERROR(_toStringBlockNumber(&v->period, outValue, outValueLen, 0, &pages[1]))
     CHECK_ERROR(_toStringBalance(&v->balance, outValue, outValueLen, 0, &pages[2]))
