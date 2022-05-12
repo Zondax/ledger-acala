@@ -510,7 +510,7 @@ __Z_INLINE parser_error_t _readMethod_democracy_propose_V1(
     parser_context_t* c, pd_democracy_propose_V1_t* m)
 {
     CHECK_ERROR(_readHash(c, &m->proposal_hash))
-    CHECK_ERROR(_readCompactu128(c, &m->amount))
+    CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
 
@@ -4014,7 +4014,7 @@ parser_error_t _getMethod_ItemValue_V1(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* democracy_propose_V1 - amount */;
-            return _toStringCompactu128(
+            return _toStringCompactBalance(
                 &m->basic.democracy_propose_V1.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);

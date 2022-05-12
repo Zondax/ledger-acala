@@ -303,7 +303,7 @@ typedef struct {
 #define PD_CALL_DEMOCRACY_PROPOSE_V1 0
 typedef struct {
     pd_Hash_t proposal_hash;
-    pd_Compactu128_t amount;
+    pd_CompactBalance_t amount;
 } pd_democracy_propose_V1_t;
 
 #define PD_CALL_DEMOCRACY_SECOND_V1 1
