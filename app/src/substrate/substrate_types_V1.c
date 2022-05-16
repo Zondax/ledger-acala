@@ -380,7 +380,7 @@ parser_error_t _readProxyType_V1(parser_context_t* c, pd_ProxyType_V1_t* v)
 {
     CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->value))
-    if (v->value > 6) {
+    if (v->value > 8) {
         return parser_value_out_of_range;
     }
     return parser_ok;
@@ -1512,6 +1512,12 @@ parser_error_t _toStringProxyType_V1(
         break;
     case 6:
         snprintf(outValue, outValueLen, "DexLiquidity");
+        break;
+    case 7:
+        snprintf(outValue, outValueLen, "StableAssetSwap");
+        break;
+    case 8:
+        snprintf(outValue, outValueLen, "StableAssetLiquidity");
         break;
     default:
         return parser_print_not_supported;
