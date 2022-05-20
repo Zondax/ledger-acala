@@ -376,7 +376,9 @@ parser_error_t _readPoolId_V1(parser_context_t* c, pd_PoolId_V1_t* v)
 
 parser_error_t _readPoolTokenIndex_V1(parser_context_t* c, pd_PoolTokenIndex_V1_t* v)
 {
-    return parser_not_supported;
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readPriority_V1(parser_context_t* c, pd_Priority_V1_t* v)
@@ -420,7 +422,9 @@ parser_error_t _readScheduleTaskIndex_V1(parser_context_t* c, pd_ScheduleTaskInd
 
 parser_error_t _readStableAssetPoolId_V1(parser_context_t* c, pd_StableAssetPoolId_V1_t* v)
 {
-    return parser_not_supported;
+    CHECK_INPUT()
+    CHECK_ERROR(_readUInt32(c, &v->value))
+    return parser_ok;
 }
 
 parser_error_t _readStreamDependency_V1(parser_context_t* c, pd_StreamDependency_V1_t* v)
@@ -1485,8 +1489,7 @@ parser_error_t _toStringPoolTokenIndex_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+    return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringPriority_V1(
@@ -1619,8 +1622,7 @@ parser_error_t _toStringStableAssetPoolId_V1(
     uint8_t pageIdx,
     uint8_t* pageCount)
 {
-    CLEAN_AND_CHECK()
-    return parser_print_not_supported;
+    return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
 }
 
 parser_error_t _toStringStreamDependency_V1(

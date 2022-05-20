@@ -426,8 +426,7 @@ typedef struct {
 } pd_Perbill_V1_t;
 
 typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+    uint32_t value;
 } pd_PoolTokenIndex_V1_t;
 
 typedef struct {
@@ -441,8 +440,7 @@ typedef struct {
 } pd_ScheduleTaskIndex_V1_t;
 
 typedef struct {
-    // TODO: Not implemented
-    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+    uint32_t value;
 } pd_StableAssetPoolId_V1_t;
 
 typedef struct {

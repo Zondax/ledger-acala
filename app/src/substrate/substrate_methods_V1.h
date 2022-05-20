@@ -46,6 +46,7 @@ extern "C" {
 #define PD_CALL_NFT_V1 121
 #define PD_CALL_EVM_V1 130
 #define PD_CALL_EVMACCOUNTS_V1 132
+#define PD_CALL_STABLEASSET_V1 200
 
 #define PD_CALL_UTILITY_BATCH_V1 0
 typedef struct {
@@ -688,6 +689,46 @@ typedef struct {
 typedef struct {
 } pd_evmaccounts_claim_default_account_V1_t;
 
+#define PD_CALL_STABLEASSET_MINT_V1 1
+typedef struct {
+    pd_StableAssetPoolId_V1_t pool_id;
+    pd_VecBalance_t amounts;
+    pd_Balance_t min_mint_amount;
+} pd_stableasset_mint_V1_t;
+
+#define PD_CALL_STABLEASSET_SWAP_V1 2
+typedef struct {
+    pd_StableAssetPoolId_V1_t pool_id;
+    pd_PoolTokenIndex_V1_t i;
+    pd_PoolTokenIndex_V1_t j;
+    pd_Balance_t dx;
+    pd_Balance_t min_dy;
+    pd_u32_t asset_length;
+} pd_stableasset_swap_V1_t;
+
+#define PD_CALL_STABLEASSET_REDEEM_PROPORTION_V1 3
+typedef struct {
+    pd_StableAssetPoolId_V1_t pool_id;
+    pd_Balance_t amount;
+    pd_VecBalance_t min_redeem_amounts;
+} pd_stableasset_redeem_proportion_V1_t;
+
+#define PD_CALL_STABLEASSET_REDEEM_SINGLE_V1 4
+typedef struct {
+    pd_StableAssetPoolId_V1_t pool_id;
+    pd_Balance_t amount;
+    pd_PoolTokenIndex_V1_t i;
+    pd_Balance_t min_redeem_amount;
+    pd_u32_t asset_length;
+} pd_stableasset_redeem_single_V1_t;
+
+#define PD_CALL_STABLEASSET_REDEEM_MULTI_V1 5
+typedef struct {
+    pd_StableAssetPoolId_V1_t pool_id;
+    pd_VecBalance_t amounts;
+    pd_Balance_t max_redeem_amount;
+} pd_stableasset_redeem_multi_V1_t;
+
 #endif
 
 typedef union {
@@ -801,6 +842,11 @@ typedef union {
     pd_evm_selfdestruct_V1_t evm_selfdestruct_V1;
     pd_evmaccounts_claim_account_V1_t evmaccounts_claim_account_V1;
     pd_evmaccounts_claim_default_account_V1_t evmaccounts_claim_default_account_V1;
+    pd_stableasset_mint_V1_t stableasset_mint_V1;
+    pd_stableasset_swap_V1_t stableasset_swap_V1;
+    pd_stableasset_redeem_proportion_V1_t stableasset_redeem_proportion_V1;
+    pd_stableasset_redeem_single_V1_t stableasset_redeem_single_V1;
+    pd_stableasset_redeem_multi_V1_t stableasset_redeem_multi_V1;
 #endif
 } pd_MethodBasic_V1_t;
 
