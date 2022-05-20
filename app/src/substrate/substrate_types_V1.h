@@ -86,6 +86,15 @@ typedef struct {
 
 typedef struct {
     uint32_t value;
+} pd_AssetId_V1_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_AtLeast64BitUnsigned_V1_t;
+
+typedef struct {
+    uint32_t value;
 } pd_ClassIdOfT_V1_t;
 
 typedef struct {
@@ -419,6 +428,11 @@ typedef struct {
 typedef struct {
     // TODO: Not implemented
     uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
+} pd_PoolTokenIndex_V1_t;
+
+typedef struct {
+    // TODO: Not implemented
+    uint8_t _NOT_IMPLEMENTED__DO_NOT_USE;
 } pd_Properties_V1_t;
 
 typedef struct {
@@ -446,6 +460,18 @@ typedef struct {
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_VecAccountId_V1_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecAssetId_V1_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_VecAtLeast64BitUnsigned_V1_t;
 
 typedef struct {
     uint64_t _len;

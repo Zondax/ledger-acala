@@ -79,6 +79,16 @@ parser_error_t _readAsOriginId_V1(parser_context_t* c, pd_AsOriginId_V1_t* v)
     return parser_not_supported;
 }
 
+parser_error_t _readAssetId_V1(parser_context_t* c, pd_AssetId_V1_t* v)
+{
+    return _readUInt32(c, &v->value);
+}
+
+parser_error_t _readAtLeast64BitUnsigned_V1(parser_context_t* c, pd_AtLeast64BitUnsigned_V1_t* v)
+{
+    return parser_not_supported;
+}
+
 parser_error_t _readAttributes_V1(parser_context_t* c, pd_Attributes_V1_t* v)
 {
     return parser_not_supported;
@@ -364,6 +374,11 @@ parser_error_t _readPoolId_V1(parser_context_t* c, pd_PoolId_V1_t* v)
     return parser_ok;
 }
 
+parser_error_t _readPoolTokenIndex_V1(parser_context_t* c, pd_PoolTokenIndex_V1_t* v)
+{
+    return parser_not_supported;
+}
+
 parser_error_t _readPriority_V1(parser_context_t* c, pd_Priority_V1_t* v)
 {
     CHECK_ERROR(_readu32(c, &v->stream_id))
@@ -560,6 +575,14 @@ parser_error_t _readVecAccessListItem_V1(parser_context_t* c, pd_VecAccessListIt
 
 parser_error_t _readVecAccountId_V1(parser_context_t* c, pd_VecAccountId_V1_t* v) {
     GEN_DEF_READVECTOR(AccountId_V1)
+}
+
+parser_error_t _readVecAssetId_V1(parser_context_t* c, pd_VecAssetId_V1_t* v) {
+    GEN_DEF_READVECTOR(AssetId_V1)
+}
+
+parser_error_t _readVecAtLeast64BitUnsigned_V1(parser_context_t* c, pd_VecAtLeast64BitUnsigned_V1_t* v) {
+    GEN_DEF_READVECTOR(AtLeast64BitUnsigned_V1)
 }
 
 parser_error_t _readVecCurrencyId_V1(parser_context_t* c, pd_VecCurrencyId_V1_t* v) {
@@ -852,6 +875,27 @@ parser_error_t _toStringAmount_V1(
 
 parser_error_t _toStringAsOriginId_V1(
     const pd_AsOriginId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    return parser_print_not_supported;
+}
+
+parser_error_t _toStringAssetId_V1(
+    const pd_AssetId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    return _toStringu32(&v->value, outValue, outValueLen, pageIdx, pageCount);
+}
+
+parser_error_t _toStringAtLeast64BitUnsigned_V1(
+    const pd_AtLeast64BitUnsigned_V1_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1432,6 +1476,17 @@ parser_error_t _toStringPoolId_V1(
     }
     CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid, outValue, outValueLen, pageIdx, pageCount))
     return parser_ok;
+}
+
+parser_error_t _toStringPoolTokenIndex_V1(
+    const pd_PoolTokenIndex_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+    return parser_print_not_supported;
 }
 
 parser_error_t _toStringPriority_V1(
@@ -2018,6 +2073,26 @@ parser_error_t _toStringVecAccountId_V1(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_VECTOR(AccountId_V1);
+}
+
+parser_error_t _toStringVecAssetId_V1(
+    const pd_VecAssetId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_VECTOR(AssetId_V1);
+}
+
+parser_error_t _toStringVecAtLeast64BitUnsigned_V1(
+    const pd_VecAtLeast64BitUnsigned_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_VECTOR(AtLeast64BitUnsigned_V1);
 }
 
 parser_error_t _toStringVecCurrencyId_V1(
