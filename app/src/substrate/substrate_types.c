@@ -210,6 +210,10 @@ parser_error_t _readVecH256(parser_context_t* c, pd_VecH256_t* v) {
     GEN_DEF_READVECTOR(H256)
 }
 
+parser_error_t _readVecBalance(parser_context_t* c, pd_VecBalance_t* v) {
+    GEN_DEF_READVECTOR(Balance)
+}
+
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
     GEN_DEF_READVECTOR(u8)
 }
@@ -646,6 +650,16 @@ parser_error_t _toStringVecH256(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_VECTOR(H256);
+}
+
+parser_error_t _toStringVecBalance(
+    const pd_VecBalance_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_VECTOR(Balance);
 }
 
 parser_error_t _toStringVecu8(

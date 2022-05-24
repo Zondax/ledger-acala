@@ -48,6 +48,7 @@ parser_error_t _readCompactu128(parser_context_t* c, pd_Compactu128_t* v);
 parser_error_t _readHash(parser_context_t* c, pd_Hash_t* v);
 parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v);
 parser_error_t _readOptionBlockNumber(parser_context_t* c, pd_OptionBlockNumber_t* v);
+parser_error_t _readVecBalance(parser_context_t* c, pd_VecBalance_t* v);
 parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v);
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v);
 
@@ -202,6 +203,13 @@ parser_error_t _toStringOptionBalance(
 
 parser_error_t _toStringOptionBlockNumber(
     const pd_OptionBlockNumber_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecBalance(
+    const pd_VecBalance_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

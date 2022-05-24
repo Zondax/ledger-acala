@@ -33,6 +33,8 @@ parser_error_t _readAccountVoteStandard_V1(parser_context_t* c, pd_AccountVoteSt
 parser_error_t _readAccountVote_V1(parser_context_t* c, pd_AccountVote_V1_t* v);
 parser_error_t _readAmount_V1(parser_context_t* c, pd_Amount_V1_t* v);
 parser_error_t _readAsOriginId_V1(parser_context_t* c, pd_AsOriginId_V1_t* v);
+parser_error_t _readAssetId_V1(parser_context_t* c, pd_AssetId_V1_t* v);
+parser_error_t _readAtLeast64BitUnsigned_V1(parser_context_t* c, pd_AtLeast64BitUnsigned_V1_t* v);
 parser_error_t _readAttributes_V1(parser_context_t* c, pd_Attributes_V1_t* v);
 parser_error_t _readAuctionId_V1(parser_context_t* c, pd_AuctionId_V1_t* v);
 parser_error_t _readBoxAssetMetadataBalanceOfT_V1(parser_context_t* c, pd_BoxAssetMetadataBalanceOfT_V1_t* v);
@@ -80,6 +82,7 @@ parser_error_t _readOverweightIndex_V1(parser_context_t* c, pd_OverweightIndex_V
 parser_error_t _readParachainInherentData_V1(parser_context_t* c, pd_ParachainInherentData_V1_t* v);
 parser_error_t _readPerbill_V1(parser_context_t* c, pd_Perbill_V1_t* v);
 parser_error_t _readPoolId_V1(parser_context_t* c, pd_PoolId_V1_t* v);
+parser_error_t _readPoolTokenIndex_V1(parser_context_t* c, pd_PoolTokenIndex_V1_t* v);
 parser_error_t _readPriority_V1(parser_context_t* c, pd_Priority_V1_t* v);
 parser_error_t _readProperties_V1(parser_context_t* c, pd_Properties_V1_t* v);
 parser_error_t _readProxyType_V1(parser_context_t* c, pd_ProxyType_V1_t* v);
@@ -103,6 +106,8 @@ parser_error_t _readTupleu16OptionBalanceOptionVecUnlockChunk_V1(parser_context_
 parser_error_t _readUpwardMessage_V1(parser_context_t* c, pd_UpwardMessage_V1_t* v);
 parser_error_t _readVecAccessListItem_V1(parser_context_t* c, pd_VecAccessListItem_V1_t* v);
 parser_error_t _readVecAccountId_V1(parser_context_t* c, pd_VecAccountId_V1_t* v);
+parser_error_t _readVecAssetId_V1(parser_context_t* c, pd_VecAssetId_V1_t* v);
+parser_error_t _readVecAtLeast64BitUnsigned_V1(parser_context_t* c, pd_VecAtLeast64BitUnsigned_V1_t* v);
 parser_error_t _readVecCurrencyId_V1(parser_context_t* c, pd_VecCurrencyId_V1_t* v);
 parser_error_t _readVecKeyValue_V1(parser_context_t* c, pd_VecKeyValue_V1_t* v);
 parser_error_t _readVecKey_V1(parser_context_t* c, pd_VecKey_V1_t* v);
@@ -166,6 +171,20 @@ parser_error_t _toStringAmount_V1(
 
 parser_error_t _toStringAsOriginId_V1(
     const pd_AsOriginId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringAssetId_V1(
+    const pd_AssetId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringAtLeast64BitUnsigned_V1(
+    const pd_AtLeast64BitUnsigned_V1_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -500,6 +519,13 @@ parser_error_t _toStringPoolId_V1(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
+parser_error_t _toStringPoolTokenIndex_V1(
+    const pd_PoolTokenIndex_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
 parser_error_t _toStringPriority_V1(
     const pd_Priority_V1_t* v,
     char* outValue,
@@ -656,6 +682,20 @@ parser_error_t _toStringVecAccessListItem_V1(
 
 parser_error_t _toStringVecAccountId_V1(
     const pd_VecAccountId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecAssetId_V1(
+    const pd_VecAssetId_V1_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount);
+
+parser_error_t _toStringVecAtLeast64BitUnsigned_V1(
+    const pd_VecAtLeast64BitUnsigned_V1_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

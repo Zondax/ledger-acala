@@ -1020,6 +1020,56 @@ __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_default_account_V1(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_stableasset_mint_V1(
+    parser_context_t* c, pd_stableasset_mint_V1_t* m)
+{
+    CHECK_ERROR(_readStableAssetPoolId_V1(c, &m->pool_id))
+    CHECK_ERROR(_readVecBalance(c, &m->amounts))
+    CHECK_ERROR(_readBalance(c, &m->min_mint_amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_stableasset_swap_V1(
+    parser_context_t* c, pd_stableasset_swap_V1_t* m)
+{
+    CHECK_ERROR(_readStableAssetPoolId_V1(c, &m->pool_id))
+    CHECK_ERROR(_readPoolTokenIndex_V1(c, &m->i))
+    CHECK_ERROR(_readPoolTokenIndex_V1(c, &m->j))
+    CHECK_ERROR(_readBalance(c, &m->dx))
+    CHECK_ERROR(_readBalance(c, &m->min_dy))
+    CHECK_ERROR(_readu32(c, &m->asset_length))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_stableasset_redeem_proportion_V1(
+    parser_context_t* c, pd_stableasset_redeem_proportion_V1_t* m)
+{
+    CHECK_ERROR(_readStableAssetPoolId_V1(c, &m->pool_id))
+    CHECK_ERROR(_readBalance(c, &m->amount))
+    CHECK_ERROR(_readVecBalance(c, &m->min_redeem_amounts))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_stableasset_redeem_single_V1(
+    parser_context_t* c, pd_stableasset_redeem_single_V1_t* m)
+{
+    CHECK_ERROR(_readStableAssetPoolId_V1(c, &m->pool_id))
+    CHECK_ERROR(_readBalance(c, &m->amount))
+    CHECK_ERROR(_readPoolTokenIndex_V1(c, &m->i))
+    CHECK_ERROR(_readBalance(c, &m->min_redeem_amount))
+    CHECK_ERROR(_readu32(c, &m->asset_length))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_stableasset_redeem_multi_V1(
+    parser_context_t* c, pd_stableasset_redeem_multi_V1_t* m)
+{
+    CHECK_ERROR(_readStableAssetPoolId_V1(c, &m->pool_id))
+    CHECK_ERROR(_readVecBalance(c, &m->amounts))
+    CHECK_ERROR(_readBalance(c, &m->max_redeem_amount))
+    return parser_ok;
+}
+
 #endif
 
 parser_error_t _readMethod_V1(
@@ -1412,6 +1462,21 @@ parser_error_t _readMethod_V1(
     case 33793: /* module 132 call 1 */
         CHECK_ERROR(_readMethod_evmaccounts_claim_default_account_V1(c, &method->basic.evmaccounts_claim_default_account_V1))
         break;
+    case 51201: /* module 200 call 1 */
+        CHECK_ERROR(_readMethod_stableasset_mint_V1(c, &method->basic.stableasset_mint_V1))
+        break;
+    case 51202: /* module 200 call 2 */
+        CHECK_ERROR(_readMethod_stableasset_swap_V1(c, &method->basic.stableasset_swap_V1))
+        break;
+    case 51203: /* module 200 call 3 */
+        CHECK_ERROR(_readMethod_stableasset_redeem_proportion_V1(c, &method->basic.stableasset_redeem_proportion_V1))
+        break;
+    case 51204: /* module 200 call 4 */
+        CHECK_ERROR(_readMethod_stableasset_redeem_single_V1(c, &method->basic.stableasset_redeem_single_V1))
+        break;
+    case 51205: /* module 200 call 5 */
+        CHECK_ERROR(_readMethod_stableasset_redeem_multi_V1(c, &method->basic.stableasset_redeem_multi_V1))
+        break;
 #endif
     default:
         return parser_unexpected_callIndex;
@@ -1469,6 +1534,8 @@ const char* _getMethod_ModuleName_V1(uint8_t moduleIdx)
         return STR_MO_EVM;
     case 132:
         return STR_MO_EVMACCOUNTS;
+    case 200:
+        return STR_MO_STABLEASSET;
 #endif
     default:
         return NULL;
@@ -1500,6 +1567,16 @@ const char* _getMethod_Name_V1(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_SET_KEYS;
     case 10753: /* module 42 call 1 */
         return STR_ME_PURGE_KEYS;
+    default:
+        return _getMethod_Name_V1_ParserFull(callPrivIdx);
+    }
+
+    return NULL;
+}
+
+const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
+{
+    switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
     case 0: /* module 0 call 0 */
         return STR_ME_FILL_BLOCK;
@@ -1735,6 +1812,16 @@ const char* _getMethod_Name_V1(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_CLAIM_ACCOUNT;
     case 33793: /* module 132 call 1 */
         return STR_ME_CLAIM_DEFAULT_ACCOUNT;
+    case 51201: /* module 200 call 1 */
+        return STR_ME_MINT;
+    case 51202: /* module 200 call 2 */
+        return STR_ME_SWAP;
+    case 51203: /* module 200 call 3 */
+        return STR_ME_REDEEM_PROPORTION;
+    case 51204: /* module 200 call 4 */
+        return STR_ME_REDEEM_SINGLE;
+    case 51205: /* module 200 call 5 */
+        return STR_ME_REDEEM_MULTI;
 #endif
     default:
         return NULL;
@@ -2001,6 +2088,16 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 33793: /* module 132 call 1 */
         return 0;
+    case 51201: /* module 200 call 1 */
+        return 3;
+    case 51202: /* module 200 call 2 */
+        return 6;
+    case 51203: /* module 200 call 3 */
+        return 3;
+    case 51204: /* module 200 call 4 */
+        return 5;
+    case 51205: /* module 200 call 5 */
+        return 3;
 #endif
     default:
         return 0;
@@ -3130,6 +3227,71 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         }
     case 33793: /* module 132 call 1 */
         switch (itemIdx) {
+        default:
+            return NULL;
+        }
+    case 51201: /* module 200 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_pool_id;
+        case 1:
+            return STR_IT_amounts;
+        case 2:
+            return STR_IT_min_mint_amount;
+        default:
+            return NULL;
+        }
+    case 51202: /* module 200 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_pool_id;
+        case 1:
+            return STR_IT_i;
+        case 2:
+            return STR_IT_j;
+        case 3:
+            return STR_IT_dx;
+        case 4:
+            return STR_IT_min_dy;
+        case 5:
+            return STR_IT_asset_length;
+        default:
+            return NULL;
+        }
+    case 51203: /* module 200 call 3 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_pool_id;
+        case 1:
+            return STR_IT_amount;
+        case 2:
+            return STR_IT_min_redeem_amounts;
+        default:
+            return NULL;
+        }
+    case 51204: /* module 200 call 4 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_pool_id;
+        case 1:
+            return STR_IT_amount;
+        case 2:
+            return STR_IT_i;
+        case 3:
+            return STR_IT_min_redeem_amount;
+        case 4:
+            return STR_IT_asset_length;
+        default:
+            return NULL;
+        }
+    case 51205: /* module 200 call 5 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_pool_id;
+        case 1:
+            return STR_IT_amounts;
+        case 2:
+            return STR_IT_max_redeem_amount;
         default:
             return NULL;
         }
@@ -5001,6 +5163,131 @@ parser_error_t _getMethod_ItemValue_V1(
         default:
             return parser_no_data;
         }
+    case 51201: /* module 200 call 1 */
+        switch (itemIdx) {
+        case 0: /* stableasset_mint_V1 - pool_id */;
+            return _toStringStableAssetPoolId_V1(
+                &m->basic.stableasset_mint_V1.pool_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* stableasset_mint_V1 - amounts */;
+            return _toStringVecBalance(
+                &m->basic.stableasset_mint_V1.amounts,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* stableasset_mint_V1 - min_mint_amount */;
+            return _toStringBalance(
+                &m->basic.stableasset_mint_V1.min_mint_amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 51202: /* module 200 call 2 */
+        switch (itemIdx) {
+        case 0: /* stableasset_swap_V1 - pool_id */;
+            return _toStringStableAssetPoolId_V1(
+                &m->basic.stableasset_swap_V1.pool_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* stableasset_swap_V1 - i */;
+            return _toStringPoolTokenIndex_V1(
+                &m->basic.stableasset_swap_V1.i,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* stableasset_swap_V1 - j */;
+            return _toStringPoolTokenIndex_V1(
+                &m->basic.stableasset_swap_V1.j,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* stableasset_swap_V1 - dx */;
+            return _toStringBalance(
+                &m->basic.stableasset_swap_V1.dx,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* stableasset_swap_V1 - min_dy */;
+            return _toStringBalance(
+                &m->basic.stableasset_swap_V1.min_dy,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 5: /* stableasset_swap_V1 - asset_length */;
+            return _toStringu32(
+                &m->basic.stableasset_swap_V1.asset_length,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 51203: /* module 200 call 3 */
+        switch (itemIdx) {
+        case 0: /* stableasset_redeem_proportion_V1 - pool_id */;
+            return _toStringStableAssetPoolId_V1(
+                &m->basic.stableasset_redeem_proportion_V1.pool_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* stableasset_redeem_proportion_V1 - amount */;
+            return _toStringBalance(
+                &m->basic.stableasset_redeem_proportion_V1.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* stableasset_redeem_proportion_V1 - min_redeem_amounts */;
+            return _toStringVecBalance(
+                &m->basic.stableasset_redeem_proportion_V1.min_redeem_amounts,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 51204: /* module 200 call 4 */
+        switch (itemIdx) {
+        case 0: /* stableasset_redeem_single_V1 - pool_id */;
+            return _toStringStableAssetPoolId_V1(
+                &m->basic.stableasset_redeem_single_V1.pool_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* stableasset_redeem_single_V1 - amount */;
+            return _toStringBalance(
+                &m->basic.stableasset_redeem_single_V1.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* stableasset_redeem_single_V1 - i */;
+            return _toStringPoolTokenIndex_V1(
+                &m->basic.stableasset_redeem_single_V1.i,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* stableasset_redeem_single_V1 - min_redeem_amount */;
+            return _toStringBalance(
+                &m->basic.stableasset_redeem_single_V1.min_redeem_amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 4: /* stableasset_redeem_single_V1 - asset_length */;
+            return _toStringu32(
+                &m->basic.stableasset_redeem_single_V1.asset_length,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 51205: /* module 200 call 5 */
+        switch (itemIdx) {
+        case 0: /* stableasset_redeem_multi_V1 - pool_id */;
+            return _toStringStableAssetPoolId_V1(
+                &m->basic.stableasset_redeem_multi_V1.pool_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* stableasset_redeem_multi_V1 - amounts */;
+            return _toStringVecBalance(
+                &m->basic.stableasset_redeem_multi_V1.amounts,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* stableasset_redeem_multi_V1 - max_redeem_amount */;
+            return _toStringBalance(
+                &m->basic.stableasset_redeem_multi_V1.max_redeem_amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
 #endif
     default:
         return parser_ok;
@@ -5134,6 +5421,11 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 33293: // EVM:Selfdestruct
     case 33792: // EvmAccounts:Claim account
     case 33793: // EvmAccounts:Claim default account
+    case 51201: // StableAsset:Mint
+    case 51202: // StableAsset:Swap
+    case 51203: // StableAsset:Redeem proportion
+    case 51204: // StableAsset:Redeem single
+    case 51205: // StableAsset:Redeem multi
         return false;
     default:
         return true;

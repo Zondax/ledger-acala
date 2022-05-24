@@ -40,6 +40,7 @@ static const char* STR_MO_INCENTIVES = "Incentives";
 static const char* STR_MO_NFT = "Nft";
 static const char* STR_MO_EVM = "Evm";
 static const char* STR_MO_EVMACCOUNTS = "Evmaccounts";
+static const char* STR_MO_STABLEASSET = "Stableasset";
 
 // Methods names
 static const char* STR_ME_FILL_BLOCK = "Fill block";
@@ -165,6 +166,10 @@ static const char* STR_ME_DISABLE_CONTRACT_DEVELOPMENT = "Disable contract devel
 static const char* STR_ME_SELFDESTRUCT = "Selfdestruct";
 static const char* STR_ME_CLAIM_ACCOUNT = "Claim account";
 static const char* STR_ME_CLAIM_DEFAULT_ACCOUNT = "Claim default account";
+static const char* STR_ME_SWAP = "Swap";
+static const char* STR_ME_REDEEM_PROPORTION = "Redeem proportion";
+static const char* STR_ME_REDEEM_SINGLE = "Redeem single";
+static const char* STR_ME_REDEEM_MULTI = "Redeem multi";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -297,6 +302,28 @@ static const char* STR_IT_contract = "Contract";
 static const char* STR_IT_new_maintainer = "New maintainer";
 static const char* STR_IT_eth_address = "Eth address";
 static const char* STR_IT_eth_signature = "Eth signature";
+static const char* STR_IT_pool_asset = "Pool asset";
+static const char* STR_IT_assets = "Assets";
+static const char* STR_IT_precisions = "Precisions";
+static const char* STR_IT_mint_fee = "Mint fee";
+static const char* STR_IT_swap_fee = "Swap fee";
+static const char* STR_IT_redeem_fee = "Redeem fee";
+static const char* STR_IT_initial_a = "Initial a";
+static const char* STR_IT_fee_recipient = "Fee recipient";
+static const char* STR_IT_yield_recipient = "Yield recipient";
+static const char* STR_IT_precision = "Precision";
+static const char* STR_IT_amounts = "Amounts";
+static const char* STR_IT_min_mint_amount = "Min mint amount";
+static const char* STR_IT_i = "I";
+static const char* STR_IT_j = "J";
+static const char* STR_IT_dx = "Dx";
+static const char* STR_IT_min_dy = "Min dy";
+static const char* STR_IT_asset_length = "Asset length";
+static const char* STR_IT_min_redeem_amounts = "Min redeem amounts";
+static const char* STR_IT_min_redeem_amount = "Min redeem amount";
+static const char* STR_IT_max_redeem_amount = "Max redeem amount";
+static const char* STR_IT_a = "A";
+static const char* STR_IT_future_a_block = "Future a block";
 
 #ifdef __cplusplus
 }
