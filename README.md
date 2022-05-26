@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2061.x
+# Acala  1.2063.x
 
 ## System
 
@@ -491,6 +491,7 @@ Please:
 |Unauthorize all |    | :heavy_check_mark: |   |  |
 |Expand position collateral |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Balance` increase_debit_value <br/>`Balance` min_increase_collateral <br/> |
 |Shrink position debit |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Balance` decrease_collateral <br/>`Balance` min_decrease_debit_value <br/> |
+|Adjust loan by debit value |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Amount` collateral_adjustment <br/>`Amount` debit_value_adjustment <br/> |
 
 ## CdpTreasury
 
