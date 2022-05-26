@@ -47,12 +47,14 @@ void h_approve(__Z_UNUSED unsigned int _) {
     }
 }
 
-void h_reject(__Z_UNUSED unsigned int _) {
+void h_reject(unsigned int requireReply) {
     zemu_log_stack("h_reject");
 
     view_idle_show(0, NULL);
     UX_WAIT();
-    app_reject();
+    if(requireReply > 0) {
+        app_reject();
+    }
 }
 
 void h_error_accept(__Z_UNUSED unsigned int _) {
@@ -162,7 +164,7 @@ bool is_reject_item(){
 }
 #endif
 
-void h_review_action() {
+void h_review_action(unsigned int requireReply) {
 #ifdef INCLUDE_ACTIONS_AS_ITEMS
     if( is_accept_item() ){
         zemu_log_stack("action_accept");
@@ -172,7 +174,7 @@ void h_review_action() {
 
     if( is_reject_item() ){
         zemu_log_stack("action_reject");
-        h_reject(1);
+        h_reject(requireReply);
         return;
     }
 
@@ -311,8 +313,9 @@ void view_review_init(viewfunc_getItem_t viewfuncGetItem,
     viewdata.viewfuncAccept = viewfuncAccept;
 }
 
-void view_review_show() {
-    view_review_show_impl();
+void view_review_show(unsigned int requireReply) {
+    // Set > 0 to reply apdu message
+    view_review_show_impl(requireReply);
 }
 
 void view_error_show() {
