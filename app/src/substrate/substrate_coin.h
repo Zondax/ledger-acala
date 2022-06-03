@@ -67,6 +67,9 @@ typedef enum {
 #define APPVERSION_LINE1 "Acala"
 #define APPVERSION_LINE2 "v" APPVERSION
 
+#define ACCOUNT_DEFAULT "Legacy"
+#define ACCOUNT_SECONDARY "Crowdloan"
+
 #ifdef __cplusplus
 }
 #endif

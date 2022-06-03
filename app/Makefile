@@ -40,6 +40,7 @@ all: bin/app.elf
 
 include $(BOLOS_SDK)/Makefile.defines
 
+DEFINES += APP_ACCOUNT_MODE_ENABLED
 
 $(info ************ TARGET_NAME  = [$(TARGET_NAME)])
 
@@ -75,13 +76,13 @@ ifneq ($(TARGET_NAME),TARGET_NANOS)
 DEFINES += SUBSTRATE_PARSER_FULL
 endif
 APPNAME = "Acala"
-APPPATH = "44'/787'"  --path "44'/354'"
+APPPATH = "44'/787'" --path "44'/354'"
 
 else ifeq ($(COIN),ACA_XL)
 # XL app configuration
 DEFINES += APP_STANDARD SUBSTRATE_PARSER_FULL
 APPNAME = "Acala XL"
-APPPATH = "44'/787'"  --path "44'/354'"
+APPPATH = "44'/787'" --path "44'/354'"
 
 else
 define error_message

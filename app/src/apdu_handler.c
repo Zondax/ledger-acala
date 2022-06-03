@@ -48,6 +48,12 @@ void extractHDPath(uint32_t rx, uint32_t offset) {
     if (!mainnet) {
         THROW(APDU_CODE_DATA_INVALID);
     }
+
+#ifdef APP_ACCOUNT_MODE_ENABLED
+    if (app_mode_account()) {
+        hdPath[1] = HDPATH_1_RECOVERY;
+    }
+#endif
 }
 
 __Z_INLINE bool process_chunk(__Z_UNUSED volatile uint32_t *tx, uint32_t rx) {
