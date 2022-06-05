@@ -112,17 +112,8 @@ parser_error_t _readCompactu128(parser_context_t* c, pd_Compactu128_t* v)
     return _readCompactInt(c, v);
 }
 
-parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v) {
-    GEN_DEF_READARRAY(16)
-}
-
-parser_error_t _readH256(parser_context_t* c, pd_H256_t* v) {
-    GEN_DEF_READARRAY(32)
-}
-
-parser_error_t _readBalanceOf(parser_context_t* c, pd_BalanceOf_t* v)
-{
-    return _readBalance(c, &v->value);
+parser_error_t _readu8_array_20(parser_context_t* c, pd_u8_array_20_t* v) {
+    GEN_DEF_READARRAY(20)
 }
 
 parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
@@ -136,6 +127,23 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v)
     v->_ptr = c->buffer + c->offset;
     CTX_CHECK_AND_ADVANCE(c, v->_len);
     return parser_ok;
+}
+
+parser_error_t _readu128(parser_context_t* c, pd_u128_t* v) {
+    GEN_DEF_READARRAY(16)
+}
+
+parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v) {
+    GEN_DEF_READARRAY(16)
+}
+
+parser_error_t _readH256(parser_context_t* c, pd_H256_t* v) {
+    GEN_DEF_READARRAY(32)
+}
+
+parser_error_t _readBalanceOf(parser_context_t* c, pd_BalanceOf_t* v)
+{
+    return _readBalance(c, &v->value);
 }
 
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
@@ -160,10 +168,6 @@ parser_error_t _readCall(parser_context_t* c, pd_Call_t* v)
 parser_error_t _readHeader(parser_context_t* c, pd_Header_t* v)
 {
     return parser_not_supported;
-}
-
-parser_error_t _readu128(parser_context_t* c, pd_u128_t* v) {
-    GEN_DEF_READARRAY(16)
 }
 
 parser_error_t _readProposal(parser_context_t* c, pd_Proposal_t* v)
@@ -206,16 +210,16 @@ parser_error_t _readVecHeader(parser_context_t* c, pd_VecHeader_t* v) {
     GEN_DEF_READVECTOR(Header)
 }
 
+parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
+    GEN_DEF_READVECTOR(u8)
+}
+
 parser_error_t _readVecH256(parser_context_t* c, pd_VecH256_t* v) {
     GEN_DEF_READVECTOR(H256)
 }
 
 parser_error_t _readVecBalance(parser_context_t* c, pd_VecBalance_t* v) {
     GEN_DEF_READVECTOR(Balance)
-}
-
-parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
-    GEN_DEF_READVECTOR(u8)
 }
 
 parser_error_t _readOptionBalance(parser_context_t* c, pd_OptionBalance_t* v)
@@ -366,6 +370,55 @@ parser_error_t _toStringCompactu128(
     return _toStringCompactInt(v, 0, "", "", outValue, outValueLen, pageIdx, pageCount);
 }
 
+parser_error_t _toStringu8_array_20(
+    const pd_u8_array_20_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount) {
+    GEN_DEF_TOSTRING_ARRAY(20)
+}
+
+parser_error_t _toStringBytes(
+    const pd_Bytes_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_ARRAY(v->_len);
+}
+
+parser_error_t _toStringu128(
+    const pd_u128_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    CLEAN_AND_CHECK()
+
+    char bufferUI[200];
+    MEMZERO(outValue, outValueLen);
+    MEMZERO(bufferUI, sizeof(bufferUI));
+    *pageCount = 1;
+
+    uint8_t bcdOut[100];
+    const uint16_t bcdOutLen = sizeof(bcdOut);
+    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 16);
+    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen))
+        return parser_unexpected_buffer_end;
+
+    // Format number
+    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), 0) == 0) {
+        return parser_unexpected_value;
+    }
+
+    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
+
+    return parser_ok;
+}
+
 parser_error_t _toStringBalance(
     const pd_Balance_t* v,
     char* outValue,
@@ -421,16 +474,6 @@ parser_error_t _toStringBalanceOf(
     uint8_t* pageCount)
 {
     return _toStringBalance(&v->value, outValue, outValueLen, pageIdx, pageCount);
-}
-
-parser_error_t _toStringBytes(
-    const pd_Bytes_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    GEN_DEF_TOSTRING_ARRAY(v->_len);
 }
 
 parser_error_t _toStringCall(
@@ -524,36 +567,6 @@ parser_error_t _toStringHeader(
     return parser_print_not_supported;
 }
 
-parser_error_t _toStringu128(
-    const pd_u128_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    CLEAN_AND_CHECK()
-
-    char bufferUI[200];
-    MEMZERO(outValue, outValueLen);
-    MEMZERO(bufferUI, sizeof(bufferUI));
-    *pageCount = 1;
-
-    uint8_t bcdOut[100];
-    const uint16_t bcdOutLen = sizeof(bcdOut);
-    bignumLittleEndian_to_bcd(bcdOut, bcdOutLen, v->_ptr, 16);
-    if (!bignumLittleEndian_bcdprint(bufferUI, sizeof(bufferUI), bcdOut, bcdOutLen))
-        return parser_unexpected_buffer_end;
-
-    // Format number
-    if (intstr_to_fpstr_inplace(bufferUI, sizeof(bufferUI), 0) == 0) {
-        return parser_unexpected_value;
-    }
-
-    pageString(outValue, outValueLen, bufferUI, pageIdx, pageCount);
-
-    return parser_ok;
-}
-
 parser_error_t _toStringProposal(
     const pd_Proposal_t* v,
     char* outValue,
@@ -642,6 +655,16 @@ parser_error_t _toStringVecHeader(
     GEN_DEF_TOSTRING_VECTOR(Header)
 }
 
+parser_error_t _toStringVecu8(
+    const pd_Vecu8_t* v,
+    char* outValue,
+    uint16_t outValueLen,
+    uint8_t pageIdx,
+    uint8_t* pageCount)
+{
+    GEN_DEF_TOSTRING_VECTOR(u8);
+}
+
 parser_error_t _toStringVecH256(
     const pd_VecH256_t* v,
     char* outValue,
@@ -660,16 +683,6 @@ parser_error_t _toStringVecBalance(
     uint8_t* pageCount)
 {
     GEN_DEF_TOSTRING_VECTOR(Balance);
-}
-
-parser_error_t _toStringVecu8(
-    const pd_Vecu8_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount)
-{
-    GEN_DEF_TOSTRING_VECTOR(u8);
 }
 
 parser_error_t _toStringOptionBalance(

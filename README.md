@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2063.x
+# Acala  1.2064.x
 
 ## System
 
@@ -154,6 +154,7 @@ Please:
 |Disable charge fee pool |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/> |
 |With fee path |    | :heavy_check_mark: |   | `VecCurrencyId` fee_swap_path <br/>`Call` call <br/> |
 |With fee currency |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Call` call <br/> |
+|With fee paid by |    | :heavy_check_mark: |   | `Call` call <br/>`AccountId` payer_addr <br/>`MultiSignature` payer_sig <br/> |
 
 ## Treasury
 
@@ -468,6 +469,13 @@ Please:
 |Disable average price |    |   |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/> |
 |Update average price interval |    |   |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Moment` new_interval <br/> |
 
+## AggregatedDex
+
+| Name        | Light | XL | Nesting | Arguments |
+| :---------- |:------------:|:--------:|:--------:|:--------|
+|Swap with exact supply |    |   |   | `VecSwapPath` paths <br/>`Balance` supply_amount <br/>`Balance` min_target_amount <br/> |
+|Update aggregated swap paths |    |   |   | `VecTupleCurrencyIdCurrencyIdOptionVecSwapPath` updates <br/> |
+
 ## AuctionManager
 
 | Name        | Light | XL | Nesting | Arguments |
@@ -492,6 +500,7 @@ Please:
 |Expand position collateral |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Balance` increase_debit_value <br/>`Balance` min_increase_collateral <br/> |
 |Shrink position debit |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Balance` decrease_collateral <br/>`Balance` min_decrease_debit_value <br/> |
 |Adjust loan by debit value |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Amount` collateral_adjustment <br/>`Amount` debit_value_adjustment <br/> |
+|Transfer debit |    | :heavy_check_mark: |   | `CurrencyId` from_currency <br/>`CurrencyId` to_currency <br/>`Balance` debit_transfer <br/> |
 
 ## CdpTreasury
 

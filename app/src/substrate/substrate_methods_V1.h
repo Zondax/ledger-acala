@@ -181,6 +181,13 @@ typedef struct {
     pd_Call_t call;
 } pd_transactionpayment_with_fee_currency_V1_t;
 
+#define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_PAID_BY_V1 5
+typedef struct {
+    pd_Call_t call;
+    pd_AccountId_V1_t payer_addr;
+    pd_MultiSignature_V1_t payer_sig;
+} pd_transactionpayment_with_fee_paid_by_V1_t;
+
 #define PD_CALL_BOUNTIES_PROPOSE_BOUNTY_V1 0
 typedef struct {
     pd_CompactBalance_t amount;
@@ -552,6 +559,13 @@ typedef struct {
     pd_Amount_V1_t debit_value_adjustment;
 } pd_honzon_adjust_loan_by_debit_value_V1_t;
 
+#define PD_CALL_HONZON_TRANSFER_DEBIT_V1 9
+typedef struct {
+    pd_CurrencyId_V1_t from_currency;
+    pd_CurrencyId_V1_t to_currency;
+    pd_Balance_t debit_transfer;
+} pd_honzon_transfer_debit_V1_t;
+
 #define PD_CALL_HOMA_MINT_V1 0
 typedef struct {
     pd_Compactu128_t amount;
@@ -762,6 +776,7 @@ typedef union {
     pd_transactionpayment_disable_charge_fee_pool_V1_t transactionpayment_disable_charge_fee_pool_V1;
     pd_transactionpayment_with_fee_path_V1_t transactionpayment_with_fee_path_V1;
     pd_transactionpayment_with_fee_currency_V1_t transactionpayment_with_fee_currency_V1;
+    pd_transactionpayment_with_fee_paid_by_V1_t transactionpayment_with_fee_paid_by_V1;
     pd_bounties_propose_bounty_V1_t bounties_propose_bounty_V1;
     pd_bounties_approve_bounty_V1_t bounties_approve_bounty_V1;
     pd_bounties_propose_curator_V1_t bounties_propose_curator_V1;
@@ -826,6 +841,7 @@ typedef union {
     pd_honzon_expand_position_collateral_V1_t honzon_expand_position_collateral_V1;
     pd_honzon_shrink_position_debit_V1_t honzon_shrink_position_debit_V1;
     pd_honzon_adjust_loan_by_debit_value_V1_t honzon_adjust_loan_by_debit_value_V1;
+    pd_honzon_transfer_debit_V1_t honzon_transfer_debit_V1;
     pd_homa_mint_V1_t homa_mint_V1;
     pd_homa_request_redeem_V1_t homa_request_redeem_V1;
     pd_homa_fast_match_redeems_V1_t homa_fast_match_redeems_V1;

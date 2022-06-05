@@ -81,6 +81,27 @@ typedef struct {
 ////////////////////////
 
 typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+    uint64_t _lenBuffer;
+} pd_Vecu8_t;
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_u8_array_20_t;
+
+typedef compactInt_t pd_Compactu128_t;
+
+typedef struct {
+    uint64_t _len;
+    const uint8_t* _ptr;
+} pd_Bytes_t;
+
+typedef struct {
+    const uint8_t* _ptr;
+} pd_u128_t;
+
+typedef struct {
     const uint8_t* _ptr;
 } pd_Balance_t;
 
@@ -99,11 +120,6 @@ typedef struct {
 } pd_VecH256_t;
 
 typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-} pd_Bytes_t;
-
-typedef struct {
     pd_CallIndex_t callIndex;
     const uint32_t* _txVerPtr;
     pd_NestCallIdx_t nestCallIdx;
@@ -115,10 +131,6 @@ typedef struct {
 } pd_Header_t;
 
 typedef struct {
-    const uint8_t* _ptr;
-} pd_u128_t;
-
-typedef struct {
     pd_Call_t call;
 } pd_Proposal_t;
 
@@ -128,8 +140,6 @@ typedef struct {
     uint64_t _lenBuffer;
     uint32_t callTxVersion;
 } pd_VecCall_t;
-
-typedef compactInt_t pd_Compactu128_t;
 
 typedef struct {
     const uint8_t* _ptr;
@@ -156,12 +166,6 @@ typedef struct {
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_VecHeader_t;
-
-typedef struct {
-    uint64_t _len;
-    const uint8_t* _ptr;
-    uint64_t _lenBuffer;
-} pd_Vecu8_t;
 
 ////////////////////////
 // /Common types
