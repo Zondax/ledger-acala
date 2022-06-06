@@ -338,6 +338,15 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_currency_V1(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_paid_by_V1(
+    parser_context_t* c, pd_transactionpayment_with_fee_paid_by_V1_t* m)
+{
+    CHECK_ERROR(_readCall(c, &m->call))
+    CHECK_ERROR(_readAccountId_V1(c, &m->payer_addr))
+    CHECK_ERROR(_readMultiSignature_V1(c, &m->payer_sig))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_bounties_propose_bounty_V1(
     parser_context_t* c, pd_bounties_propose_bounty_V1_t* m)
 {
@@ -837,6 +846,15 @@ __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_by_debit_value_V1(
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_honzon_transfer_debit_V1(
+    parser_context_t* c, pd_honzon_transfer_debit_V1_t* m)
+{
+    CHECK_ERROR(_readCurrencyId_V1(c, &m->from_currency))
+    CHECK_ERROR(_readCurrencyId_V1(c, &m->to_currency))
+    CHECK_ERROR(_readBalance(c, &m->debit_transfer))
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_homa_mint_V1(
     parser_context_t* c, pd_homa_mint_V1_t* m)
 {
@@ -1210,6 +1228,9 @@ parser_error_t _readMethod_V1(
     case 3588: /* module 14 call 4 */
         CHECK_ERROR(_readMethod_transactionpayment_with_fee_currency_V1(c, &method->basic.transactionpayment_with_fee_currency_V1))
         break;
+    case 3589: /* module 14 call 5 */
+        CHECK_ERROR(_readMethod_transactionpayment_with_fee_paid_by_V1(c, &method->basic.transactionpayment_with_fee_paid_by_V1))
+        break;
     case 5376: /* module 21 call 0 */
         CHECK_ERROR(_readMethod_bounties_propose_bounty_V1(c, &method->basic.bounties_propose_bounty_V1))
         break;
@@ -1401,6 +1422,9 @@ parser_error_t _readMethod_V1(
         break;
     case 26120: /* module 102 call 8 */
         CHECK_ERROR(_readMethod_honzon_adjust_loan_by_debit_value_V1(c, &method->basic.honzon_adjust_loan_by_debit_value_V1))
+        break;
+    case 26121: /* module 102 call 9 */
+        CHECK_ERROR(_readMethod_honzon_transfer_debit_V1(c, &method->basic.honzon_transfer_debit_V1))
         break;
     case 29696: /* module 116 call 0 */
         CHECK_ERROR(_readMethod_homa_mint_V1(c, &method->basic.homa_mint_V1))
@@ -1650,6 +1674,8 @@ const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
         return STR_ME_WITH_FEE_PATH;
     case 3588: /* module 14 call 4 */
         return STR_ME_WITH_FEE_CURRENCY;
+    case 3589: /* module 14 call 5 */
+        return STR_ME_WITH_FEE_PAID_BY;
     case 5376: /* module 21 call 0 */
         return STR_ME_PROPOSE_BOUNTY;
     case 5377: /* module 21 call 1 */
@@ -1778,6 +1804,8 @@ const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
         return STR_ME_SHRINK_POSITION_DEBIT;
     case 26120: /* module 102 call 8 */
         return STR_ME_ADJUST_LOAN_BY_DEBIT_VALUE;
+    case 26121: /* module 102 call 9 */
+        return STR_ME_TRANSFER_DEBIT;
     case 29696: /* module 116 call 0 */
         return STR_ME_MINT;
     case 29697: /* module 116 call 1 */
@@ -1928,6 +1956,8 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 3588: /* module 14 call 4 */
         return 2;
+    case 3589: /* module 14 call 5 */
+        return 3;
     case 5376: /* module 21 call 0 */
         return 2;
     case 5377: /* module 21 call 1 */
@@ -2055,6 +2085,8 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 26119: /* module 102 call 7 */
         return 3;
     case 26120: /* module 102 call 8 */
+        return 3;
+    case 26121: /* module 102 call 9 */
         return 3;
     case 29696: /* module 116 call 0 */
         return 1;
@@ -2488,6 +2520,17 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_currency_id;
         case 1:
             return STR_IT_call;
+        default:
+            return NULL;
+        }
+    case 3589: /* module 14 call 5 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_call;
+        case 1:
+            return STR_IT_payer_addr;
+        case 2:
+            return STR_IT_payer_sig;
         default:
             return NULL;
         }
@@ -3038,6 +3081,17 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_collateral_adjustment;
         case 2:
             return STR_IT_debit_value_adjustment;
+        default:
+            return NULL;
+        }
+    case 26121: /* module 102 call 9 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_from_currency;
+        case 1:
+            return STR_IT_to_currency;
+        case 2:
+            return STR_IT_debit_transfer;
         default:
             return NULL;
         }
@@ -3955,6 +4009,26 @@ parser_error_t _getMethod_ItemValue_V1(
         default:
             return parser_no_data;
         }
+    case 3589: /* module 14 call 5 */
+        switch (itemIdx) {
+        case 0: /* transactionpayment_with_fee_paid_by_V1 - call */;
+            return _toStringCall(
+                &m->basic.transactionpayment_with_fee_paid_by_V1.call,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* transactionpayment_with_fee_paid_by_V1 - payer_addr */;
+            return _toStringAccountId_V1(
+                &m->basic.transactionpayment_with_fee_paid_by_V1.payer_addr,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* transactionpayment_with_fee_paid_by_V1 - payer_sig */;
+            return _toStringMultiSignature_V1(
+                &m->basic.transactionpayment_with_fee_paid_by_V1.payer_sig,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 5376: /* module 21 call 0 */
         switch (itemIdx) {
         case 0: /* bounties_propose_bounty_V1 - amount */;
@@ -4850,6 +4924,26 @@ parser_error_t _getMethod_ItemValue_V1(
         default:
             return parser_no_data;
         }
+    case 26121: /* module 102 call 9 */
+        switch (itemIdx) {
+        case 0: /* honzon_transfer_debit_V1 - from_currency */;
+            return _toStringCurrencyId_V1(
+                &m->basic.honzon_transfer_debit_V1.from_currency,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* honzon_transfer_debit_V1 - to_currency */;
+            return _toStringCurrencyId_V1(
+                &m->basic.honzon_transfer_debit_V1.to_currency,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* honzon_transfer_debit_V1 - debit_transfer */;
+            return _toStringBalance(
+                &m->basic.honzon_transfer_debit_V1.debit_transfer,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 29696: /* module 116 call 0 */
         switch (itemIdx) {
         case 0: /* homa_mint_V1 - amount */;
@@ -5379,6 +5473,7 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 3586: // TransactionPayment:Disable charge fee pool
     case 3587: // TransactionPayment:With fee path
     case 3588: // TransactionPayment:With fee currency
+    case 3589: // TransactionPayment:With fee paid by
     case 5376: // Bounties:Propose bounty
     case 5377: // Bounties:Approve bounty
     case 5378: // Bounties:Propose curator
@@ -5445,6 +5540,7 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 26118: // Honzon:Expand position collateral
     case 26119: // Honzon:Shrink position debit
     case 26120: // Honzon:Adjust loan by debit value
+    case 26121: // Honzon:Transfer debit
     case 29696: // Homa:Mint
     case 29697: // Homa:Request redeem
     case 29698: // Homa:Fast match redeems

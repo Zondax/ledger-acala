@@ -29,7 +29,6 @@
 #include "crypto.h"
 #include "coin.h"
 #include "zxmacros.h"
-#include "secret.h"
 #include "app_mode.h"
 
 static bool tx_initialized = false;
@@ -50,8 +49,8 @@ void extractHDPath(uint32_t rx, uint32_t offset) {
         THROW(APDU_CODE_DATA_INVALID);
     }
 
-#ifdef APP_SECRET_MODE_ENABLED
-    if (app_mode_secret()) {
+#ifdef APP_ACCOUNT_MODE_ENABLED
+    if (app_mode_account()) {
         hdPath[1] = HDPATH_1_RECOVERY;
     }
 #endif
