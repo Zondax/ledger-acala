@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2064.x
+# Acala  1.2082.x
 
 ## System
 
@@ -69,6 +69,7 @@ Please:
 |As derivative |    |   |   | `u16` index <br/>`Call` call <br/> |
 |Batch all | :heavy_check_mark:  | :heavy_check_mark: |   | `VecCall` calls <br/> |
 |Dispatch as |    |   |   | `BoxPalletsOrigin` as_origin <br/>`Call` call <br/> |
+|Force batch | :heavy_check_mark:  | :heavy_check_mark: |   | `VecCall` calls <br/> |
 
 ## Multisig
 
@@ -83,9 +84,9 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Proxy |    | :heavy_check_mark: | :heavy_check_mark: | `AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
-|Add proxy |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
-|Remove proxy |    | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
+|Proxy | :heavy_check_mark:  | :heavy_check_mark: | :heavy_check_mark: | `AccountId` real <br/>`OptionProxyType` force_proxy_type <br/>`Call` call <br/> |
+|Add proxy | :heavy_check_mark:  | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
+|Remove proxy | :heavy_check_mark:  | :heavy_check_mark: |   | `AccountId` delegate <br/>`ProxyType` proxy_type <br/>`BlockNumber` delay <br/> |
 |Remove proxies |    | :heavy_check_mark: |   |  |
 |Anonymous |    | :heavy_check_mark: |   | `ProxyType` proxy_type <br/>`BlockNumber` delay <br/>`u16` index <br/> |
 |Kill anonymous |    | :heavy_check_mark: |   | `AccountId` spawner <br/>`ProxyType` proxy_type <br/>`u16` index <br/>`Compactu32` height <br/>`Compactu32` ext_index <br/> |
@@ -163,6 +164,7 @@ Please:
 |Propose spend |    |   |   | `CompactBalance` amount <br/>`LookupasStaticLookupSource` beneficiary <br/> |
 |Reject proposal |    |   |   | `Compactu32` proposal_id <br/> |
 |Approve proposal |    |   |   | `Compactu32` proposal_id <br/> |
+|Remove approval |    |   |   | `Compactu32` proposal_id <br/> |
 
 ## Bounties
 
@@ -224,7 +226,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Service overweight |    |   |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
+|Service overweight |    | :heavy_check_mark: |   | `OverweightIndex` index <br/>`Weight` weight_limit <br/> |
 |Suspend xcm execution |    | :heavy_check_mark: |   |  |
 |Resume xcm execution |    | :heavy_check_mark: |   |  |
 |Update suspend threshold |    | :heavy_check_mark: |   | `u32` new_ <br/> |
@@ -259,7 +261,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Transfer |    |   |   | `CurrencyId` currency_id <br/>`Balance` amount <br/>`BoxVersionedMultiLocation` dest <br/>`Weight` dest_weight <br/> |
+|Transfer |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Balance` amount <br/>`BoxVersionedMultiLocation` dest <br/>`Weight` dest_weight <br/> |
 |Transfer multiasset |    |   |   | `BoxVersionedMultiAsset` asset <br/>`BoxVersionedMultiLocation` dest <br/>`Weight` dest_weight <br/> |
 |Transfer with fee |    |   |   | `CurrencyId` currency_id <br/>`Balance` amount <br/>`Balance` fee <br/>`BoxVersionedMultiLocation` dest <br/>`Weight` dest_weight <br/> |
 |Transfer multiasset with fee |    |   |   | `BoxVersionedMultiAsset` asset <br/>`BoxVersionedMultiAsset` fee <br/>`BoxVersionedMultiLocation` dest <br/>`Weight` dest_weight <br/> |
@@ -447,9 +449,9 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Swap with exact supply |    | :heavy_check_mark: |   | `VecCurrencyId` path <br/>`Compactu128` supply_amount <br/>`Compactu128` min_target_amount <br/> |
+|Swap with exact supply |    | :heavy_check_mark: | :heavy_check_mark: | `VecCurrencyId` path <br/>`Compactu128` supply_amount <br/>`Compactu128` min_target_amount <br/> |
 |Swap with exact target |    | :heavy_check_mark: |   | `VecCurrencyId` path <br/>`Compactu128` target_amount <br/>`Compactu128` max_supply_amount <br/> |
-|Add liquidity |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` max_amount_a <br/>`Compactu128` max_amount_b <br/>`Compactu128` min_share_increment <br/>`bool` stake_increment_share <br/> |
+|Add liquidity |    | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` max_amount_a <br/>`Compactu128` max_amount_b <br/>`Compactu128` min_share_increment <br/>`bool` stake_increment_share <br/> |
 |Add provision |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` amount_a <br/>`Compactu128` amount_b <br/> |
 |Claim dex share |    | :heavy_check_mark: |   | `AccountId` owner <br/>`CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/> |
 |Remove liquidity |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` remove_share <br/>`Compactu128` min_withdrawn_a <br/>`Compactu128` min_withdrawn_b <br/>`bool` by_unstake <br/> |
@@ -473,8 +475,9 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Swap with exact supply |    |   |   | `VecSwapPath` paths <br/>`Balance` supply_amount <br/>`Balance` min_target_amount <br/> |
-|Update aggregated swap paths |    |   |   | `VecTupleCurrencyIdCurrencyIdOptionVecSwapPath` updates <br/> |
+|Swap with exact supply |    | :heavy_check_mark: | :heavy_check_mark: | `VecSwapPath` paths <br/>`CompactBalance` supply_amount <br/>`CompactBalance` min_target_amount <br/> |
+|Swap with exact target |    | :heavy_check_mark: | :heavy_check_mark: | `VecSwapPath` paths <br/>`CompactBalance` target_amount <br/>`CompactBalance` max_supply_amount <br/> |
+|Update aggregated swap paths |    | :heavy_check_mark: | :heavy_check_mark: | `VecTupleCurrencyIdCurrencyIdOptionVecSwapPath` updates <br/> |
 
 ## AuctionManager
 
@@ -491,7 +494,7 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Adjust loan |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Amount` collateral_adjustment <br/>`Amount` debit_adjustment <br/> |
+|Adjust loan |    | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId` currency_id <br/>`Amount` collateral_adjustment <br/>`Amount` debit_adjustment <br/> |
 |Close loan has debit by dex |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Compactu128` max_collateral_amount <br/> |
 |Transfer loan from |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`LookupasStaticLookupSource` from <br/> |
 |Authorize |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`LookupasStaticLookupSource` to <br/> |
@@ -553,7 +556,7 @@ Please:
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Deposit dex share |    | :heavy_check_mark: |   | `CurrencyId` lp_currency_id <br/>`Compactu128` amount <br/> |
-|Withdraw dex share |    | :heavy_check_mark: |   | `CurrencyId` lp_currency_id <br/>`Compactu128` amount <br/> |
+|Withdraw dex share |    | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId` lp_currency_id <br/>`Compactu128` amount <br/> |
 |Claim rewards |    | :heavy_check_mark: |   | `PoolId` pool_id <br/> |
 |Update incentive rewards |    |   |   | `VecTuplePoolIdVecTupleCurrencyIdBalance` updates <br/> |
 |Update dex saving rewards |    |   |   | `VecTuplePoolIdRate` updates <br/> |
