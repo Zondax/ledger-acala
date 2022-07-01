@@ -38,8 +38,10 @@ extern "C" {
 #define PD_CALL_COLLATORSELECTION_V1 41
 #define PD_CALL_SESSION_V1 42
 #define PD_CALL_XCMPQUEUE_V1 50
+#define PD_CALL_XTOKENS_V1 54
 #define PD_CALL_DEMOCRACY_V1 69
 #define PD_CALL_DEX_V1 91
+#define PD_CALL_AGGREGATEDDEX_V1 93
 #define PD_CALL_HONZON_V1 102
 #define PD_CALL_HOMA_V1 116
 #define PD_CALL_INCENTIVES_V1 120
@@ -58,6 +60,25 @@ typedef struct {
     pd_VecCall_t calls;
 } pd_utility_batch_all_V1_t;
 
+#define PD_CALL_UTILITY_FORCE_BATCH_V1 4
+typedef struct {
+    pd_VecCall_t calls;
+} pd_utility_force_batch_V1_t;
+
+#define PD_CALL_PROXY_ADD_PROXY_V1 1
+typedef struct {
+    pd_AccountId_V1_t delegate;
+    pd_ProxyType_V1_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_add_proxy_V1_t;
+
+#define PD_CALL_PROXY_REMOVE_PROXY_V1 2
+typedef struct {
+    pd_AccountId_V1_t delegate;
+    pd_ProxyType_V1_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_remove_proxy_V1_t;
+
 #define PD_CALL_BALANCES_TRANSFER_ALL_V1 4
 typedef struct {
     pd_LookupasStaticLookupSource_V1_t dest;
@@ -75,20 +96,6 @@ typedef struct {
 } pd_session_purge_keys_V1_t;
 
 #ifdef SUBSTRATE_PARSER_FULL
-
-#define PD_CALL_PROXY_ADD_PROXY_V1 1
-typedef struct {
-    pd_AccountId_V1_t delegate;
-    pd_ProxyType_V1_t proxy_type;
-    pd_BlockNumber_t delay;
-} pd_proxy_add_proxy_V1_t;
-
-#define PD_CALL_PROXY_REMOVE_PROXY_V1 2
-typedef struct {
-    pd_AccountId_V1_t delegate;
-    pd_ProxyType_V1_t proxy_type;
-    pd_BlockNumber_t delay;
-} pd_proxy_remove_proxy_V1_t;
 
 #define PD_CALL_PROXY_REMOVE_PROXIES_V1 3
 typedef struct {
@@ -270,6 +277,12 @@ typedef struct {
 typedef struct {
 } pd_collatorselection_withdraw_bond_V1_t;
 
+#define PD_CALL_XCMPQUEUE_SERVICE_OVERWEIGHT_V1 0
+typedef struct {
+    pd_OverweightIndex_V1_t index;
+    pd_Weight_V1_t weight_limit;
+} pd_xcmpqueue_service_overweight_V1_t;
+
 #define PD_CALL_XCMPQUEUE_SUSPEND_XCM_EXECUTION_V1 1
 typedef struct {
 } pd_xcmpqueue_suspend_xcm_execution_V1_t;
@@ -307,6 +320,14 @@ typedef struct {
 typedef struct {
     pd_Weight_V1_t new_;
 } pd_xcmpqueue_update_xcmp_max_individual_weight_V1_t;
+
+#define PD_CALL_XTOKENS_TRANSFER_V1 0
+typedef struct {
+    pd_CurrencyId_V1_t currency_id;
+    pd_Balance_t amount;
+    pd_BoxVersionedMultiLocation_V1_t dest;
+    pd_Weight_V1_t dest_weight;
+} pd_xtokens_transfer_V1_t;
 
 #define PD_CALL_DEMOCRACY_PROPOSE_V1 0
 typedef struct {
@@ -401,29 +422,12 @@ typedef struct {
     pd_Compactu32_t prop_index;
 } pd_democracy_cancel_proposal_V1_t;
 
-#define PD_CALL_DEX_SWAP_WITH_EXACT_SUPPLY_V1 0
-typedef struct {
-    pd_VecCurrencyId_V1_t path;
-    pd_Compactu128_t supply_amount;
-    pd_Compactu128_t min_target_amount;
-} pd_dex_swap_with_exact_supply_V1_t;
-
 #define PD_CALL_DEX_SWAP_WITH_EXACT_TARGET_V1 1
 typedef struct {
     pd_VecCurrencyId_V1_t path;
     pd_Compactu128_t target_amount;
     pd_Compactu128_t max_supply_amount;
 } pd_dex_swap_with_exact_target_V1_t;
-
-#define PD_CALL_DEX_ADD_LIQUIDITY_V1 2
-typedef struct {
-    pd_CurrencyId_V1_t currency_id_a;
-    pd_CurrencyId_V1_t currency_id_b;
-    pd_Compactu128_t max_amount_a;
-    pd_Compactu128_t max_amount_b;
-    pd_Compactu128_t min_share_increment;
-    pd_bool_t stake_increment_share;
-} pd_dex_add_liquidity_V1_t;
 
 #define PD_CALL_DEX_ADD_PROVISION_V1 3
 typedef struct {
@@ -502,13 +506,6 @@ typedef struct {
     pd_CurrencyId_V1_t currency_id_a;
     pd_CurrencyId_V1_t currency_id_b;
 } pd_dex_abort_provisioning_V1_t;
-
-#define PD_CALL_HONZON_ADJUST_LOAN_V1 0
-typedef struct {
-    pd_CurrencyId_V1_t currency_id;
-    pd_Amount_V1_t collateral_adjustment;
-    pd_Amount_V1_t debit_adjustment;
-} pd_honzon_adjust_loan_V1_t;
 
 #define PD_CALL_HONZON_CLOSE_LOAN_HAS_DEBIT_BY_DEX_V1 1
 typedef struct {
@@ -607,12 +604,6 @@ typedef struct {
     pd_CurrencyId_V1_t lp_currency_id;
     pd_Compactu128_t amount;
 } pd_incentives_deposit_dex_share_V1_t;
-
-#define PD_CALL_INCENTIVES_WITHDRAW_DEX_SHARE_V1 1
-typedef struct {
-    pd_CurrencyId_V1_t lp_currency_id;
-    pd_Compactu128_t amount;
-} pd_incentives_withdraw_dex_share_V1_t;
 
 #define PD_CALL_INCENTIVES_CLAIM_REWARDS_V1 2
 typedef struct {
@@ -755,12 +746,13 @@ typedef struct {
 typedef union {
     pd_utility_batch_V1_t utility_batch_V1;
     pd_utility_batch_all_V1_t utility_batch_all_V1;
+    pd_utility_force_batch_V1_t utility_force_batch_V1;
+    pd_proxy_add_proxy_V1_t proxy_add_proxy_V1;
+    pd_proxy_remove_proxy_V1_t proxy_remove_proxy_V1;
     pd_balances_transfer_all_V1_t balances_transfer_all_V1;
     pd_session_set_keys_V1_t session_set_keys_V1;
     pd_session_purge_keys_V1_t session_purge_keys_V1;
 #ifdef SUBSTRATE_PARSER_FULL
-    pd_proxy_add_proxy_V1_t proxy_add_proxy_V1;
-    pd_proxy_remove_proxy_V1_t proxy_remove_proxy_V1;
     pd_proxy_remove_proxies_V1_t proxy_remove_proxies_V1;
     pd_proxy_anonymous_V1_t proxy_anonymous_V1;
     pd_proxy_kill_anonymous_V1_t proxy_kill_anonymous_V1;
@@ -793,6 +785,7 @@ typedef union {
     pd_collatorselection_register_candidate_V1_t collatorselection_register_candidate_V1;
     pd_collatorselection_leave_intent_V1_t collatorselection_leave_intent_V1;
     pd_collatorselection_withdraw_bond_V1_t collatorselection_withdraw_bond_V1;
+    pd_xcmpqueue_service_overweight_V1_t xcmpqueue_service_overweight_V1;
     pd_xcmpqueue_suspend_xcm_execution_V1_t xcmpqueue_suspend_xcm_execution_V1;
     pd_xcmpqueue_resume_xcm_execution_V1_t xcmpqueue_resume_xcm_execution_V1;
     pd_xcmpqueue_update_suspend_threshold_V1_t xcmpqueue_update_suspend_threshold_V1;
@@ -801,6 +794,7 @@ typedef union {
     pd_xcmpqueue_update_threshold_weight_V1_t xcmpqueue_update_threshold_weight_V1;
     pd_xcmpqueue_update_weight_restrict_decay_V1_t xcmpqueue_update_weight_restrict_decay_V1;
     pd_xcmpqueue_update_xcmp_max_individual_weight_V1_t xcmpqueue_update_xcmp_max_individual_weight_V1;
+    pd_xtokens_transfer_V1_t xtokens_transfer_V1;
     pd_democracy_propose_V1_t democracy_propose_V1;
     pd_democracy_second_V1_t democracy_second_V1;
     pd_democracy_emergency_cancel_V1_t democracy_emergency_cancel_V1;
@@ -819,9 +813,7 @@ typedef union {
     pd_democracy_reap_preimage_V1_t democracy_reap_preimage_V1;
     pd_democracy_unlock_V1_t democracy_unlock_V1;
     pd_democracy_cancel_proposal_V1_t democracy_cancel_proposal_V1;
-    pd_dex_swap_with_exact_supply_V1_t dex_swap_with_exact_supply_V1;
     pd_dex_swap_with_exact_target_V1_t dex_swap_with_exact_target_V1;
-    pd_dex_add_liquidity_V1_t dex_add_liquidity_V1;
     pd_dex_add_provision_V1_t dex_add_provision_V1;
     pd_dex_claim_dex_share_V1_t dex_claim_dex_share_V1;
     pd_dex_remove_liquidity_V1_t dex_remove_liquidity_V1;
@@ -832,7 +824,6 @@ typedef union {
     pd_dex_disable_trading_pair_V1_t dex_disable_trading_pair_V1;
     pd_dex_refund_provision_V1_t dex_refund_provision_V1;
     pd_dex_abort_provisioning_V1_t dex_abort_provisioning_V1;
-    pd_honzon_adjust_loan_V1_t honzon_adjust_loan_V1;
     pd_honzon_close_loan_has_debit_by_dex_V1_t honzon_close_loan_has_debit_by_dex_V1;
     pd_honzon_transfer_loan_from_V1_t honzon_transfer_loan_from_V1;
     pd_honzon_authorize_V1_t honzon_authorize_V1;
@@ -850,7 +841,6 @@ typedef union {
     pd_homa_force_bump_current_era_V1_t homa_force_bump_current_era_V1;
     pd_homa_fast_match_redeems_completely_V1_t homa_fast_match_redeems_completely_V1;
     pd_incentives_deposit_dex_share_V1_t incentives_deposit_dex_share_V1;
-    pd_incentives_withdraw_dex_share_V1_t incentives_withdraw_dex_share_V1;
     pd_incentives_claim_rewards_V1_t incentives_claim_rewards_V1;
     pd_nft_transfer_V1_t nft_transfer_V1;
     pd_evm_eth_call_V1_t evm_eth_call_V1;
@@ -873,6 +863,13 @@ typedef union {
     pd_stableasset_redeem_multi_V1_t stableasset_redeem_multi_V1;
 #endif
 } pd_MethodBasic_V1_t;
+
+#define PD_CALL_PROXY_PROXY_V1 0
+typedef struct {
+    pd_AccountId_V1_t real;
+    pd_OptionProxyType_V1_t force_proxy_type;
+    pd_Call_t call;
+} pd_proxy_proxy_V1_t;
 
 #define PD_CALL_BALANCES_TRANSFER_V1 0
 typedef struct {
@@ -964,13 +961,6 @@ typedef struct {
     pd_H256_t call_hash;
 } pd_multisig_cancel_as_multi_V1_t;
 
-#define PD_CALL_PROXY_PROXY_V1 0
-typedef struct {
-    pd_AccountId_V1_t real;
-    pd_OptionProxyType_V1_t force_proxy_type;
-    pd_Call_t call;
-} pd_proxy_proxy_V1_t;
-
 #define PD_CALL_BALANCES_SET_BALANCE_V1 1
 typedef struct {
     pd_LookupasStaticLookupSource_V1_t who;
@@ -984,9 +974,59 @@ typedef struct {
     pd_Compactu128_t amount;
 } pd_currencies_transfer_native_currency_V1_t;
 
+#define PD_CALL_DEX_SWAP_WITH_EXACT_SUPPLY_V1 0
+typedef struct {
+    pd_VecCurrencyId_V1_t path;
+    pd_Compactu128_t supply_amount;
+    pd_Compactu128_t min_target_amount;
+} pd_dex_swap_with_exact_supply_V1_t;
+
+#define PD_CALL_DEX_ADD_LIQUIDITY_V1 2
+typedef struct {
+    pd_CurrencyId_V1_t currency_id_a;
+    pd_CurrencyId_V1_t currency_id_b;
+    pd_Compactu128_t max_amount_a;
+    pd_Compactu128_t max_amount_b;
+    pd_Compactu128_t min_share_increment;
+    pd_bool_t stake_increment_share;
+} pd_dex_add_liquidity_V1_t;
+
+#define PD_CALL_AGGREGATEDDEX_SWAP_WITH_EXACT_SUPPLY_V1 0
+typedef struct {
+    pd_VecSwapPath_V1_t paths;
+    pd_CompactBalance_t supply_amount;
+    pd_CompactBalance_t min_target_amount;
+} pd_aggregateddex_swap_with_exact_supply_V1_t;
+
+#define PD_CALL_AGGREGATEDDEX_SWAP_WITH_EXACT_TARGET_V1 1
+typedef struct {
+    pd_VecSwapPath_V1_t paths;
+    pd_CompactBalance_t target_amount;
+    pd_CompactBalance_t max_supply_amount;
+} pd_aggregateddex_swap_with_exact_target_V1_t;
+
+#define PD_CALL_AGGREGATEDDEX_UPDATE_AGGREGATED_SWAP_PATHS_V1 2
+typedef struct {
+    pd_VecTupleCurrencyIdCurrencyIdOptionVecSwapPath_V1_t updates;
+} pd_aggregateddex_update_aggregated_swap_paths_V1_t;
+
+#define PD_CALL_HONZON_ADJUST_LOAN_V1 0
+typedef struct {
+    pd_CurrencyId_V1_t currency_id;
+    pd_Amount_V1_t collateral_adjustment;
+    pd_Amount_V1_t debit_adjustment;
+} pd_honzon_adjust_loan_V1_t;
+
+#define PD_CALL_INCENTIVES_WITHDRAW_DEX_SHARE_V1 1
+typedef struct {
+    pd_CurrencyId_V1_t lp_currency_id;
+    pd_Compactu128_t amount;
+} pd_incentives_withdraw_dex_share_V1_t;
+
 #endif
 
 typedef union {
+    pd_proxy_proxy_V1_t proxy_proxy_V1;
     pd_balances_transfer_V1_t balances_transfer_V1;
     pd_balances_force_transfer_V1_t balances_force_transfer_V1;
     pd_balances_transfer_keep_alive_V1_t balances_transfer_keep_alive_V1;
@@ -1002,9 +1042,15 @@ typedef union {
     pd_multisig_as_multi_V1_t multisig_as_multi_V1;
     pd_multisig_approve_as_multi_V1_t multisig_approve_as_multi_V1;
     pd_multisig_cancel_as_multi_V1_t multisig_cancel_as_multi_V1;
-    pd_proxy_proxy_V1_t proxy_proxy_V1;
     pd_balances_set_balance_V1_t balances_set_balance_V1;
     pd_currencies_transfer_native_currency_V1_t currencies_transfer_native_currency_V1;
+    pd_dex_swap_with_exact_supply_V1_t dex_swap_with_exact_supply_V1;
+    pd_dex_add_liquidity_V1_t dex_add_liquidity_V1;
+    pd_aggregateddex_swap_with_exact_supply_V1_t aggregateddex_swap_with_exact_supply_V1;
+    pd_aggregateddex_swap_with_exact_target_V1_t aggregateddex_swap_with_exact_target_V1;
+    pd_aggregateddex_update_aggregated_swap_paths_V1_t aggregateddex_update_aggregated_swap_paths_V1;
+    pd_honzon_adjust_loan_V1_t honzon_adjust_loan_V1;
+    pd_incentives_withdraw_dex_share_V1_t incentives_withdraw_dex_share_V1;
 #endif
 } pd_MethodNested_V1_t;
 

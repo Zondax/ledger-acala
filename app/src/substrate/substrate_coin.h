@@ -63,7 +63,6 @@ typedef enum {
 
 #define MENU_MAIN_APP_LINE1 "Acala"
 #define MENU_MAIN_APP_LINE2 "Ready"
-#define MENU_MAIN_APP_LINE2_SECRET "ACA RECOVERY"
 #define APPVERSION_LINE1 "Acala"
 #define APPVERSION_LINE2 "v" APPVERSION
 
