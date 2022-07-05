@@ -2989,10 +2989,40 @@ parser_error_t _toStringTupleCurrencyIdCurrencyIdOptionVecSwapPath_V1(
     uint8_t* pageCount)
 {
     CLEAN_AND_CHECK()
-    CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid1, outValue, outValueLen, pageIdx, pageCount))
-    CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid2, outValue, outValueLen, pageIdx, pageCount))
-    CHECK_ERROR(_toStringOptionVecSwapPath_V1(&v->paths, outValue, outValueLen, pageIdx, pageCount))
-    return parser_ok;
+
+    // First measure number of pages
+    uint8_t pages[3] = { 0 };
+    CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid1, outValue, outValueLen, 0, &pages[0]))
+    CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid2, outValue, outValueLen, 0, &pages[1]))
+    CHECK_ERROR(_toStringOptionVecSwapPath_V1(&v->paths, outValue, outValueLen, 0, &pages[2]))
+
+    *pageCount = 0;
+    for (uint8_t i = 0; i < (uint8_t)sizeof(pages); i++) {
+        *pageCount += pages[i];
+    }
+
+    if (pageIdx > *pageCount) {
+        return parser_display_idx_out_of_range;
+    }
+
+    if (pageIdx < pages[0]) {
+        CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid1, outValue, outValueLen, pageIdx, &pages[0]))
+        return parser_ok;
+    }
+    pageIdx -= pages[0];
+
+    if (pageIdx < pages[1]) {
+        CHECK_ERROR(_toStringCurrencyId_V1(&v->currencyid2, outValue, outValueLen, pageIdx, &pages[1]))
+        return parser_ok;
+    }
+    pageIdx -= pages[1];
+
+    if (pageIdx < pages[2]) {
+        CHECK_ERROR(_toStringOptionVecSwapPath_V1(&v->paths, outValue, outValueLen, pageIdx, &pages[2]))
+        return parser_ok;
+    }
+
+    return parser_display_idx_out_of_range;
 }
 
 parser_error_t _toStringWeight_V1(
