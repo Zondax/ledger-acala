@@ -1172,10 +1172,10 @@ parser_error_t _readMethod_V1(
         CHECK_ERROR(_readMethod_proxy_proxy_V1(c, &method->nested.proxy_proxy_V1))
         break;
     case 1281: /* module 5 call 1 */
-        CHECK_ERROR(_readMethod_proxy_add_proxy_V1(c, &method->basic.proxy_add_proxy_V1))
+        CHECK_ERROR(_readMethod_proxy_add_proxy_V1(c, &method->nested.proxy_add_proxy_V1))
         break;
     case 1282: /* module 5 call 2 */
-        CHECK_ERROR(_readMethod_proxy_remove_proxy_V1(c, &method->basic.proxy_remove_proxy_V1))
+        CHECK_ERROR(_readMethod_proxy_remove_proxy_V1(c, &method->nested.proxy_remove_proxy_V1))
         break;
     case 2560: /* module 10 call 0 */
         CHECK_ERROR(_readMethod_balances_transfer_V1(c, &method->nested.balances_transfer_V1))
@@ -3601,17 +3601,17 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* proxy_add_proxy_V1 - delegate */;
             return _toStringAccountId_V1(
-                &m->basic.proxy_add_proxy_V1.delegate,
+                &m->nested.proxy_add_proxy_V1.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_add_proxy_V1 - proxy_type */;
             return _toStringProxyType_V1(
-                &m->basic.proxy_add_proxy_V1.proxy_type,
+                &m->nested.proxy_add_proxy_V1.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_add_proxy_V1 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_add_proxy_V1.delay,
+                &m->nested.proxy_add_proxy_V1.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3621,17 +3621,17 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* proxy_remove_proxy_V1 - delegate */;
             return _toStringAccountId_V1(
-                &m->basic.proxy_remove_proxy_V1.delegate,
+                &m->nested.proxy_remove_proxy_V1.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_remove_proxy_V1 - proxy_type */;
             return _toStringProxyType_V1(
-                &m->basic.proxy_remove_proxy_V1.proxy_type,
+                &m->nested.proxy_remove_proxy_V1.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_remove_proxy_V1 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_remove_proxy_V1.delay,
+                &m->nested.proxy_remove_proxy_V1.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5710,8 +5710,6 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 768: // Utility:Batch
     case 770: // Utility:Batch all
     case 772: // Utility:Force batch
-    case 1281: // Proxy:Add proxy
-    case 1282: // Proxy:Remove proxy
     case 1283: // Proxy:Remove proxies
     case 1284: // Proxy:Anonymous
     case 1285: // Proxy:Kill anonymous

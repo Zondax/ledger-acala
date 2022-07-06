@@ -65,20 +65,6 @@ typedef struct {
     pd_VecCall_t calls;
 } pd_utility_force_batch_V1_t;
 
-#define PD_CALL_PROXY_ADD_PROXY_V1 1
-typedef struct {
-    pd_AccountId_V1_t delegate;
-    pd_ProxyType_V1_t proxy_type;
-    pd_BlockNumber_t delay;
-} pd_proxy_add_proxy_V1_t;
-
-#define PD_CALL_PROXY_REMOVE_PROXY_V1 2
-typedef struct {
-    pd_AccountId_V1_t delegate;
-    pd_ProxyType_V1_t proxy_type;
-    pd_BlockNumber_t delay;
-} pd_proxy_remove_proxy_V1_t;
-
 #define PD_CALL_BALANCES_TRANSFER_ALL_V1 4
 typedef struct {
     pd_LookupasStaticLookupSource_V1_t dest;
@@ -747,8 +733,6 @@ typedef union {
     pd_utility_batch_V1_t utility_batch_V1;
     pd_utility_batch_all_V1_t utility_batch_all_V1;
     pd_utility_force_batch_V1_t utility_force_batch_V1;
-    pd_proxy_add_proxy_V1_t proxy_add_proxy_V1;
-    pd_proxy_remove_proxy_V1_t proxy_remove_proxy_V1;
     pd_balances_transfer_all_V1_t balances_transfer_all_V1;
     pd_session_set_keys_V1_t session_set_keys_V1;
     pd_session_purge_keys_V1_t session_purge_keys_V1;
@@ -870,6 +854,20 @@ typedef struct {
     pd_OptionProxyType_V1_t force_proxy_type;
     pd_Call_t call;
 } pd_proxy_proxy_V1_t;
+
+#define PD_CALL_PROXY_ADD_PROXY_V1 1
+typedef struct {
+    pd_AccountId_V1_t delegate;
+    pd_ProxyType_V1_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_add_proxy_V1_t;
+
+#define PD_CALL_PROXY_REMOVE_PROXY_V1 2
+typedef struct {
+    pd_AccountId_V1_t delegate;
+    pd_ProxyType_V1_t proxy_type;
+    pd_BlockNumber_t delay;
+} pd_proxy_remove_proxy_V1_t;
 
 #define PD_CALL_BALANCES_TRANSFER_V1 0
 typedef struct {
@@ -1027,6 +1025,8 @@ typedef struct {
 
 typedef union {
     pd_proxy_proxy_V1_t proxy_proxy_V1;
+    pd_proxy_add_proxy_V1_t proxy_add_proxy_V1;
+    pd_proxy_remove_proxy_V1_t proxy_remove_proxy_V1;
     pd_balances_transfer_V1_t balances_transfer_V1;
     pd_balances_force_transfer_V1_t balances_force_transfer_V1;
     pd_balances_transfer_keep_alive_V1_t balances_transfer_keep_alive_V1;
