@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2082.x
+# Acala  1.2083.x
 
 ## System
 
@@ -454,7 +454,7 @@ Please:
 |Add liquidity |    | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` max_amount_a <br/>`Compactu128` max_amount_b <br/>`Compactu128` min_share_increment <br/>`bool` stake_increment_share <br/> |
 |Add provision |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` amount_a <br/>`Compactu128` amount_b <br/> |
 |Claim dex share |    | :heavy_check_mark: |   | `AccountId` owner <br/>`CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/> |
-|Remove liquidity |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` remove_share <br/>`Compactu128` min_withdrawn_a <br/>`Compactu128` min_withdrawn_b <br/>`bool` by_unstake <br/> |
+|Remove liquidity |    | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` remove_share <br/>`Compactu128` min_withdrawn_a <br/>`Compactu128` min_withdrawn_b <br/>`bool` by_unstake <br/> |
 |List provisioning |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` min_contribution_a <br/>`Compactu128` min_contribution_b <br/>`Compactu128` target_provision_a <br/>`Compactu128` target_provision_b <br/>`Compactu32` not_before <br/> |
 |Update provisioning parameters |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/>`Compactu128` min_contribution_a <br/>`Compactu128` min_contribution_b <br/>`Compactu128` target_provision_a <br/>`Compactu128` target_provision_b <br/>`Compactu32` not_before <br/> |
 |End provisioning |    | :heavy_check_mark: |   | `CurrencyId` currency_id_a <br/>`CurrencyId` currency_id_b <br/> |
@@ -534,16 +534,16 @@ Please:
 
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
-|Mint |    | :heavy_check_mark: |   | `Compactu128` amount <br/> |
-|Request redeem |    | :heavy_check_mark: |   | `Compactu128` amount <br/>`bool` allow_fast_match <br/> |
-|Fast match redeems |    | :heavy_check_mark: |   | `VecAccountId` redeemer_list <br/> |
+|Mint |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu128` amount <br/> |
+|Request redeem |    | :heavy_check_mark: | :heavy_check_mark: | `Compactu128` amount <br/>`bool` allow_fast_match <br/> |
+|Fast match redeems |    | :heavy_check_mark: | :heavy_check_mark: | `VecAccountId` redeemer_list <br/> |
 |Claim redemption |    | :heavy_check_mark: |   | `AccountId` redeemer <br/> |
 |Update homa params |    |   |   | `OptionBalance` soft_bonded_cap_per_sub_account <br/>`OptionRate` estimated_reward_rate_per_era <br/>`OptionRate` commission_rate <br/>`OptionRate` fast_match_fee_rate <br/> |
 |Update bump era params |    |   |   | `OptionBlockNumber` last_era_bumped_block <br/>`OptionBlockNumber` frequency <br/> |
 |Reset ledgers |    |   |   | `VecTupleu16OptionBalanceOptionVecUnlockChunk` updates <br/> |
 |Reset current era |    | :heavy_check_mark: |   | `EraIndex` era_index <br/> |
 |Force bump current era |    | :heavy_check_mark: |   | `EraIndex` bump_amount <br/> |
-|Fast match redeems completely |    | :heavy_check_mark: |   | `VecAccountId` redeemer_list <br/> |
+|Fast match redeems completely |    | :heavy_check_mark: | :heavy_check_mark: | `VecAccountId` redeemer_list <br/> |
 
 ## XcmInterface
 
