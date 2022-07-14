@@ -1432,7 +1432,7 @@ parser_error_t _readMethod_V1(
         CHECK_ERROR(_readMethod_dex_claim_dex_share_V1(c, &method->basic.dex_claim_dex_share_V1))
         break;
     case 23301: /* module 91 call 5 */
-        CHECK_ERROR(_readMethod_dex_remove_liquidity_V1(c, &method->basic.dex_remove_liquidity_V1))
+        CHECK_ERROR(_readMethod_dex_remove_liquidity_V1(c, &method->nested.dex_remove_liquidity_V1))
         break;
     case 23302: /* module 91 call 6 */
         CHECK_ERROR(_readMethod_dex_list_provisioning_V1(c, &method->basic.dex_list_provisioning_V1))
@@ -1495,13 +1495,13 @@ parser_error_t _readMethod_V1(
         CHECK_ERROR(_readMethod_honzon_transfer_debit_V1(c, &method->basic.honzon_transfer_debit_V1))
         break;
     case 29696: /* module 116 call 0 */
-        CHECK_ERROR(_readMethod_homa_mint_V1(c, &method->basic.homa_mint_V1))
+        CHECK_ERROR(_readMethod_homa_mint_V1(c, &method->nested.homa_mint_V1))
         break;
     case 29697: /* module 116 call 1 */
-        CHECK_ERROR(_readMethod_homa_request_redeem_V1(c, &method->basic.homa_request_redeem_V1))
+        CHECK_ERROR(_readMethod_homa_request_redeem_V1(c, &method->nested.homa_request_redeem_V1))
         break;
     case 29698: /* module 116 call 2 */
-        CHECK_ERROR(_readMethod_homa_fast_match_redeems_V1(c, &method->basic.homa_fast_match_redeems_V1))
+        CHECK_ERROR(_readMethod_homa_fast_match_redeems_V1(c, &method->nested.homa_fast_match_redeems_V1))
         break;
     case 29699: /* module 116 call 3 */
         CHECK_ERROR(_readMethod_homa_claim_redemption_V1(c, &method->basic.homa_claim_redemption_V1))
@@ -1513,7 +1513,7 @@ parser_error_t _readMethod_V1(
         CHECK_ERROR(_readMethod_homa_force_bump_current_era_V1(c, &method->basic.homa_force_bump_current_era_V1))
         break;
     case 29705: /* module 116 call 9 */
-        CHECK_ERROR(_readMethod_homa_fast_match_redeems_completely_V1(c, &method->basic.homa_fast_match_redeems_completely_V1))
+        CHECK_ERROR(_readMethod_homa_fast_match_redeems_completely_V1(c, &method->nested.homa_fast_match_redeems_completely_V1))
         break;
     case 30720: /* module 120 call 0 */
         CHECK_ERROR(_readMethod_incentives_deposit_dex_share_V1(c, &method->basic.incentives_deposit_dex_share_V1))
@@ -4792,32 +4792,32 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* dex_remove_liquidity_V1 - currency_id_a */;
             return _toStringCurrencyId_V1(
-                &m->basic.dex_remove_liquidity_V1.currency_id_a,
+                &m->nested.dex_remove_liquidity_V1.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_remove_liquidity_V1 - currency_id_b */;
             return _toStringCurrencyId_V1(
-                &m->basic.dex_remove_liquidity_V1.currency_id_b,
+                &m->nested.dex_remove_liquidity_V1.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* dex_remove_liquidity_V1 - remove_share */;
             return _toStringCompactu128(
-                &m->basic.dex_remove_liquidity_V1.remove_share,
+                &m->nested.dex_remove_liquidity_V1.remove_share,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* dex_remove_liquidity_V1 - min_withdrawn_a */;
             return _toStringCompactu128(
-                &m->basic.dex_remove_liquidity_V1.min_withdrawn_a,
+                &m->nested.dex_remove_liquidity_V1.min_withdrawn_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* dex_remove_liquidity_V1 - min_withdrawn_b */;
             return _toStringCompactu128(
-                &m->basic.dex_remove_liquidity_V1.min_withdrawn_b,
+                &m->nested.dex_remove_liquidity_V1.min_withdrawn_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 5: /* dex_remove_liquidity_V1 - by_unstake */;
             return _toStringbool(
-                &m->basic.dex_remove_liquidity_V1.by_unstake,
+                &m->nested.dex_remove_liquidity_V1.by_unstake,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5202,7 +5202,7 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* homa_mint_V1 - amount */;
             return _toStringCompactu128(
-                &m->basic.homa_mint_V1.amount,
+                &m->nested.homa_mint_V1.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5212,12 +5212,12 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* homa_request_redeem_V1 - amount */;
             return _toStringCompactu128(
-                &m->basic.homa_request_redeem_V1.amount,
+                &m->nested.homa_request_redeem_V1.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* homa_request_redeem_V1 - allow_fast_match */;
             return _toStringbool(
-                &m->basic.homa_request_redeem_V1.allow_fast_match,
+                &m->nested.homa_request_redeem_V1.allow_fast_match,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5227,7 +5227,7 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* homa_fast_match_redeems_V1 - redeemer_list */;
             return _toStringVecAccountId_V1(
-                &m->basic.homa_fast_match_redeems_V1.redeemer_list,
+                &m->nested.homa_fast_match_redeems_V1.redeemer_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5267,7 +5267,7 @@ parser_error_t _getMethod_ItemValue_V1(
         switch (itemIdx) {
         case 0: /* homa_fast_match_redeems_completely_V1 - redeemer_list */;
             return _toStringVecAccountId_V1(
-                &m->basic.homa_fast_match_redeems_completely_V1.redeemer_list,
+                &m->nested.homa_fast_match_redeems_completely_V1.redeemer_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -5776,7 +5776,6 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 23297: // Dex:Swap with exact target
     case 23299: // Dex:Add provision
     case 23300: // Dex:Claim dex share
-    case 23301: // Dex:Remove liquidity
     case 23302: // Dex:List provisioning
     case 23303: // Dex:Update provisioning parameters
     case 23304: // Dex:End provisioning
@@ -5793,13 +5792,9 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 26119: // Honzon:Shrink position debit
     case 26120: // Honzon:Adjust loan by debit value
     case 26121: // Honzon:Transfer debit
-    case 29696: // Homa:Mint
-    case 29697: // Homa:Request redeem
-    case 29698: // Homa:Fast match redeems
     case 29699: // Homa:Claim redemption
     case 29703: // Homa:Reset current era
     case 29704: // Homa:Force bump current era
-    case 29705: // Homa:Fast match redeems completely
     case 30720: // Incentives:Deposit dex share
     case 30722: // Incentives:Claim rewards
     case 30978: // NFT:Transfer
