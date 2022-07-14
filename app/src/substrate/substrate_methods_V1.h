@@ -430,16 +430,6 @@ typedef struct {
     pd_CurrencyId_V1_t currency_id_b;
 } pd_dex_claim_dex_share_V1_t;
 
-#define PD_CALL_DEX_REMOVE_LIQUIDITY_V1 5
-typedef struct {
-    pd_CurrencyId_V1_t currency_id_a;
-    pd_CurrencyId_V1_t currency_id_b;
-    pd_Compactu128_t remove_share;
-    pd_Compactu128_t min_withdrawn_a;
-    pd_Compactu128_t min_withdrawn_b;
-    pd_bool_t by_unstake;
-} pd_dex_remove_liquidity_V1_t;
-
 #define PD_CALL_DEX_LIST_PROVISIONING_V1 6
 typedef struct {
     pd_CurrencyId_V1_t currency_id_a;
@@ -549,22 +539,6 @@ typedef struct {
     pd_Balance_t debit_transfer;
 } pd_honzon_transfer_debit_V1_t;
 
-#define PD_CALL_HOMA_MINT_V1 0
-typedef struct {
-    pd_Compactu128_t amount;
-} pd_homa_mint_V1_t;
-
-#define PD_CALL_HOMA_REQUEST_REDEEM_V1 1
-typedef struct {
-    pd_Compactu128_t amount;
-    pd_bool_t allow_fast_match;
-} pd_homa_request_redeem_V1_t;
-
-#define PD_CALL_HOMA_FAST_MATCH_REDEEMS_V1 2
-typedef struct {
-    pd_VecAccountId_V1_t redeemer_list;
-} pd_homa_fast_match_redeems_V1_t;
-
 #define PD_CALL_HOMA_CLAIM_REDEMPTION_V1 3
 typedef struct {
     pd_AccountId_V1_t redeemer;
@@ -579,11 +553,6 @@ typedef struct {
 typedef struct {
     pd_EraIndex_V1_t bump_amount;
 } pd_homa_force_bump_current_era_V1_t;
-
-#define PD_CALL_HOMA_FAST_MATCH_REDEEMS_COMPLETELY_V1 9
-typedef struct {
-    pd_VecAccountId_V1_t redeemer_list;
-} pd_homa_fast_match_redeems_completely_V1_t;
 
 #define PD_CALL_INCENTIVES_DEPOSIT_DEX_SHARE_V1 0
 typedef struct {
@@ -800,7 +769,6 @@ typedef union {
     pd_dex_swap_with_exact_target_V1_t dex_swap_with_exact_target_V1;
     pd_dex_add_provision_V1_t dex_add_provision_V1;
     pd_dex_claim_dex_share_V1_t dex_claim_dex_share_V1;
-    pd_dex_remove_liquidity_V1_t dex_remove_liquidity_V1;
     pd_dex_list_provisioning_V1_t dex_list_provisioning_V1;
     pd_dex_update_provisioning_parameters_V1_t dex_update_provisioning_parameters_V1;
     pd_dex_end_provisioning_V1_t dex_end_provisioning_V1;
@@ -817,13 +785,9 @@ typedef union {
     pd_honzon_shrink_position_debit_V1_t honzon_shrink_position_debit_V1;
     pd_honzon_adjust_loan_by_debit_value_V1_t honzon_adjust_loan_by_debit_value_V1;
     pd_honzon_transfer_debit_V1_t honzon_transfer_debit_V1;
-    pd_homa_mint_V1_t homa_mint_V1;
-    pd_homa_request_redeem_V1_t homa_request_redeem_V1;
-    pd_homa_fast_match_redeems_V1_t homa_fast_match_redeems_V1;
     pd_homa_claim_redemption_V1_t homa_claim_redemption_V1;
     pd_homa_reset_current_era_V1_t homa_reset_current_era_V1;
     pd_homa_force_bump_current_era_V1_t homa_force_bump_current_era_V1;
-    pd_homa_fast_match_redeems_completely_V1_t homa_fast_match_redeems_completely_V1;
     pd_incentives_deposit_dex_share_V1_t incentives_deposit_dex_share_V1;
     pd_incentives_claim_rewards_V1_t incentives_claim_rewards_V1;
     pd_nft_transfer_V1_t nft_transfer_V1;
@@ -989,6 +953,16 @@ typedef struct {
     pd_bool_t stake_increment_share;
 } pd_dex_add_liquidity_V1_t;
 
+#define PD_CALL_DEX_REMOVE_LIQUIDITY_V1 5
+typedef struct {
+    pd_CurrencyId_V1_t currency_id_a;
+    pd_CurrencyId_V1_t currency_id_b;
+    pd_Compactu128_t remove_share;
+    pd_Compactu128_t min_withdrawn_a;
+    pd_Compactu128_t min_withdrawn_b;
+    pd_bool_t by_unstake;
+} pd_dex_remove_liquidity_V1_t;
+
 #define PD_CALL_AGGREGATEDDEX_SWAP_WITH_EXACT_SUPPLY_V1 0
 typedef struct {
     pd_VecSwapPath_V1_t paths;
@@ -1014,6 +988,27 @@ typedef struct {
     pd_Amount_V1_t collateral_adjustment;
     pd_Amount_V1_t debit_adjustment;
 } pd_honzon_adjust_loan_V1_t;
+
+#define PD_CALL_HOMA_MINT_V1 0
+typedef struct {
+    pd_Compactu128_t amount;
+} pd_homa_mint_V1_t;
+
+#define PD_CALL_HOMA_REQUEST_REDEEM_V1 1
+typedef struct {
+    pd_Compactu128_t amount;
+    pd_bool_t allow_fast_match;
+} pd_homa_request_redeem_V1_t;
+
+#define PD_CALL_HOMA_FAST_MATCH_REDEEMS_V1 2
+typedef struct {
+    pd_VecAccountId_V1_t redeemer_list;
+} pd_homa_fast_match_redeems_V1_t;
+
+#define PD_CALL_HOMA_FAST_MATCH_REDEEMS_COMPLETELY_V1 9
+typedef struct {
+    pd_VecAccountId_V1_t redeemer_list;
+} pd_homa_fast_match_redeems_completely_V1_t;
 
 #define PD_CALL_INCENTIVES_WITHDRAW_DEX_SHARE_V1 1
 typedef struct {
@@ -1046,10 +1041,15 @@ typedef union {
     pd_currencies_transfer_native_currency_V1_t currencies_transfer_native_currency_V1;
     pd_dex_swap_with_exact_supply_V1_t dex_swap_with_exact_supply_V1;
     pd_dex_add_liquidity_V1_t dex_add_liquidity_V1;
+    pd_dex_remove_liquidity_V1_t dex_remove_liquidity_V1;
     pd_aggregateddex_swap_with_exact_supply_V1_t aggregateddex_swap_with_exact_supply_V1;
     pd_aggregateddex_swap_with_exact_target_V1_t aggregateddex_swap_with_exact_target_V1;
     pd_aggregateddex_update_aggregated_swap_paths_V1_t aggregateddex_update_aggregated_swap_paths_V1;
     pd_honzon_adjust_loan_V1_t honzon_adjust_loan_V1;
+    pd_homa_mint_V1_t homa_mint_V1;
+    pd_homa_request_redeem_V1_t homa_request_redeem_V1;
+    pd_homa_fast_match_redeems_V1_t homa_fast_match_redeems_V1;
+    pd_homa_fast_match_redeems_completely_V1_t homa_fast_match_redeems_completely_V1;
     pd_incentives_withdraw_dex_share_V1_t incentives_withdraw_dex_share_V1;
 #endif
 } pd_MethodNested_V1_t;
