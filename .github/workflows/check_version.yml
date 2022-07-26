@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  configure:
+  check_configure:
     runs-on: ubuntu-latest
     outputs:
       uid_gid: ${{ steps.get-user.outputs.uid_gid }}
@@ -15,11 +15,11 @@ jobs:
         run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
 
   get_version:
-    needs: configure
+    needs: check_configure
     runs-on: ubuntu-latest
     container:
       image: zondax/builder-bolos:latest
-      options: --user ${{ needs.configure.outputs.uid_gid }}
+      options: --user ${{ needs.check_configure.outputs.uid_gid }}
     env:
       BOLOS_ENV: /opt/bolos
       HOME: /home/zondax_circle
