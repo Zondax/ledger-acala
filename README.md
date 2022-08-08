@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala  1.2083.x
+# Acala  1.2091.x
 
 ## System
 
@@ -151,11 +151,12 @@ Please:
 | Name        | Light | XL | Nesting | Arguments |
 | :---------- |:------------:|:--------:|:--------:|:--------|
 |Set alternative fee swap path |    | :heavy_check_mark: |   | `OptionVecCurrencyId` fee_swap_path <br/> |
-|Enable charge fee pool |    |   |   | `CurrencyId` currency_id <br/>`VecCurrencyId` swap_path <br/>`Balance` pool_size <br/>`Balance` swap_threshold <br/> |
+|Enable charge fee pool |    |   |   | `CurrencyId` currency_id <br/>`Balance` pool_size <br/>`Balance` swap_threshold <br/> |
 |Disable charge fee pool |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/> |
 |With fee path |    | :heavy_check_mark: |   | `VecCurrencyId` fee_swap_path <br/>`Call` call <br/> |
 |With fee currency |    | :heavy_check_mark: |   | `CurrencyId` currency_id <br/>`Call` call <br/> |
 |With fee paid by |    | :heavy_check_mark: |   | `Call` call <br/>`AccountId` payer_addr <br/>`MultiSignature` payer_sig <br/> |
+|With fee aggregated path |    | :heavy_check_mark: |   | `VecSwapPath` fee_aggregated_path <br/>`Call` call <br/> |
 
 ## Treasury
 
@@ -164,6 +165,7 @@ Please:
 |Propose spend |    |   |   | `CompactBalance` amount <br/>`LookupasStaticLookupSource` beneficiary <br/> |
 |Reject proposal |    |   |   | `Compactu32` proposal_id <br/> |
 |Approve proposal |    |   |   | `Compactu32` proposal_id <br/> |
+|Spend |    |   |   | `CompactBalance` amount <br/>`LookupasStaticLookupSource` beneficiary <br/> |
 |Remove approval |    |   |   | `Compactu32` proposal_id <br/> |
 
 ## Bounties
@@ -521,6 +523,8 @@ Please:
 |Liquidate |    |   |   | `CurrencyId` currency_id <br/>`LookupasStaticLookupSource` who <br/> |
 |Settle |    |   |   | `CurrencyId` currency_id <br/>`LookupasStaticLookupSource` who <br/> |
 |Set collateral params |    |   |   | `CurrencyId` currency_id <br/>`ChangeOptionRate` interest_rate_per_sec <br/>`ChangeOptionRatio` liquidation_ratio <br/>`ChangeOptionRate` liquidation_penalty <br/>`ChangeOptionRatio` required_collateral_ratio <br/>`ChangeBalance` maximum_total_debit_value <br/> |
+|Register liquidation contract |    |   |   | `EvmAddress` address <br/> |
+|Deregister liquidation contract |    |   |   | `EvmAddress` address <br/> |
 
 ## EmergencyShutdown
 
@@ -624,6 +628,7 @@ Please:
 |Redeem single |    | :heavy_check_mark: |   | `StableAssetPoolId` pool_id <br/>`Balance` amount <br/>`PoolTokenIndex` i <br/>`Balance` min_redeem_amount <br/>`u32` asset_length <br/> |
 |Redeem multi |    | :heavy_check_mark: |   | `StableAssetPoolId` pool_id <br/>`VecBalance` amounts <br/>`Balance` max_redeem_amount <br/> |
 |Modify a |    |   |   | `StableAssetPoolId` pool_id <br/>`AtLeast64BitUnsigned` a <br/>`BlockNumber` future_a_block <br/> |
+|Modify fees |    |   |   | `StableAssetPoolId` pool_id <br/>`OptionAtLeast64BitUnsigned` mint_fee <br/>`OptionAtLeast64BitUnsigned` swap_fee <br/>`OptionAtLeast64BitUnsigned` redeem_fee <br/> |
 
 ## ParachainSystem
 
