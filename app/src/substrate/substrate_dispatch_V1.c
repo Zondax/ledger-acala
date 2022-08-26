@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -351,6 +351,14 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_paid_by_V1(
     CHECK_ERROR(_readCall(c, &m->call))
     CHECK_ERROR(_readAccountId_V1(c, &m->payer_addr))
     CHECK_ERROR(_readMultiSignature_V1(c, &m->payer_sig))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_aggregated_path_V1(
+    parser_context_t* c, pd_transactionpayment_with_fee_aggregated_path_V1_t* m)
+{
+    CHECK_ERROR(_readVecSwapPath_V1(c, &m->fee_aggregated_path))
+    CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
 
@@ -1284,6 +1292,9 @@ parser_error_t _readMethod_V1(
     case 3589: /* module 14 call 5 */
         CHECK_ERROR(_readMethod_transactionpayment_with_fee_paid_by_V1(c, &method->basic.transactionpayment_with_fee_paid_by_V1))
         break;
+    case 3590: /* module 14 call 6 */
+        CHECK_ERROR(_readMethod_transactionpayment_with_fee_aggregated_path_V1(c, &method->basic.transactionpayment_with_fee_aggregated_path_V1))
+        break;
     case 5376: /* module 21 call 0 */
         CHECK_ERROR(_readMethod_bounties_propose_bounty_V1(c, &method->basic.bounties_propose_bounty_V1))
         break;
@@ -1750,6 +1761,8 @@ const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
         return STR_ME_WITH_FEE_CURRENCY;
     case 3589: /* module 14 call 5 */
         return STR_ME_WITH_FEE_PAID_BY;
+    case 3590: /* module 14 call 6 */
+        return STR_ME_WITH_FEE_AGGREGATED_PATH;
     case 5376: /* module 21 call 0 */
         return STR_ME_PROPOSE_BOUNTY;
     case 5377: /* module 21 call 1 */
@@ -2044,6 +2057,8 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 3589: /* module 14 call 5 */
         return 3;
+    case 3590: /* module 14 call 6 */
+        return 2;
     case 5376: /* module 21 call 0 */
         return 2;
     case 5377: /* module 21 call 1 */
@@ -2634,6 +2649,15 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_payer_addr;
         case 2:
             return STR_IT_payer_sig;
+        default:
+            return NULL;
+        }
+    case 3590: /* module 14 call 6 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_fee_aggregated_path;
+        case 1:
+            return STR_IT_call;
         default:
             return NULL;
         }
@@ -4193,6 +4217,21 @@ parser_error_t _getMethod_ItemValue_V1(
         default:
             return parser_no_data;
         }
+    case 3590: /* module 14 call 6 */
+        switch (itemIdx) {
+        case 0: /* transactionpayment_with_fee_aggregated_path_V1 - fee_aggregated_path */;
+            return _toStringVecSwapPath_V1(
+                &m->basic.transactionpayment_with_fee_aggregated_path_V1.fee_aggregated_path,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* transactionpayment_with_fee_aggregated_path_V1 - call */;
+            return _toStringCall(
+                &m->basic.transactionpayment_with_fee_aggregated_path_V1.call,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
     case 5376: /* module 21 call 0 */
         switch (itemIdx) {
         case 0: /* bounties_propose_bounty_V1 - amount */;
@@ -5727,6 +5766,7 @@ bool _getMethod_IsNestingSupported_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 3587: // TransactionPayment:With fee path
     case 3588: // TransactionPayment:With fee currency
     case 3589: // TransactionPayment:With fee paid by
+    case 3590: // TransactionPayment:With fee aggregated path
     case 5376: // Bounties:Propose bounty
     case 5377: // Bounties:Approve bounty
     case 5378: // Bounties:Propose curator

@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -180,6 +180,12 @@ typedef struct {
     pd_AccountId_V1_t payer_addr;
     pd_MultiSignature_V1_t payer_sig;
 } pd_transactionpayment_with_fee_paid_by_V1_t;
+
+#define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_AGGREGATED_PATH_V1 6
+typedef struct {
+    pd_VecSwapPath_V1_t fee_aggregated_path;
+    pd_Call_t call;
+} pd_transactionpayment_with_fee_aggregated_path_V1_t;
 
 #define PD_CALL_BOUNTIES_PROPOSE_BOUNTY_V1 0
 typedef struct {
@@ -722,6 +728,7 @@ typedef union {
     pd_transactionpayment_with_fee_path_V1_t transactionpayment_with_fee_path_V1;
     pd_transactionpayment_with_fee_currency_V1_t transactionpayment_with_fee_currency_V1;
     pd_transactionpayment_with_fee_paid_by_V1_t transactionpayment_with_fee_paid_by_V1;
+    pd_transactionpayment_with_fee_aggregated_path_V1_t transactionpayment_with_fee_aggregated_path_V1;
     pd_bounties_propose_bounty_V1_t bounties_propose_bounty_V1;
     pd_bounties_approve_bounty_V1_t bounties_approve_bounty_V1;
     pd_bounties_propose_curator_V1_t bounties_propose_curator_V1;

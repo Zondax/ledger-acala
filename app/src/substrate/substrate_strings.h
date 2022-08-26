@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax GmbH
+ *  (c) 2019 - 2022 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -83,6 +83,7 @@ static const char* STR_ME_DISABLE_CHARGE_FEE_POOL = "Disable charge fee pool";
 static const char* STR_ME_WITH_FEE_PATH = "With fee path";
 static const char* STR_ME_WITH_FEE_CURRENCY = "With fee currency";
 static const char* STR_ME_WITH_FEE_PAID_BY = "With fee paid by";
+static const char* STR_ME_WITH_FEE_AGGREGATED_PATH = "With fee aggregated path";
 static const char* STR_ME_PROPOSE_BOUNTY = "Propose bounty";
 static const char* STR_ME_APPROVE_BOUNTY = "Approve bounty";
 static const char* STR_ME_PROPOSE_CURATOR = "Propose curator";
@@ -219,11 +220,11 @@ static const char* STR_IT_accounts = "Accounts";
 static const char* STR_IT_schedule = "Schedule";
 static const char* STR_IT_vesting_schedules = "Vesting schedules";
 static const char* STR_IT_fee_swap_path = "Fee swap path";
-static const char* STR_IT_swap_path = "Swap path";
 static const char* STR_IT_pool_size = "Pool size";
 static const char* STR_IT_swap_threshold = "Swap threshold";
 static const char* STR_IT_payer_addr = "Payer addr";
 static const char* STR_IT_payer_sig = "Payer sig";
+static const char* STR_IT_fee_aggregated_path = "Fee aggregated path";
 static const char* STR_IT_description = "Description";
 static const char* STR_IT_bounty_id = "Bounty id";
 static const char* STR_IT_curator = "Curator";
