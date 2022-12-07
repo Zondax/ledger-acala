@@ -22,6 +22,7 @@ extern "C" {
 #include "parser_common.h"
 #include "stdbool.h"
 #include "substrate_dispatch_V1.h"
+#include "substrate_dispatch_V2.h"
 #include <stddef.h>
 #include <stdint.h>
 
@@ -31,6 +32,9 @@ extern "C" {
     uint32_t _getpdCall_##CALL(uint32_t txVersion) \
     {                                              \
         switch (txVersion) {                       \
+                                                   \
+        case 2:                                    \
+            return PD_CALL_##CALL##_V2;            \
                                                    \
         case 1:                                    \
             return PD_CALL_##CALL##_V1;            \
