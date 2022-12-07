@@ -217,6 +217,7 @@ static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
 static const char* STR_IT_currency_id = "Currency id";
 static const char* STR_IT_accounts = "Accounts";
+static const char* STR_IT_lock_id = "Lock id";
 static const char* STR_IT_schedule = "Schedule";
 static const char* STR_IT_vesting_schedules = "Vesting schedules";
 static const char* STR_IT_fee_swap_path = "Fee swap path";

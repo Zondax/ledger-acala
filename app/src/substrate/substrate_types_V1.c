@@ -503,7 +503,6 @@ parser_error_t _readJunctionsV0_V1(parser_context_t* c, pd_JunctionsV0_V1_t* v)
     case 3: // X3
         CHECK_ERROR(_readJunctionV0X3_V1(c, &v->x3))
         break;
-#ifdef JUNCTIONS_FULL
     case 4: // X4
         CHECK_ERROR(_readJunctionV0X4_V1(c, &v->x4))
         break;
@@ -519,14 +518,6 @@ parser_error_t _readJunctionsV0_V1(parser_context_t* c, pd_JunctionsV0_V1_t* v)
     case 8: // X8
         CHECK_ERROR(_readJunctionV0X8_V1(c, &v->x8))
         break;
-#else
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-        return parser_junction_limit;
-#endif
     default:
         return parser_unexpected_value;
     }
@@ -549,7 +540,6 @@ parser_error_t _readJunctionsV1_V1(parser_context_t* c, pd_JunctionsV1_V1_t* v)
     case 3: // X3
         CHECK_ERROR(_readJunctionV1X3_V1(c, &v->x3))
         break;
-#ifdef JUNCTIONS_FULL
     case 4: // X4
         CHECK_ERROR(_readJunctionV1X4_V1(c, &v->x4))
         break;
@@ -565,14 +555,6 @@ parser_error_t _readJunctionsV1_V1(parser_context_t* c, pd_JunctionsV1_V1_t* v)
     case 8: // X8
         CHECK_ERROR(_readJunctionV1X8_V1(c, &v->x8))
         break;
-#else
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-        return parser_junction_limit;
-#endif
     default:
         return parser_unexpected_value;
     }
@@ -2376,7 +2358,6 @@ parser_error_t _toStringJunctionsV0_V1(
     case 3: // X3
         CHECK_ERROR(_toStringJunctionV0X3_V1(&v->x3, outValue, outValueLen, pageIdx, pageCount))
         break;
-#ifdef JUNCTIONS_FULL
     case 4: // X4
         CHECK_ERROR(_toStringJunctionV0X4_V1(&v->x4, outValue, outValueLen, pageIdx, pageCount))
         break;
@@ -2392,14 +2373,6 @@ parser_error_t _toStringJunctionsV0_V1(
     case 8: // X8
         CHECK_ERROR(_toStringJunctionV0X8_V1(&v->x8, outValue, outValueLen, pageIdx, pageCount))
         break;
-#else
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-        return parser_junction_limit;
-#endif
     default:
         return parser_unexpected_value;
     }
@@ -2428,7 +2401,6 @@ parser_error_t _toStringJunctionsV1_V1(
     case 3: // X3
         CHECK_ERROR(_toStringJunctionV1X3_V1(&v->x3, outValue, outValueLen, pageIdx, pageCount))
         break;
-#ifdef JUNCTIONS_FULL
     case 4: // X4
         CHECK_ERROR(_toStringJunctionV1X4_V1(&v->x4, outValue, outValueLen, pageIdx, pageCount))
         break;
@@ -2444,14 +2416,6 @@ parser_error_t _toStringJunctionsV1_V1(
     case 8: // X8
         CHECK_ERROR(_toStringJunctionV1X8_V1(&v->x8, outValue, outValueLen, pageIdx, pageCount))
         break;
-#else
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-        return parser_junction_limit;
-#endif
     default:
         return parser_unexpected_value;
     }

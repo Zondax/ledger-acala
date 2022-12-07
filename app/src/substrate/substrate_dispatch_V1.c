@@ -18,6 +18,9 @@
 #include "substrate_strings.h"
 #include "zxmacros.h"
 #include <stdint.h>
+#ifdef LEDGER_SPECIFIC
+#include "bolos_target.h"
+#endif
 
 __Z_INLINE parser_error_t _readMethod_utility_batch_V1(
     parser_context_t* c, pd_utility_batch_V1_t* m)
@@ -124,6 +127,17 @@ __Z_INLINE parser_error_t _readMethod_session_purge_keys_V1(
 }
 
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+__Z_INLINE parser_error_t _readMethod_xtokens_transfer_V1(
+    parser_context_t* c, pd_xtokens_transfer_V1_t* m)
+{
+    CHECK_ERROR(_readCurrencyId_V1(c, &m->currency_id))
+    CHECK_ERROR(_readBalance(c, &m->amount))
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V1(c, &m->dest))
+    CHECK_ERROR(_readWeight_V1(c, &m->dest_weight))
+    return parser_ok;
+}
+#endif
 __Z_INLINE parser_error_t _readMethod_system_fill_block_V1(
     parser_context_t* c, pd_system_fill_block_V1_t* m)
 {
@@ -535,16 +549,6 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weigh
     parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V1_t* m)
 {
     CHECK_ERROR(_readWeight_V1(c, &m->new_))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_xtokens_transfer_V1(
-    parser_context_t* c, pd_xtokens_transfer_V1_t* m)
-{
-    CHECK_ERROR(_readCurrencyId_V1(c, &m->currency_id))
-    CHECK_ERROR(_readBalance(c, &m->amount))
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V1(c, &m->dest))
-    CHECK_ERROR(_readWeight_V1(c, &m->dest_weight))
     return parser_ok;
 }
 
@@ -1208,6 +1212,11 @@ parser_error_t _readMethod_V1(
         break;
 
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        CHECK_ERROR(_readMethod_xtokens_transfer_V1(c, &method->basic.xtokens_transfer_V1))
+        break;
+#endif
     case 0: /* module 0 call 0 */
         CHECK_ERROR(_readMethod_system_fill_block_V1(c, &method->nested.system_fill_block_V1))
         break;
@@ -1369,9 +1378,6 @@ parser_error_t _readMethod_V1(
         break;
     case 12808: /* module 50 call 8 */
         CHECK_ERROR(_readMethod_xcmpqueue_update_xcmp_max_individual_weight_V1(c, &method->basic.xcmpqueue_update_xcmp_max_individual_weight_V1))
-        break;
-    case 13824: /* module 54 call 0 */
-        CHECK_ERROR(_readMethod_xtokens_transfer_V1(c, &method->basic.xtokens_transfer_V1))
         break;
     case 17664: /* module 69 call 0 */
         CHECK_ERROR(_readMethod_democracy_propose_V1(c, &method->basic.democracy_propose_V1))
@@ -1619,6 +1625,10 @@ const char* _getMethod_ModuleName_V1(uint8_t moduleIdx)
     case 42:
         return STR_MO_SESSION;
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 54:
+        return STR_MO_XTOKENS;
+#endif
     case 0:
         return STR_MO_SYSTEM;
     case 4:
@@ -1633,8 +1643,6 @@ const char* _getMethod_ModuleName_V1(uint8_t moduleIdx)
         return STR_MO_COLLATORSELECTION;
     case 50:
         return STR_MO_XCMPQUEUE;
-    case 54:
-        return STR_MO_XTOKENS;
     case 69:
         return STR_MO_DEMOCRACY;
     case 91:
@@ -1705,6 +1713,10 @@ const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
 {
     switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        return STR_ME_TRANSFER;
+#endif
     case 0: /* module 0 call 0 */
         return STR_ME_FILL_BLOCK;
     case 1: /* module 0 call 1 */
@@ -1813,8 +1825,6 @@ const char* _getMethod_Name_V1_ParserFull(uint16_t callPrivIdx)
         return STR_ME_UPDATE_WEIGHT_RESTRICT_DECAY;
     case 12808: /* module 50 call 8 */
         return STR_ME_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT;
-    case 13824: /* module 54 call 0 */
-        return STR_ME_TRANSFER;
     case 17664: /* module 69 call 0 */
         return STR_ME_PROPOSE;
     case 17665: /* module 69 call 1 */
@@ -2001,6 +2011,10 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
     case 10753: /* module 42 call 1 */
         return 0;
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        return 4;
+#endif
     case 0: /* module 0 call 0 */
         return 1;
     case 1: /* module 0 call 1 */
@@ -2109,8 +2123,6 @@ uint8_t _getMethod_NumItems_V1(uint8_t moduleIdx, uint8_t callIdx)
         return 1;
     case 12808: /* module 50 call 8 */
         return 1;
-    case 13824: /* module 54 call 0 */
-        return 4;
     case 17664: /* module 69 call 0 */
         return 2;
     case 17665: /* module 69 call 1 */
@@ -2388,6 +2400,21 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return NULL;
         }
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_currency_id;
+        case 1:
+            return STR_IT_amount;
+        case 2:
+            return STR_IT_dest;
+        case 3:
+            return STR_IT_dest_weight;
+        default:
+            return NULL;
+        }
+#endif
     case 0: /* module 0 call 0 */
         switch (itemIdx) {
         case 0:
@@ -2835,19 +2862,6 @@ const char* _getMethod_ItemName_V1(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         switch (itemIdx) {
         case 0:
             return STR_IT_new_;
-        default:
-            return NULL;
-        }
-    case 13824: /* module 54 call 0 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_currency_id;
-        case 1:
-            return STR_IT_amount;
-        case 2:
-            return STR_IT_dest;
-        case 3:
-            return STR_IT_dest_weight;
         default:
             return NULL;
         }
@@ -3767,6 +3781,33 @@ parser_error_t _getMethod_ItemValue_V1(
             return parser_no_data;
         }
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        switch (itemIdx) {
+        case 0: /* xtokens_transfer_V1 - currency_id */;
+            return _toStringCurrencyId_V1(
+                &m->basic.xtokens_transfer_V1.currency_id,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* xtokens_transfer_V1 - amount */;
+            return _toStringBalance(
+                &m->basic.xtokens_transfer_V1.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 2: /* xtokens_transfer_V1 - dest */;
+            return _toStringBoxVersionedMultiLocation_V1(
+                &m->basic.xtokens_transfer_V1.dest,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 3: /* xtokens_transfer_V1 - dest_weight */;
+            return _toStringWeight_V1(
+                &m->basic.xtokens_transfer_V1.dest_weight,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+#endif
     case 0: /* module 0 call 0 */
         switch (itemIdx) {
         case 0: /* system_fill_block_V1 - ratio */;
@@ -4482,31 +4523,6 @@ parser_error_t _getMethod_ItemValue_V1(
         case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V1 - new_ */;
             return _toStringWeight_V1(
                 &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V1.new_,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 13824: /* module 54 call 0 */
-        switch (itemIdx) {
-        case 0: /* xtokens_transfer_V1 - currency_id */;
-            return _toStringCurrencyId_V1(
-                &m->basic.xtokens_transfer_V1.currency_id,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* xtokens_transfer_V1 - amount */;
-            return _toStringBalance(
-                &m->basic.xtokens_transfer_V1.amount,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 2: /* xtokens_transfer_V1 - dest */;
-            return _toStringBoxVersionedMultiLocation_V1(
-                &m->basic.xtokens_transfer_V1.dest,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 3: /* xtokens_transfer_V1 - dest_weight */;
-            return _toStringWeight_V1(
-                &m->basic.xtokens_transfer_V1.dest_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
