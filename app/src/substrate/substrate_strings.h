@@ -43,6 +43,7 @@ static const char* STR_MO_NFT = "Nft";
 static const char* STR_MO_EVM = "Evm";
 static const char* STR_MO_EVMACCOUNTS = "Evmaccounts";
 static const char* STR_MO_STABLEASSET = "Stableasset";
+static const char* STR_MO_FINANCIALCOUNCIL = "Financialcouncil";
 
 // Methods names
 static const char* STR_ME_FILL_BLOCK = "Fill block";
@@ -179,6 +180,9 @@ static const char* STR_ME_SWAP = "Swap";
 static const char* STR_ME_REDEEM_PROPORTION = "Redeem proportion";
 static const char* STR_ME_REDEEM_SINGLE = "Redeem single";
 static const char* STR_ME_REDEEM_MULTI = "Redeem multi";
+static const char* STR_ME_CREATE_PURE = "Create pure";
+static const char* STR_ME_KILL_PURE = "Kill pure";
+static const char* STR_ME_CLOSE_OLD_WEIGHT = "Close old weight";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -217,6 +221,7 @@ static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
 static const char* STR_IT_currency_id = "Currency id";
 static const char* STR_IT_accounts = "Accounts";
+static const char* STR_IT_lock_id = "Lock id";
 static const char* STR_IT_schedule = "Schedule";
 static const char* STR_IT_vesting_schedules = "Vesting schedules";
 static const char* STR_IT_fee_swap_path = "Fee swap path";
@@ -344,6 +349,13 @@ static const char* STR_IT_min_redeem_amount = "Min redeem amount";
 static const char* STR_IT_max_redeem_amount = "Max redeem amount";
 static const char* STR_IT_a = "A";
 static const char* STR_IT_future_a_block = "Future a block";
+static const char* STR_IT_dest_weight_limit = "Dest weight limit";
+static const char* STR_IT_new_members = "New members";
+static const char* STR_IT_prime = "Prime";
+static const char* STR_IT_old_count = "Old count";
+static const char* STR_IT_length_bound = "Length bound";
+static const char* STR_IT_approve = "Approve";
+static const char* STR_IT_proposal_weight_bound = "Proposal weight bound";
 
 #ifdef __cplusplus
 }

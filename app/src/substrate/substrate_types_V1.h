@@ -291,13 +291,11 @@ typedef struct {
         pd_JunctionV0X1_V1_t x1;
         pd_JunctionV0X2_V1_t x2;
         pd_JunctionV0X3_V1_t x3;
-#ifdef JUNCTIONS_FULL
         pd_JunctionV0X4_V1_t x4;
         pd_JunctionV0X5_V1_t x5;
         pd_JunctionV0X6_V1_t x6;
         pd_JunctionV0X7_V1_t x7;
         pd_JunctionV0X8_V1_t x8;
-#endif
     };
 } pd_JunctionsV0_V1_t;
 
@@ -307,13 +305,11 @@ typedef struct {
         pd_JunctionV1X1_V1_t x1;
         pd_JunctionV1X2_V1_t x2;
         pd_JunctionV1X3_V1_t x3;
-#ifdef JUNCTIONS_FULL
         pd_JunctionV1X4_V1_t x4;
         pd_JunctionV1X5_V1_t x5;
         pd_JunctionV1X6_V1_t x6;
         pd_JunctionV1X7_V1_t x7;
         pd_JunctionV1X8_V1_t x8;
-#endif
     };
 } pd_JunctionsV1_V1_t;
 

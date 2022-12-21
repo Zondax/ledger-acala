@@ -25,6 +25,9 @@ extern "C" {
 #include "substrate_types_V1.h"
 #include <stddef.h>
 #include <stdint.h>
+#ifdef LEDGER_SPECIFIC
+#include "bolos_target.h"
+#endif
 
 #define PD_CALL_SYSTEM_V1 0
 #define PD_CALL_UTILITY_V1 3
@@ -82,6 +85,15 @@ typedef struct {
 } pd_session_purge_keys_V1_t;
 
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+#define PD_CALL_XTOKENS_TRANSFER_V1 0
+typedef struct {
+    pd_CurrencyId_V1_t currency_id;
+    pd_Balance_t amount;
+    pd_BoxVersionedMultiLocation_V1_t dest;
+    pd_Weight_V1_t dest_weight;
+} pd_xtokens_transfer_V1_t;
+#endif
 
 #define PD_CALL_PROXY_REMOVE_PROXIES_V1 3
 typedef struct {
@@ -312,14 +324,6 @@ typedef struct {
 typedef struct {
     pd_Weight_V1_t new_;
 } pd_xcmpqueue_update_xcmp_max_individual_weight_V1_t;
-
-#define PD_CALL_XTOKENS_TRANSFER_V1 0
-typedef struct {
-    pd_CurrencyId_V1_t currency_id;
-    pd_Balance_t amount;
-    pd_BoxVersionedMultiLocation_V1_t dest;
-    pd_Weight_V1_t dest_weight;
-} pd_xtokens_transfer_V1_t;
 
 #define PD_CALL_DEMOCRACY_PROPOSE_V1 0
 typedef struct {
@@ -712,6 +716,9 @@ typedef union {
     pd_session_set_keys_V1_t session_set_keys_V1;
     pd_session_purge_keys_V1_t session_purge_keys_V1;
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+    pd_xtokens_transfer_V1_t xtokens_transfer_V1;
+#endif
     pd_proxy_remove_proxies_V1_t proxy_remove_proxies_V1;
     pd_proxy_anonymous_V1_t proxy_anonymous_V1;
     pd_proxy_kill_anonymous_V1_t proxy_kill_anonymous_V1;
@@ -754,7 +761,6 @@ typedef union {
     pd_xcmpqueue_update_threshold_weight_V1_t xcmpqueue_update_threshold_weight_V1;
     pd_xcmpqueue_update_weight_restrict_decay_V1_t xcmpqueue_update_weight_restrict_decay_V1;
     pd_xcmpqueue_update_xcmp_max_individual_weight_V1_t xcmpqueue_update_xcmp_max_individual_weight_V1;
-    pd_xtokens_transfer_V1_t xtokens_transfer_V1;
     pd_democracy_propose_V1_t democracy_propose_V1;
     pd_democracy_second_V1_t democracy_second_V1;
     pd_democracy_emergency_cancel_V1_t democracy_emergency_cancel_V1;
@@ -867,6 +873,8 @@ typedef struct {
 } pd_currencies_transfer_V1_t;
 
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+#endif
 #define PD_CALL_SYSTEM_FILL_BLOCK_V1 0
 typedef struct {
     pd_Perbill_V1_t ratio;
@@ -1034,6 +1042,8 @@ typedef union {
     pd_balances_transfer_keep_alive_V1_t balances_transfer_keep_alive_V1;
     pd_currencies_transfer_V1_t currencies_transfer_V1;
 #ifdef SUBSTRATE_PARSER_FULL
+#ifndef TARGET_NANOS
+#endif
     pd_system_fill_block_V1_t system_fill_block_V1;
     pd_system_remark_V1_t system_remark_V1;
     pd_system_set_heap_pages_V1_t system_set_heap_pages_V1;
