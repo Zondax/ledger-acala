@@ -46,8 +46,8 @@ __Z_INLINE parser_error_t _readMethod_utility_force_batch_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_proxy_V2(
     parser_context_t* c, pd_proxy_proxy_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V2(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -55,8 +55,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_proxy_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V2(
     parser_context_t* c, pd_proxy_add_proxy_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V2(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
@@ -64,8 +64,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_add_proxy_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V2(
     parser_context_t* c, pd_proxy_remove_proxy_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->delegate))
-    CHECK_ERROR(_readProxyType_V2(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
 }
@@ -73,7 +73,7 @@ __Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V2(
 __Z_INLINE parser_error_t _readMethod_balances_transfer_V2(
     parser_context_t* c, pd_balances_transfer_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -81,8 +81,8 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_V2(
 __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V2(
     parser_context_t* c, pd_balances_force_transfer_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->source))
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->source))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -90,7 +90,7 @@ __Z_INLINE parser_error_t _readMethod_balances_force_transfer_V2(
 __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V2(
     parser_context_t* c, pd_balances_transfer_keep_alive_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -98,7 +98,7 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_keep_alive_V2(
 __Z_INLINE parser_error_t _readMethod_balances_transfer_all_V2(
     parser_context_t* c, pd_balances_transfer_all_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->dest))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readbool(c, &m->keep_alive))
     return parser_ok;
 }
@@ -106,8 +106,8 @@ __Z_INLINE parser_error_t _readMethod_balances_transfer_all_V2(
 __Z_INLINE parser_error_t _readMethod_currencies_transfer_V2(
     parser_context_t* c, pd_currencies_transfer_V2_t* m)
 {
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->dest))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->dest))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -115,7 +115,7 @@ __Z_INLINE parser_error_t _readMethod_currencies_transfer_V2(
 __Z_INLINE parser_error_t _readMethod_session_set_keys_V2(
     parser_context_t* c, pd_session_set_keys_V2_t* m)
 {
-    CHECK_ERROR(_readKeys_V2(c, &m->keys))
+    CHECK_ERROR(_readKeys(c, &m->keys))
     CHECK_ERROR(_readBytes(c, &m->proof))
     return parser_ok;
 }
@@ -131,24 +131,24 @@ __Z_INLINE parser_error_t _readMethod_session_purge_keys_V2(
 __Z_INLINE parser_error_t _readMethod_xtokens_transfer_V2(
     parser_context_t* c, pd_xtokens_transfer_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
-    CHECK_ERROR(_readBoxVersionedMultiLocation_V2(c, &m->dest))
-    CHECK_ERROR(_readWeightLimit_V2(c, &m->dest_weight_limit))
+    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
+    CHECK_ERROR(_readWeightLimit(c, &m->dest_weight_limit))
     return parser_ok;
 }
 #endif
 __Z_INLINE parser_error_t _readMethod_system_fill_block_V2(
     parser_context_t* c, pd_system_fill_block_V2_t* m)
 {
-    CHECK_ERROR(_readPerbill_V2(c, &m->ratio))
+    CHECK_ERROR(_readPerbill(c, &m->ratio))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_system_remark_V2(
     parser_context_t* c, pd_system_remark_V2_t* m)
 {
-    CHECK_ERROR(_readVecu8(c, &m->remark))
+    CHECK_ERROR(_readBytes(c, &m->remark))
     return parser_ok;
 }
 
@@ -176,14 +176,14 @@ __Z_INLINE parser_error_t _readMethod_system_set_code_without_checks_V2(
 __Z_INLINE parser_error_t _readMethod_system_remark_with_event_V2(
     parser_context_t* c, pd_system_remark_with_event_V2_t* m)
 {
-    CHECK_ERROR(_readVecu8(c, &m->remark))
+    CHECK_ERROR(_readBytes(c, &m->remark))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_multisig_as_multi_threshold_1_V2(
     parser_context_t* c, pd_multisig_as_multi_threshold_1_V2_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->other_signatories))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -192,10 +192,10 @@ __Z_INLINE parser_error_t _readMethod_multisig_as_multi_V2(
     parser_context_t* c, pd_multisig_as_multi_V2_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V2(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readWeight_V2(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
@@ -203,10 +203,10 @@ __Z_INLINE parser_error_t _readMethod_multisig_approve_as_multi_V2(
     parser_context_t* c, pd_multisig_approve_as_multi_V2_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->other_signatories))
-    CHECK_ERROR(_readOptionTimepoint_V2(c, &m->maybe_timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readOptionTimepoint(c, &m->maybe_timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
-    CHECK_ERROR(_readWeight_V2(c, &m->max_weight))
+    CHECK_ERROR(_readWeight(c, &m->max_weight))
     return parser_ok;
 }
 
@@ -214,8 +214,8 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V2(
     parser_context_t* c, pd_multisig_cancel_as_multi_V2_t* m)
 {
     CHECK_ERROR(_readu16(c, &m->threshold))
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->other_signatories))
-    CHECK_ERROR(_readTimepoint_V2(c, &m->timepoint))
+    CHECK_ERROR(_readVecAccountId(c, &m->other_signatories))
+    CHECK_ERROR(_readTimepoint(c, &m->timepoint))
     CHECK_ERROR(_readH256(c, &m->call_hash))
     return parser_ok;
 }
@@ -229,7 +229,7 @@ __Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_create_pure_V2(
     parser_context_t* c, pd_proxy_create_pure_V2_t* m)
 {
-    CHECK_ERROR(_readProxyType_V2(c, &m->proxy_type))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     CHECK_ERROR(_readu16(c, &m->index))
     return parser_ok;
@@ -238,8 +238,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_create_pure_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V2(
     parser_context_t* c, pd_proxy_kill_pure_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->spawner))
-    CHECK_ERROR(_readProxyType_V2(c, &m->proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->spawner))
+    CHECK_ERROR(_readProxyType(c, &m->proxy_type))
     CHECK_ERROR(_readu16(c, &m->index))
     CHECK_ERROR(_readCompactu32(c, &m->height))
     CHECK_ERROR(_readCompactu32(c, &m->ext_index))
@@ -249,33 +249,33 @@ __Z_INLINE parser_error_t _readMethod_proxy_kill_pure_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_announce_V2(
     parser_context_t* c, pd_proxy_announce_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V2(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_remove_announcement_V2(
     parser_context_t* c, pd_proxy_remove_announcement_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->real))
-    CHECK_ERROR(_readCallHashOf_V2(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_reject_announcement_V2(
     parser_context_t* c, pd_proxy_reject_announcement_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->delegate))
-    CHECK_ERROR(_readCallHashOf_V2(c, &m->call_hash))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readCallHashOf(c, &m->call_hash))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V2(
     parser_context_t* c, pd_proxy_proxy_announced_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->delegate))
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->real))
-    CHECK_ERROR(_readOptionProxyType_V2(c, &m->force_proxy_type))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->delegate))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->real))
+    CHECK_ERROR(_readOptionProxyType(c, &m->force_proxy_type))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -283,7 +283,7 @@ __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V2(
 __Z_INLINE parser_error_t _readMethod_balances_set_balance_V2(
     parser_context_t* c, pd_balances_set_balance_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readCompactBalance(c, &m->new_free))
     CHECK_ERROR(_readCompactBalance(c, &m->new_reserved))
     return parser_ok;
@@ -292,7 +292,7 @@ __Z_INLINE parser_error_t _readMethod_balances_set_balance_V2(
 __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V2(
     parser_context_t* c, pd_balances_force_unreserve_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->who))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readBalance(c, &m->amount))
     return parser_ok;
 }
@@ -300,7 +300,7 @@ __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V2(
 __Z_INLINE parser_error_t _readMethod_currencies_transfer_native_currency_V2(
     parser_context_t* c, pd_currencies_transfer_native_currency_V2_t* m)
 {
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->dest))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->dest))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -308,17 +308,17 @@ __Z_INLINE parser_error_t _readMethod_currencies_transfer_native_currency_V2(
 __Z_INLINE parser_error_t _readMethod_currencies_update_balance_V2(
     parser_context_t* c, pd_currencies_update_balance_V2_t* m)
 {
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->who))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readAmount_V2(c, &m->amount))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->who))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readAmount(c, &m->amount))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_currencies_sweep_dust_V2(
     parser_context_t* c, pd_currencies_sweep_dust_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->accounts))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readVecAccountId(c, &m->accounts))
     return parser_ok;
 }
 
@@ -331,21 +331,21 @@ __Z_INLINE parser_error_t _readMethod_vesting_claim_V2(
 __Z_INLINE parser_error_t _readMethod_transactionpayment_set_alternative_fee_swap_path_V2(
     parser_context_t* c, pd_transactionpayment_set_alternative_fee_swap_path_V2_t* m)
 {
-    CHECK_ERROR(_readOptionVecCurrencyId_V2(c, &m->fee_swap_path))
+    CHECK_ERROR(_readOptionVecCurrencyId(c, &m->fee_swap_path))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_transactionpayment_disable_charge_fee_pool_V2(
     parser_context_t* c, pd_transactionpayment_disable_charge_fee_pool_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_path_V2(
     parser_context_t* c, pd_transactionpayment_with_fee_path_V2_t* m)
 {
-    CHECK_ERROR(_readVecCurrencyId_V2(c, &m->fee_swap_path))
+    CHECK_ERROR(_readVecCurrencyId(c, &m->fee_swap_path))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -353,7 +353,7 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_path_V2(
 __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_currency_V2(
     parser_context_t* c, pd_transactionpayment_with_fee_currency_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -362,15 +362,15 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_paid_by_V2(
     parser_context_t* c, pd_transactionpayment_with_fee_paid_by_V2_t* m)
 {
     CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readAccountId_V2(c, &m->payer_addr))
-    CHECK_ERROR(_readMultiSignature_V2(c, &m->payer_sig))
+    CHECK_ERROR(_readAccountId(c, &m->payer_addr))
+    CHECK_ERROR(_readMultiSignature(c, &m->payer_sig))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_aggregated_path_V2(
     parser_context_t* c, pd_transactionpayment_with_fee_aggregated_path_V2_t* m)
 {
-    CHECK_ERROR(_readVecSwapPath_V2(c, &m->fee_aggregated_path))
+    CHECK_ERROR(_readVecSwapPath(c, &m->fee_aggregated_path))
     CHECK_ERROR(_readCall(c, &m->call))
     return parser_ok;
 }
@@ -394,7 +394,7 @@ __Z_INLINE parser_error_t _readMethod_bounties_propose_curator_V2(
     parser_context_t* c, pd_bounties_propose_curator_V2_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->bounty_id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->curator))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->curator))
     CHECK_ERROR(_readCompactBalance(c, &m->fee))
     return parser_ok;
 }
@@ -417,7 +417,7 @@ __Z_INLINE parser_error_t _readMethod_bounties_award_bounty_V2(
     parser_context_t* c, pd_bounties_award_bounty_V2_t* m)
 {
     CHECK_ERROR(_readCompactu32(c, &m->bounty_id))
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->beneficiary))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->beneficiary))
     return parser_ok;
 }
 
@@ -446,7 +446,7 @@ __Z_INLINE parser_error_t _readMethod_bounties_extend_bounty_expiry_V2(
 __Z_INLINE parser_error_t _readMethod_collatorselection_set_invulnerables_V2(
     parser_context_t* c, pd_collatorselection_set_invulnerables_V2_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->new_))
+    CHECK_ERROR(_readVecAccountId(c, &m->new_))
     return parser_ok;
 }
 
@@ -473,7 +473,7 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V2
 __Z_INLINE parser_error_t _readMethod_collatorselection_register_candidate_V2(
     parser_context_t* c, pd_collatorselection_register_candidate_V2_t* m)
 {
-    CHECK_ERROR(_readAccountId_V2(c, &m->new_candidate))
+    CHECK_ERROR(_readAccountId(c, &m->new_candidate))
     return parser_ok;
 }
 
@@ -492,8 +492,8 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_withdraw_bond_V2(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V2(
     parser_context_t* c, pd_xcmpqueue_service_overweight_V2_t* m)
 {
-    CHECK_ERROR(_readOverweightIndex_V2(c, &m->index))
-    CHECK_ERROR(_readXcmWeight_V2(c, &m->weight_limit))
+    CHECK_ERROR(_readOverweightIndex(c, &m->index))
+    CHECK_ERROR(_readXcmWeight(c, &m->weight_limit))
     return parser_ok;
 }
 
@@ -533,28 +533,28 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_resume_threshold_V2(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_threshold_weight_V2(
     parser_context_t* c, pd_xcmpqueue_update_threshold_weight_V2_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V2(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_weight_restrict_decay_V2(
     parser_context_t* c, pd_xcmpqueue_update_weight_restrict_decay_V2_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V2(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_update_xcmp_max_individual_weight_V2(
     parser_context_t* c, pd_xcmpqueue_update_xcmp_max_individual_weight_V2_t* m)
 {
-    CHECK_ERROR(_readXcmWeight_V2(c, &m->new_))
+    CHECK_ERROR(_readXcmWeight(c, &m->new_))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_propose_V2(
     parser_context_t* c, pd_democracy_propose_V2_t* m)
 {
-    CHECK_ERROR(_readBoundedCallOfT_V2(c, &m->proposal))
+    CHECK_ERROR(_readBoundedCallOfT(c, &m->proposal))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
     return parser_ok;
 }
@@ -569,28 +569,28 @@ __Z_INLINE parser_error_t _readMethod_democracy_second_V2(
 __Z_INLINE parser_error_t _readMethod_democracy_emergency_cancel_V2(
     parser_context_t* c, pd_democracy_emergency_cancel_V2_t* m)
 {
-    CHECK_ERROR(_readReferendumIndex_V2(c, &m->ref_index))
+    CHECK_ERROR(_readReferendumIndex(c, &m->ref_index))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_external_propose_V2(
     parser_context_t* c, pd_democracy_external_propose_V2_t* m)
 {
-    CHECK_ERROR(_readBoundedCallOfT_V2(c, &m->proposal))
+    CHECK_ERROR(_readBoundedCallOfT(c, &m->proposal))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_external_propose_majority_V2(
     parser_context_t* c, pd_democracy_external_propose_majority_V2_t* m)
 {
-    CHECK_ERROR(_readBoundedCallOfT_V2(c, &m->proposal))
+    CHECK_ERROR(_readBoundedCallOfT(c, &m->proposal))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_external_propose_default_V2(
     parser_context_t* c, pd_democracy_external_propose_default_V2_t* m)
 {
-    CHECK_ERROR(_readBoundedCallOfT_V2(c, &m->proposal))
+    CHECK_ERROR(_readBoundedCallOfT(c, &m->proposal))
     return parser_ok;
 }
 
@@ -632,7 +632,7 @@ __Z_INLINE parser_error_t _readMethod_democracy_clear_public_proposals_V2(
 __Z_INLINE parser_error_t _readMethod_democracy_unlock_V2(
     parser_context_t* c, pd_democracy_unlock_V2_t* m)
 {
-    CHECK_ERROR(_readAccountIdLookupOfT_V2(c, &m->target))
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->target))
     return parser_ok;
 }
 
@@ -646,7 +646,7 @@ __Z_INLINE parser_error_t _readMethod_democracy_cancel_proposal_V2(
 __Z_INLINE parser_error_t _readMethod_dex_swap_with_exact_supply_V2(
     parser_context_t* c, pd_dex_swap_with_exact_supply_V2_t* m)
 {
-    CHECK_ERROR(_readVecCurrencyId_V2(c, &m->path))
+    CHECK_ERROR(_readVecCurrencyId(c, &m->path))
     CHECK_ERROR(_readCompactu128(c, &m->supply_amount))
     CHECK_ERROR(_readCompactu128(c, &m->min_target_amount))
     return parser_ok;
@@ -655,7 +655,7 @@ __Z_INLINE parser_error_t _readMethod_dex_swap_with_exact_supply_V2(
 __Z_INLINE parser_error_t _readMethod_dex_swap_with_exact_target_V2(
     parser_context_t* c, pd_dex_swap_with_exact_target_V2_t* m)
 {
-    CHECK_ERROR(_readVecCurrencyId_V2(c, &m->path))
+    CHECK_ERROR(_readVecCurrencyId(c, &m->path))
     CHECK_ERROR(_readCompactu128(c, &m->target_amount))
     CHECK_ERROR(_readCompactu128(c, &m->max_supply_amount))
     return parser_ok;
@@ -664,8 +664,8 @@ __Z_INLINE parser_error_t _readMethod_dex_swap_with_exact_target_V2(
 __Z_INLINE parser_error_t _readMethod_dex_add_liquidity_V2(
     parser_context_t* c, pd_dex_add_liquidity_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->max_amount_a))
     CHECK_ERROR(_readCompactu128(c, &m->max_amount_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_share_increment))
@@ -676,8 +676,8 @@ __Z_INLINE parser_error_t _readMethod_dex_add_liquidity_V2(
 __Z_INLINE parser_error_t _readMethod_dex_add_provision_V2(
     parser_context_t* c, pd_dex_add_provision_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->amount_a))
     CHECK_ERROR(_readCompactu128(c, &m->amount_b))
     return parser_ok;
@@ -686,17 +686,17 @@ __Z_INLINE parser_error_t _readMethod_dex_add_provision_V2(
 __Z_INLINE parser_error_t _readMethod_dex_claim_dex_share_V2(
     parser_context_t* c, pd_dex_claim_dex_share_V2_t* m)
 {
-    CHECK_ERROR(_readAccountId_V2(c, &m->owner))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readAccountId(c, &m->owner))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_remove_liquidity_V2(
     parser_context_t* c, pd_dex_remove_liquidity_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->remove_share))
     CHECK_ERROR(_readCompactu128(c, &m->min_withdrawn_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_withdrawn_b))
@@ -707,8 +707,8 @@ __Z_INLINE parser_error_t _readMethod_dex_remove_liquidity_V2(
 __Z_INLINE parser_error_t _readMethod_dex_list_provisioning_V2(
     parser_context_t* c, pd_dex_list_provisioning_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_b))
     CHECK_ERROR(_readCompactu128(c, &m->target_provision_a))
@@ -720,8 +720,8 @@ __Z_INLINE parser_error_t _readMethod_dex_list_provisioning_V2(
 __Z_INLINE parser_error_t _readMethod_dex_update_provisioning_parameters_V2(
     parser_context_t* c, pd_dex_update_provisioning_parameters_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_b))
     CHECK_ERROR(_readCompactu128(c, &m->target_provision_a))
@@ -733,48 +733,48 @@ __Z_INLINE parser_error_t _readMethod_dex_update_provisioning_parameters_V2(
 __Z_INLINE parser_error_t _readMethod_dex_end_provisioning_V2(
     parser_context_t* c, pd_dex_end_provisioning_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_enable_trading_pair_V2(
     parser_context_t* c, pd_dex_enable_trading_pair_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_disable_trading_pair_V2(
     parser_context_t* c, pd_dex_disable_trading_pair_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_refund_provision_V2(
     parser_context_t* c, pd_dex_refund_provision_V2_t* m)
 {
-    CHECK_ERROR(_readAccountId_V2(c, &m->owner))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readAccountId(c, &m->owner))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_abort_provisioning_V2(
     parser_context_t* c, pd_dex_abort_provisioning_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_aggregateddex_swap_with_exact_supply_V2(
     parser_context_t* c, pd_aggregateddex_swap_with_exact_supply_V2_t* m)
 {
-    CHECK_ERROR(_readVecSwapPath_V2(c, &m->paths))
+    CHECK_ERROR(_readVecSwapPath(c, &m->paths))
     CHECK_ERROR(_readCompactBalance(c, &m->supply_amount))
     CHECK_ERROR(_readCompactBalance(c, &m->min_target_amount))
     return parser_ok;
@@ -783,7 +783,7 @@ __Z_INLINE parser_error_t _readMethod_aggregateddex_swap_with_exact_supply_V2(
 __Z_INLINE parser_error_t _readMethod_aggregateddex_swap_with_exact_target_V2(
     parser_context_t* c, pd_aggregateddex_swap_with_exact_target_V2_t* m)
 {
-    CHECK_ERROR(_readVecSwapPath_V2(c, &m->paths))
+    CHECK_ERROR(_readVecSwapPath(c, &m->paths))
     CHECK_ERROR(_readCompactBalance(c, &m->target_amount))
     CHECK_ERROR(_readCompactBalance(c, &m->max_supply_amount))
     return parser_ok;
@@ -792,23 +792,23 @@ __Z_INLINE parser_error_t _readMethod_aggregateddex_swap_with_exact_target_V2(
 __Z_INLINE parser_error_t _readMethod_aggregateddex_update_aggregated_swap_paths_V2(
     parser_context_t* c, pd_aggregateddex_update_aggregated_swap_paths_V2_t* m)
 {
-    CHECK_ERROR(_readVecTupleCurrencyIdCurrencyIdOptionVecSwapPath_V2(c, &m->updates))
+    CHECK_ERROR(_readVecTupleCurrencyIdCurrencyIdOptionVecSwapPath(c, &m->updates))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_V2(
     parser_context_t* c, pd_honzon_adjust_loan_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readAmount_V2(c, &m->collateral_adjustment))
-    CHECK_ERROR(_readAmount_V2(c, &m->debit_adjustment))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readAmount(c, &m->collateral_adjustment))
+    CHECK_ERROR(_readAmount(c, &m->debit_adjustment))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_honzon_close_loan_has_debit_by_dex_V2(
     parser_context_t* c, pd_honzon_close_loan_has_debit_by_dex_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->max_collateral_amount))
     return parser_ok;
 }
@@ -816,24 +816,24 @@ __Z_INLINE parser_error_t _readMethod_honzon_close_loan_has_debit_by_dex_V2(
 __Z_INLINE parser_error_t _readMethod_honzon_transfer_loan_from_V2(
     parser_context_t* c, pd_honzon_transfer_loan_from_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->from))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->from))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_honzon_authorize_V2(
     parser_context_t* c, pd_honzon_authorize_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->to))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->to))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_V2(
     parser_context_t* c, pd_honzon_unauthorize_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->to))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->to))
     return parser_ok;
 }
 
@@ -846,7 +846,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_all_V2(
 __Z_INLINE parser_error_t _readMethod_honzon_expand_position_collateral_V2(
     parser_context_t* c, pd_honzon_expand_position_collateral_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->increase_debit_value))
     CHECK_ERROR(_readBalance(c, &m->min_increase_collateral))
     return parser_ok;
@@ -855,7 +855,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_expand_position_collateral_V2(
 __Z_INLINE parser_error_t _readMethod_honzon_shrink_position_debit_V2(
     parser_context_t* c, pd_honzon_shrink_position_debit_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->decrease_collateral))
     CHECK_ERROR(_readBalance(c, &m->min_decrease_debit_value))
     return parser_ok;
@@ -864,17 +864,17 @@ __Z_INLINE parser_error_t _readMethod_honzon_shrink_position_debit_V2(
 __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_by_debit_value_V2(
     parser_context_t* c, pd_honzon_adjust_loan_by_debit_value_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->currency_id))
-    CHECK_ERROR(_readAmount_V2(c, &m->collateral_adjustment))
-    CHECK_ERROR(_readAmount_V2(c, &m->debit_value_adjustment))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
+    CHECK_ERROR(_readAmount(c, &m->collateral_adjustment))
+    CHECK_ERROR(_readAmount(c, &m->debit_value_adjustment))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_honzon_transfer_debit_V2(
     parser_context_t* c, pd_honzon_transfer_debit_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->from_currency))
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->to_currency))
+    CHECK_ERROR(_readCurrencyId(c, &m->from_currency))
+    CHECK_ERROR(_readCurrencyId(c, &m->to_currency))
     CHECK_ERROR(_readBalance(c, &m->debit_transfer))
     return parser_ok;
 }
@@ -897,42 +897,42 @@ __Z_INLINE parser_error_t _readMethod_homa_request_redeem_V2(
 __Z_INLINE parser_error_t _readMethod_homa_fast_match_redeems_V2(
     parser_context_t* c, pd_homa_fast_match_redeems_V2_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->redeemer_list))
+    CHECK_ERROR(_readVecAccountId(c, &m->redeemer_list))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_homa_claim_redemption_V2(
     parser_context_t* c, pd_homa_claim_redemption_V2_t* m)
 {
-    CHECK_ERROR(_readAccountId_V2(c, &m->redeemer))
+    CHECK_ERROR(_readAccountId(c, &m->redeemer))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_homa_reset_current_era_V2(
     parser_context_t* c, pd_homa_reset_current_era_V2_t* m)
 {
-    CHECK_ERROR(_readEraIndex_V2(c, &m->era_index))
+    CHECK_ERROR(_readEraIndex(c, &m->era_index))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_homa_force_bump_current_era_V2(
     parser_context_t* c, pd_homa_force_bump_current_era_V2_t* m)
 {
-    CHECK_ERROR(_readEraIndex_V2(c, &m->bump_amount))
+    CHECK_ERROR(_readEraIndex(c, &m->bump_amount))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_homa_fast_match_redeems_completely_V2(
     parser_context_t* c, pd_homa_fast_match_redeems_completely_V2_t* m)
 {
-    CHECK_ERROR(_readVecAccountId_V2(c, &m->redeemer_list))
+    CHECK_ERROR(_readVecAccountId(c, &m->redeemer_list))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_incentives_deposit_dex_share_V2(
     parser_context_t* c, pd_incentives_deposit_dex_share_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->lp_currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->lp_currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -940,7 +940,7 @@ __Z_INLINE parser_error_t _readMethod_incentives_deposit_dex_share_V2(
 __Z_INLINE parser_error_t _readMethod_incentives_withdraw_dex_share_V2(
     parser_context_t* c, pd_incentives_withdraw_dex_share_V2_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V2(c, &m->lp_currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->lp_currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -948,27 +948,27 @@ __Z_INLINE parser_error_t _readMethod_incentives_withdraw_dex_share_V2(
 __Z_INLINE parser_error_t _readMethod_incentives_claim_rewards_V2(
     parser_context_t* c, pd_incentives_claim_rewards_V2_t* m)
 {
-    CHECK_ERROR(_readPoolId_V2(c, &m->pool_id))
+    CHECK_ERROR(_readPoolId(c, &m->pool_id))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_nft_transfer_V2(
     parser_context_t* c, pd_nft_transfer_V2_t* m)
 {
-    CHECK_ERROR(_readLookupasStaticLookupSource_V2(c, &m->to))
-    CHECK_ERROR(_readClassIdOfTTokenIdOfT_V2(c, &m->token))
+    CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->to))
+    CHECK_ERROR(_readClassIdOfTTokenIdOfT(c, &m->token))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_eth_call_V2(
     parser_context_t* c, pd_evm_eth_call_V2_t* m)
 {
-    CHECK_ERROR(_readTransactionAction_V2(c, &m->action))
+    CHECK_ERROR(_readTransactionAction(c, &m->action))
     CHECK_ERROR(_readVecu8(c, &m->input))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     CHECK_ERROR(_readCompactu64(c, &m->gas_limit))
     CHECK_ERROR(_readCompactu32(c, &m->storage_limit))
-    CHECK_ERROR(_readVecAccessListItem_V2(c, &m->access_list))
+    CHECK_ERROR(_readVecAccessListItem(c, &m->access_list))
     CHECK_ERROR(_readCompactu32(c, &m->valid_until))
     return parser_ok;
 }
@@ -976,12 +976,12 @@ __Z_INLINE parser_error_t _readMethod_evm_eth_call_V2(
 __Z_INLINE parser_error_t _readMethod_evm_call_V2(
     parser_context_t* c, pd_evm_call_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->target))
+    CHECK_ERROR(_readEvmAddress(c, &m->target))
     CHECK_ERROR(_readVecu8(c, &m->input))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     CHECK_ERROR(_readCompactu64(c, &m->gas_limit))
     CHECK_ERROR(_readCompactu32(c, &m->storage_limit))
-    CHECK_ERROR(_readVecAccessListItem_V2(c, &m->access_list))
+    CHECK_ERROR(_readVecAccessListItem(c, &m->access_list))
     return parser_ok;
 }
 
@@ -992,7 +992,7 @@ __Z_INLINE parser_error_t _readMethod_evm_create_V2(
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     CHECK_ERROR(_readCompactu64(c, &m->gas_limit))
     CHECK_ERROR(_readCompactu32(c, &m->storage_limit))
-    CHECK_ERROR(_readVecAccessListItem_V2(c, &m->access_list))
+    CHECK_ERROR(_readVecAccessListItem(c, &m->access_list))
     return parser_ok;
 }
 
@@ -1004,29 +1004,29 @@ __Z_INLINE parser_error_t _readMethod_evm_create2_V2(
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     CHECK_ERROR(_readCompactu64(c, &m->gas_limit))
     CHECK_ERROR(_readCompactu32(c, &m->storage_limit))
-    CHECK_ERROR(_readVecAccessListItem_V2(c, &m->access_list))
+    CHECK_ERROR(_readVecAccessListItem(c, &m->access_list))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_transfer_maintainer_V2(
     parser_context_t* c, pd_evm_transfer_maintainer_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->contract))
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->new_maintainer))
+    CHECK_ERROR(_readEvmAddress(c, &m->contract))
+    CHECK_ERROR(_readEvmAddress(c, &m->new_maintainer))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_publish_contract_V2(
     parser_context_t* c, pd_evm_publish_contract_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->contract))
+    CHECK_ERROR(_readEvmAddress(c, &m->contract))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_publish_free_V2(
     parser_context_t* c, pd_evm_publish_free_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->contract))
+    CHECK_ERROR(_readEvmAddress(c, &m->contract))
     return parser_ok;
 }
 
@@ -1045,7 +1045,7 @@ __Z_INLINE parser_error_t _readMethod_evm_disable_contract_development_V2(
 __Z_INLINE parser_error_t _readMethod_evm_set_code_V2(
     parser_context_t* c, pd_evm_set_code_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->contract))
+    CHECK_ERROR(_readEvmAddress(c, &m->contract))
     CHECK_ERROR(_readVecu8(c, &m->code))
     return parser_ok;
 }
@@ -1053,15 +1053,15 @@ __Z_INLINE parser_error_t _readMethod_evm_set_code_V2(
 __Z_INLINE parser_error_t _readMethod_evm_selfdestruct_V2(
     parser_context_t* c, pd_evm_selfdestruct_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->contract))
+    CHECK_ERROR(_readEvmAddress(c, &m->contract))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_account_V2(
     parser_context_t* c, pd_evmaccounts_claim_account_V2_t* m)
 {
-    CHECK_ERROR(_readEvmAddress_V2(c, &m->eth_address))
-    CHECK_ERROR(_readEip712Signature_V2(c, &m->eth_signature))
+    CHECK_ERROR(_readEvmAddress(c, &m->eth_address))
+    CHECK_ERROR(_readEip712Signature(c, &m->eth_signature))
     return parser_ok;
 }
 
@@ -1074,7 +1074,7 @@ __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_default_account_V2(
 __Z_INLINE parser_error_t _readMethod_stableasset_mint_V2(
     parser_context_t* c, pd_stableasset_mint_V2_t* m)
 {
-    CHECK_ERROR(_readStableAssetPoolId_V2(c, &m->pool_id))
+    CHECK_ERROR(_readStableAssetPoolId(c, &m->pool_id))
     CHECK_ERROR(_readVecBalance(c, &m->amounts))
     CHECK_ERROR(_readBalance(c, &m->min_mint_amount))
     return parser_ok;
@@ -1083,9 +1083,9 @@ __Z_INLINE parser_error_t _readMethod_stableasset_mint_V2(
 __Z_INLINE parser_error_t _readMethod_stableasset_swap_V2(
     parser_context_t* c, pd_stableasset_swap_V2_t* m)
 {
-    CHECK_ERROR(_readStableAssetPoolId_V2(c, &m->pool_id))
-    CHECK_ERROR(_readPoolTokenIndex_V2(c, &m->i))
-    CHECK_ERROR(_readPoolTokenIndex_V2(c, &m->j))
+    CHECK_ERROR(_readStableAssetPoolId(c, &m->pool_id))
+    CHECK_ERROR(_readPoolTokenIndex(c, &m->i))
+    CHECK_ERROR(_readPoolTokenIndex(c, &m->j))
     CHECK_ERROR(_readBalance(c, &m->dx))
     CHECK_ERROR(_readBalance(c, &m->min_dy))
     CHECK_ERROR(_readu32(c, &m->asset_length))
@@ -1095,7 +1095,7 @@ __Z_INLINE parser_error_t _readMethod_stableasset_swap_V2(
 __Z_INLINE parser_error_t _readMethod_stableasset_redeem_proportion_V2(
     parser_context_t* c, pd_stableasset_redeem_proportion_V2_t* m)
 {
-    CHECK_ERROR(_readStableAssetPoolId_V2(c, &m->pool_id))
+    CHECK_ERROR(_readStableAssetPoolId(c, &m->pool_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
     CHECK_ERROR(_readVecBalance(c, &m->min_redeem_amounts))
     return parser_ok;
@@ -1104,9 +1104,9 @@ __Z_INLINE parser_error_t _readMethod_stableasset_redeem_proportion_V2(
 __Z_INLINE parser_error_t _readMethod_stableasset_redeem_single_V2(
     parser_context_t* c, pd_stableasset_redeem_single_V2_t* m)
 {
-    CHECK_ERROR(_readStableAssetPoolId_V2(c, &m->pool_id))
+    CHECK_ERROR(_readStableAssetPoolId(c, &m->pool_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
-    CHECK_ERROR(_readPoolTokenIndex_V2(c, &m->i))
+    CHECK_ERROR(_readPoolTokenIndex(c, &m->i))
     CHECK_ERROR(_readBalance(c, &m->min_redeem_amount))
     CHECK_ERROR(_readu32(c, &m->asset_length))
     return parser_ok;
@@ -1115,7 +1115,7 @@ __Z_INLINE parser_error_t _readMethod_stableasset_redeem_single_V2(
 __Z_INLINE parser_error_t _readMethod_stableasset_redeem_multi_V2(
     parser_context_t* c, pd_stableasset_redeem_multi_V2_t* m)
 {
-    CHECK_ERROR(_readStableAssetPoolId_V2(c, &m->pool_id))
+    CHECK_ERROR(_readStableAssetPoolId(c, &m->pool_id))
     CHECK_ERROR(_readVecBalance(c, &m->amounts))
     CHECK_ERROR(_readBalance(c, &m->max_redeem_amount))
     return parser_ok;
@@ -3494,12 +3494,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1280: /* module 5 call 0 */
         switch (itemIdx) {
         case 0: /* proxy_proxy_V2 - real */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.proxy_proxy_V2.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_proxy_V2 - force_proxy_type */;
-            return _toStringOptionProxyType_V2(
+            return _toStringOptionProxyType(
                 &m->nested.proxy_proxy_V2.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3514,12 +3514,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1281: /* module 5 call 1 */
         switch (itemIdx) {
         case 0: /* proxy_add_proxy_V2 - delegate */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.proxy_add_proxy_V2.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_add_proxy_V2 - proxy_type */;
-            return _toStringProxyType_V2(
+            return _toStringProxyType(
                 &m->nested.proxy_add_proxy_V2.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3534,12 +3534,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1282: /* module 5 call 2 */
         switch (itemIdx) {
         case 0: /* proxy_remove_proxy_V2 - delegate */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.proxy_remove_proxy_V2.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_remove_proxy_V2 - proxy_type */;
-            return _toStringProxyType_V2(
+            return _toStringProxyType(
                 &m->nested.proxy_remove_proxy_V2.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3554,7 +3554,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2560: /* module 10 call 0 */
         switch (itemIdx) {
         case 0: /* balances_transfer_V2 - dest */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3569,12 +3569,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2562: /* module 10 call 2 */
         switch (itemIdx) {
         case 0: /* balances_force_transfer_V2 - source */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_force_transfer_V2.source,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* balances_force_transfer_V2 - dest */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_force_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3589,7 +3589,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2563: /* module 10 call 3 */
         switch (itemIdx) {
         case 0: /* balances_transfer_keep_alive_V2 - dest */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_transfer_keep_alive_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3604,7 +3604,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2564: /* module 10 call 4 */
         switch (itemIdx) {
         case 0: /* balances_transfer_all_V2 - dest */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.balances_transfer_all_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3619,12 +3619,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3072: /* module 12 call 0 */
         switch (itemIdx) {
         case 0: /* currencies_transfer_V2 - dest */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->nested.currencies_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* currencies_transfer_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.currencies_transfer_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3639,7 +3639,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 10752: /* module 42 call 0 */
         switch (itemIdx) {
         case 0: /* session_set_keys_V2 - keys */;
-            return _toStringKeys_V2(
+            return _toStringKeys(
                 &m->basic.session_set_keys_V2.keys,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3661,7 +3661,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 13824: /* module 54 call 0 */
         switch (itemIdx) {
         case 0: /* xtokens_transfer_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.xtokens_transfer_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3671,12 +3671,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* xtokens_transfer_V2 - dest */;
-            return _toStringBoxVersionedMultiLocation_V2(
+            return _toStringBoxVersionedMultiLocation(
                 &m->basic.xtokens_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* xtokens_transfer_V2 - dest_weight_limit */;
-            return _toStringWeightLimit_V2(
+            return _toStringWeightLimit(
                 &m->basic.xtokens_transfer_V2.dest_weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3687,7 +3687,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 0: /* module 0 call 0 */
         switch (itemIdx) {
         case 0: /* system_fill_block_V2 - ratio */;
-            return _toStringPerbill_V2(
+            return _toStringPerbill(
                 &m->nested.system_fill_block_V2.ratio,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3697,7 +3697,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1: /* module 0 call 1 */
         switch (itemIdx) {
         case 0: /* system_remark_V2 - remark */;
-            return _toStringVecu8(
+            return _toStringBytes(
                 &m->nested.system_remark_V2.remark,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3737,7 +3737,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 8: /* module 0 call 8 */
         switch (itemIdx) {
         case 0: /* system_remark_with_event_V2 - remark */;
-            return _toStringVecu8(
+            return _toStringBytes(
                 &m->nested.system_remark_with_event_V2.remark,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3747,7 +3747,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1024: /* module 4 call 0 */
         switch (itemIdx) {
         case 0: /* multisig_as_multi_threshold_1_V2 - other_signatories */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.multisig_as_multi_threshold_1_V2.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3767,12 +3767,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_as_multi_V2 - other_signatories */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.multisig_as_multi_V2.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_as_multi_V2 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V2(
+            return _toStringOptionTimepoint(
                 &m->nested.multisig_as_multi_V2.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3782,7 +3782,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* multisig_as_multi_V2 - max_weight */;
-            return _toStringWeight_V2(
+            return _toStringWeight(
                 &m->nested.multisig_as_multi_V2.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3797,12 +3797,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_approve_as_multi_V2 - other_signatories */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.multisig_approve_as_multi_V2.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_approve_as_multi_V2 - maybe_timepoint */;
-            return _toStringOptionTimepoint_V2(
+            return _toStringOptionTimepoint(
                 &m->nested.multisig_approve_as_multi_V2.maybe_timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3812,7 +3812,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* multisig_approve_as_multi_V2 - max_weight */;
-            return _toStringWeight_V2(
+            return _toStringWeight(
                 &m->nested.multisig_approve_as_multi_V2.max_weight,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3827,12 +3827,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* multisig_cancel_as_multi_V2 - other_signatories */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.multisig_cancel_as_multi_V2.other_signatories,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* multisig_cancel_as_multi_V2 - timepoint */;
-            return _toStringTimepoint_V2(
+            return _toStringTimepoint(
                 &m->nested.multisig_cancel_as_multi_V2.timepoint,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3852,7 +3852,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1284: /* module 5 call 4 */
         switch (itemIdx) {
         case 0: /* proxy_create_pure_V2 - proxy_type */;
-            return _toStringProxyType_V2(
+            return _toStringProxyType(
                 &m->basic.proxy_create_pure_V2.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3872,12 +3872,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1285: /* module 5 call 5 */
         switch (itemIdx) {
         case 0: /* proxy_kill_pure_V2 - spawner */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_kill_pure_V2.spawner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_kill_pure_V2 - proxy_type */;
-            return _toStringProxyType_V2(
+            return _toStringProxyType(
                 &m->basic.proxy_kill_pure_V2.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3902,12 +3902,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1286: /* module 5 call 6 */
         switch (itemIdx) {
         case 0: /* proxy_announce_V2 - real */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_announce_V2.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_announce_V2 - call_hash */;
-            return _toStringCallHashOf_V2(
+            return _toStringCallHashOf(
                 &m->basic.proxy_announce_V2.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3917,12 +3917,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1287: /* module 5 call 7 */
         switch (itemIdx) {
         case 0: /* proxy_remove_announcement_V2 - real */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_remove_announcement_V2.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_remove_announcement_V2 - call_hash */;
-            return _toStringCallHashOf_V2(
+            return _toStringCallHashOf(
                 &m->basic.proxy_remove_announcement_V2.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3932,12 +3932,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1288: /* module 5 call 8 */
         switch (itemIdx) {
         case 0: /* proxy_reject_announcement_V2 - delegate */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_reject_announcement_V2.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_reject_announcement_V2 - call_hash */;
-            return _toStringCallHashOf_V2(
+            return _toStringCallHashOf(
                 &m->basic.proxy_reject_announcement_V2.call_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3947,17 +3947,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 1289: /* module 5 call 9 */
         switch (itemIdx) {
         case 0: /* proxy_proxy_announced_V2 - delegate */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_proxy_announced_V2.delegate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_proxy_announced_V2 - real */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.proxy_proxy_announced_V2.real,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_proxy_announced_V2 - force_proxy_type */;
-            return _toStringOptionProxyType_V2(
+            return _toStringOptionProxyType(
                 &m->basic.proxy_proxy_announced_V2.force_proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3972,7 +3972,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2561: /* module 10 call 1 */
         switch (itemIdx) {
         case 0: /* balances_set_balance_V2 - who */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->nested.balances_set_balance_V2.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3992,7 +3992,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 2565: /* module 10 call 5 */
         switch (itemIdx) {
         case 0: /* balances_force_unreserve_V2 - who */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.balances_force_unreserve_V2.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4007,7 +4007,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3073: /* module 12 call 1 */
         switch (itemIdx) {
         case 0: /* currencies_transfer_native_currency_V2 - dest */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->nested.currencies_transfer_native_currency_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4022,17 +4022,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3074: /* module 12 call 2 */
         switch (itemIdx) {
         case 0: /* currencies_update_balance_V2 - who */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->basic.currencies_update_balance_V2.who,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* currencies_update_balance_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.currencies_update_balance_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* currencies_update_balance_V2 - amount */;
-            return _toStringAmount_V2(
+            return _toStringAmount(
                 &m->basic.currencies_update_balance_V2.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4042,12 +4042,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3075: /* module 12 call 3 */
         switch (itemIdx) {
         case 0: /* currencies_sweep_dust_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.currencies_sweep_dust_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* currencies_sweep_dust_V2 - accounts */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->basic.currencies_sweep_dust_V2.accounts,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4062,7 +4062,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3584: /* module 14 call 0 */
         switch (itemIdx) {
         case 0: /* transactionpayment_set_alternative_fee_swap_path_V2 - fee_swap_path */;
-            return _toStringOptionVecCurrencyId_V2(
+            return _toStringOptionVecCurrencyId(
                 &m->basic.transactionpayment_set_alternative_fee_swap_path_V2.fee_swap_path,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4072,7 +4072,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3586: /* module 14 call 2 */
         switch (itemIdx) {
         case 0: /* transactionpayment_disable_charge_fee_pool_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.transactionpayment_disable_charge_fee_pool_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4082,7 +4082,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3587: /* module 14 call 3 */
         switch (itemIdx) {
         case 0: /* transactionpayment_with_fee_path_V2 - fee_swap_path */;
-            return _toStringVecCurrencyId_V2(
+            return _toStringVecCurrencyId(
                 &m->basic.transactionpayment_with_fee_path_V2.fee_swap_path,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4097,7 +4097,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3588: /* module 14 call 4 */
         switch (itemIdx) {
         case 0: /* transactionpayment_with_fee_currency_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.transactionpayment_with_fee_currency_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4117,12 +4117,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* transactionpayment_with_fee_paid_by_V2 - payer_addr */;
-            return _toStringAccountId_V2(
+            return _toStringAccountId(
                 &m->basic.transactionpayment_with_fee_paid_by_V2.payer_addr,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* transactionpayment_with_fee_paid_by_V2 - payer_sig */;
-            return _toStringMultiSignature_V2(
+            return _toStringMultiSignature(
                 &m->basic.transactionpayment_with_fee_paid_by_V2.payer_sig,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4132,7 +4132,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 3590: /* module 14 call 6 */
         switch (itemIdx) {
         case 0: /* transactionpayment_with_fee_aggregated_path_V2 - fee_aggregated_path */;
-            return _toStringVecSwapPath_V2(
+            return _toStringVecSwapPath(
                 &m->basic.transactionpayment_with_fee_aggregated_path_V2.fee_aggregated_path,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4177,7 +4177,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* bounties_propose_curator_V2 - curator */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.bounties_propose_curator_V2.curator,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4217,7 +4217,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* bounties_award_bounty_V2 - beneficiary */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.bounties_award_bounty_V2.beneficiary,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4262,7 +4262,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 10496: /* module 41 call 0 */
         switch (itemIdx) {
         case 0: /* collatorselection_set_invulnerables_V2 - new_ */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->basic.collatorselection_set_invulnerables_V2.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4297,7 +4297,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 10500: /* module 41 call 4 */
         switch (itemIdx) {
         case 0: /* collatorselection_register_candidate_V2 - new_candidate */;
-            return _toStringAccountId_V2(
+            return _toStringAccountId(
                 &m->basic.collatorselection_register_candidate_V2.new_candidate,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4317,12 +4317,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 12800: /* module 50 call 0 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_service_overweight_V2 - index */;
-            return _toStringOverweightIndex_V2(
+            return _toStringOverweightIndex(
                 &m->basic.xcmpqueue_service_overweight_V2.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* xcmpqueue_service_overweight_V2 - weight_limit */;
-            return _toStringXcmWeight_V2(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_service_overweight_V2.weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4372,7 +4372,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 12806: /* module 50 call 6 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_threshold_weight_V2 - new_ */;
-            return _toStringXcmWeight_V2(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_threshold_weight_V2.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4382,7 +4382,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 12807: /* module 50 call 7 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_weight_restrict_decay_V2 - new_ */;
-            return _toStringXcmWeight_V2(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_weight_restrict_decay_V2.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4392,7 +4392,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 12808: /* module 50 call 8 */
         switch (itemIdx) {
         case 0: /* xcmpqueue_update_xcmp_max_individual_weight_V2 - new_ */;
-            return _toStringXcmWeight_V2(
+            return _toStringXcmWeight(
                 &m->basic.xcmpqueue_update_xcmp_max_individual_weight_V2.new_,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4402,7 +4402,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17664: /* module 69 call 0 */
         switch (itemIdx) {
         case 0: /* democracy_propose_V2 - proposal */;
-            return _toStringBoundedCallOfT_V2(
+            return _toStringBoundedCallOfT(
                 &m->basic.democracy_propose_V2.proposal,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4427,7 +4427,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17667: /* module 69 call 3 */
         switch (itemIdx) {
         case 0: /* democracy_emergency_cancel_V2 - ref_index */;
-            return _toStringReferendumIndex_V2(
+            return _toStringReferendumIndex(
                 &m->basic.democracy_emergency_cancel_V2.ref_index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4437,7 +4437,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17668: /* module 69 call 4 */
         switch (itemIdx) {
         case 0: /* democracy_external_propose_V2 - proposal */;
-            return _toStringBoundedCallOfT_V2(
+            return _toStringBoundedCallOfT(
                 &m->basic.democracy_external_propose_V2.proposal,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4447,7 +4447,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17669: /* module 69 call 5 */
         switch (itemIdx) {
         case 0: /* democracy_external_propose_majority_V2 - proposal */;
-            return _toStringBoundedCallOfT_V2(
+            return _toStringBoundedCallOfT(
                 &m->basic.democracy_external_propose_majority_V2.proposal,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4457,7 +4457,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17670: /* module 69 call 6 */
         switch (itemIdx) {
         case 0: /* democracy_external_propose_default_V2 - proposal */;
-            return _toStringBoundedCallOfT_V2(
+            return _toStringBoundedCallOfT(
                 &m->basic.democracy_external_propose_default_V2.proposal,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4517,7 +4517,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 17677: /* module 69 call 13 */
         switch (itemIdx) {
         case 0: /* democracy_unlock_V2 - target */;
-            return _toStringAccountIdLookupOfT_V2(
+            return _toStringAccountIdLookupOfT(
                 &m->basic.democracy_unlock_V2.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4537,7 +4537,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23296: /* module 91 call 0 */
         switch (itemIdx) {
         case 0: /* dex_swap_with_exact_supply_V2 - path */;
-            return _toStringVecCurrencyId_V2(
+            return _toStringVecCurrencyId(
                 &m->nested.dex_swap_with_exact_supply_V2.path,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4557,7 +4557,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23297: /* module 91 call 1 */
         switch (itemIdx) {
         case 0: /* dex_swap_with_exact_target_V2 - path */;
-            return _toStringVecCurrencyId_V2(
+            return _toStringVecCurrencyId(
                 &m->basic.dex_swap_with_exact_target_V2.path,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4577,12 +4577,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23298: /* module 91 call 2 */
         switch (itemIdx) {
         case 0: /* dex_add_liquidity_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.dex_add_liquidity_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_add_liquidity_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.dex_add_liquidity_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4612,12 +4612,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23299: /* module 91 call 3 */
         switch (itemIdx) {
         case 0: /* dex_add_provision_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_add_provision_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_add_provision_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_add_provision_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4637,17 +4637,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23300: /* module 91 call 4 */
         switch (itemIdx) {
         case 0: /* dex_claim_dex_share_V2 - owner */;
-            return _toStringAccountId_V2(
+            return _toStringAccountId(
                 &m->basic.dex_claim_dex_share_V2.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_claim_dex_share_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_claim_dex_share_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* dex_claim_dex_share_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_claim_dex_share_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4657,12 +4657,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23301: /* module 91 call 5 */
         switch (itemIdx) {
         case 0: /* dex_remove_liquidity_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.dex_remove_liquidity_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_remove_liquidity_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.dex_remove_liquidity_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4692,12 +4692,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23302: /* module 91 call 6 */
         switch (itemIdx) {
         case 0: /* dex_list_provisioning_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_list_provisioning_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_list_provisioning_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_list_provisioning_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4732,12 +4732,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23303: /* module 91 call 7 */
         switch (itemIdx) {
         case 0: /* dex_update_provisioning_parameters_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_update_provisioning_parameters_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_update_provisioning_parameters_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_update_provisioning_parameters_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4772,12 +4772,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23304: /* module 91 call 8 */
         switch (itemIdx) {
         case 0: /* dex_end_provisioning_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_end_provisioning_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_end_provisioning_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_end_provisioning_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4787,12 +4787,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23305: /* module 91 call 9 */
         switch (itemIdx) {
         case 0: /* dex_enable_trading_pair_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_enable_trading_pair_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_enable_trading_pair_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_enable_trading_pair_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4802,12 +4802,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23306: /* module 91 call 10 */
         switch (itemIdx) {
         case 0: /* dex_disable_trading_pair_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_disable_trading_pair_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_disable_trading_pair_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_disable_trading_pair_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4817,17 +4817,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23307: /* module 91 call 11 */
         switch (itemIdx) {
         case 0: /* dex_refund_provision_V2 - owner */;
-            return _toStringAccountId_V2(
+            return _toStringAccountId(
                 &m->basic.dex_refund_provision_V2.owner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_refund_provision_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_refund_provision_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* dex_refund_provision_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_refund_provision_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4837,12 +4837,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23308: /* module 91 call 12 */
         switch (itemIdx) {
         case 0: /* dex_abort_provisioning_V2 - currency_id_a */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_abort_provisioning_V2.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_abort_provisioning_V2 - currency_id_b */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.dex_abort_provisioning_V2.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4852,7 +4852,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23808: /* module 93 call 0 */
         switch (itemIdx) {
         case 0: /* aggregateddex_swap_with_exact_supply_V2 - paths */;
-            return _toStringVecSwapPath_V2(
+            return _toStringVecSwapPath(
                 &m->nested.aggregateddex_swap_with_exact_supply_V2.paths,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4872,7 +4872,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23809: /* module 93 call 1 */
         switch (itemIdx) {
         case 0: /* aggregateddex_swap_with_exact_target_V2 - paths */;
-            return _toStringVecSwapPath_V2(
+            return _toStringVecSwapPath(
                 &m->nested.aggregateddex_swap_with_exact_target_V2.paths,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4892,7 +4892,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 23810: /* module 93 call 2 */
         switch (itemIdx) {
         case 0: /* aggregateddex_update_aggregated_swap_paths_V2 - updates */;
-            return _toStringVecTupleCurrencyIdCurrencyIdOptionVecSwapPath_V2(
+            return _toStringVecTupleCurrencyIdCurrencyIdOptionVecSwapPath(
                 &m->nested.aggregateddex_update_aggregated_swap_paths_V2.updates,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4902,17 +4902,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26112: /* module 102 call 0 */
         switch (itemIdx) {
         case 0: /* honzon_adjust_loan_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.honzon_adjust_loan_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_adjust_loan_V2 - collateral_adjustment */;
-            return _toStringAmount_V2(
+            return _toStringAmount(
                 &m->nested.honzon_adjust_loan_V2.collateral_adjustment,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* honzon_adjust_loan_V2 - debit_adjustment */;
-            return _toStringAmount_V2(
+            return _toStringAmount(
                 &m->nested.honzon_adjust_loan_V2.debit_adjustment,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4922,7 +4922,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26113: /* module 102 call 1 */
         switch (itemIdx) {
         case 0: /* honzon_close_loan_has_debit_by_dex_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_close_loan_has_debit_by_dex_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4937,12 +4937,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26114: /* module 102 call 2 */
         switch (itemIdx) {
         case 0: /* honzon_transfer_loan_from_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_loan_from_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_transfer_loan_from_V2 - from */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->basic.honzon_transfer_loan_from_V2.from,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4952,12 +4952,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26115: /* module 102 call 3 */
         switch (itemIdx) {
         case 0: /* honzon_authorize_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_authorize_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_authorize_V2 - to */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->basic.honzon_authorize_V2.to,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4967,12 +4967,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26116: /* module 102 call 4 */
         switch (itemIdx) {
         case 0: /* honzon_unauthorize_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_unauthorize_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_unauthorize_V2 - to */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->basic.honzon_unauthorize_V2.to,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4987,7 +4987,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26118: /* module 102 call 6 */
         switch (itemIdx) {
         case 0: /* honzon_expand_position_collateral_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_expand_position_collateral_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5007,7 +5007,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26119: /* module 102 call 7 */
         switch (itemIdx) {
         case 0: /* honzon_shrink_position_debit_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_shrink_position_debit_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5027,17 +5027,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26120: /* module 102 call 8 */
         switch (itemIdx) {
         case 0: /* honzon_adjust_loan_by_debit_value_V2 - currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_adjust_loan_by_debit_value_V2.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_adjust_loan_by_debit_value_V2 - collateral_adjustment */;
-            return _toStringAmount_V2(
+            return _toStringAmount(
                 &m->basic.honzon_adjust_loan_by_debit_value_V2.collateral_adjustment,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* honzon_adjust_loan_by_debit_value_V2 - debit_value_adjustment */;
-            return _toStringAmount_V2(
+            return _toStringAmount(
                 &m->basic.honzon_adjust_loan_by_debit_value_V2.debit_value_adjustment,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5047,12 +5047,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 26121: /* module 102 call 9 */
         switch (itemIdx) {
         case 0: /* honzon_transfer_debit_V2 - from_currency */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_debit_V2.from_currency,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_transfer_debit_V2 - to_currency */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_debit_V2.to_currency,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5092,7 +5092,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 29698: /* module 116 call 2 */
         switch (itemIdx) {
         case 0: /* homa_fast_match_redeems_V2 - redeemer_list */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.homa_fast_match_redeems_V2.redeemer_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5102,7 +5102,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 29699: /* module 116 call 3 */
         switch (itemIdx) {
         case 0: /* homa_claim_redemption_V2 - redeemer */;
-            return _toStringAccountId_V2(
+            return _toStringAccountId(
                 &m->basic.homa_claim_redemption_V2.redeemer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5112,7 +5112,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 29703: /* module 116 call 7 */
         switch (itemIdx) {
         case 0: /* homa_reset_current_era_V2 - era_index */;
-            return _toStringEraIndex_V2(
+            return _toStringEraIndex(
                 &m->basic.homa_reset_current_era_V2.era_index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5122,7 +5122,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 29704: /* module 116 call 8 */
         switch (itemIdx) {
         case 0: /* homa_force_bump_current_era_V2 - bump_amount */;
-            return _toStringEraIndex_V2(
+            return _toStringEraIndex(
                 &m->basic.homa_force_bump_current_era_V2.bump_amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5132,7 +5132,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 29705: /* module 116 call 9 */
         switch (itemIdx) {
         case 0: /* homa_fast_match_redeems_completely_V2 - redeemer_list */;
-            return _toStringVecAccountId_V2(
+            return _toStringVecAccountId(
                 &m->nested.homa_fast_match_redeems_completely_V2.redeemer_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5142,7 +5142,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 30720: /* module 120 call 0 */
         switch (itemIdx) {
         case 0: /* incentives_deposit_dex_share_V2 - lp_currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->basic.incentives_deposit_dex_share_V2.lp_currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5157,7 +5157,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 30721: /* module 120 call 1 */
         switch (itemIdx) {
         case 0: /* incentives_withdraw_dex_share_V2 - lp_currency_id */;
-            return _toStringCurrencyId_V2(
+            return _toStringCurrencyId(
                 &m->nested.incentives_withdraw_dex_share_V2.lp_currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5172,7 +5172,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 30722: /* module 120 call 2 */
         switch (itemIdx) {
         case 0: /* incentives_claim_rewards_V2 - pool_id */;
-            return _toStringPoolId_V2(
+            return _toStringPoolId(
                 &m->basic.incentives_claim_rewards_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5182,12 +5182,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 30978: /* module 121 call 2 */
         switch (itemIdx) {
         case 0: /* nft_transfer_V2 - to */;
-            return _toStringLookupasStaticLookupSource_V2(
+            return _toStringLookupasStaticLookupSource(
                 &m->basic.nft_transfer_V2.to,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* nft_transfer_V2 - token */;
-            return _toStringClassIdOfTTokenIdOfT_V2(
+            return _toStringClassIdOfTTokenIdOfT(
                 &m->basic.nft_transfer_V2.token,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5197,7 +5197,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33280: /* module 130 call 0 */
         switch (itemIdx) {
         case 0: /* evm_eth_call_V2 - action */;
-            return _toStringTransactionAction_V2(
+            return _toStringTransactionAction(
                 &m->basic.evm_eth_call_V2.action,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5222,7 +5222,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 5: /* evm_eth_call_V2 - access_list */;
-            return _toStringVecAccessListItem_V2(
+            return _toStringVecAccessListItem(
                 &m->basic.evm_eth_call_V2.access_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5237,7 +5237,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33281: /* module 130 call 1 */
         switch (itemIdx) {
         case 0: /* evm_call_V2 - target */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_call_V2.target,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5262,7 +5262,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 5: /* evm_call_V2 - access_list */;
-            return _toStringVecAccessListItem_V2(
+            return _toStringVecAccessListItem(
                 &m->basic.evm_call_V2.access_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5292,7 +5292,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* evm_create_V2 - access_list */;
-            return _toStringVecAccessListItem_V2(
+            return _toStringVecAccessListItem(
                 &m->basic.evm_create_V2.access_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5327,7 +5327,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 5: /* evm_create2_V2 - access_list */;
-            return _toStringVecAccessListItem_V2(
+            return _toStringVecAccessListItem(
                 &m->basic.evm_create2_V2.access_list,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5337,12 +5337,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33287: /* module 130 call 7 */
         switch (itemIdx) {
         case 0: /* evm_transfer_maintainer_V2 - contract */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_transfer_maintainer_V2.contract,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* evm_transfer_maintainer_V2 - new_maintainer */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_transfer_maintainer_V2.new_maintainer,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5352,7 +5352,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33288: /* module 130 call 8 */
         switch (itemIdx) {
         case 0: /* evm_publish_contract_V2 - contract */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_publish_contract_V2.contract,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5362,7 +5362,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33289: /* module 130 call 9 */
         switch (itemIdx) {
         case 0: /* evm_publish_free_V2 - contract */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_publish_free_V2.contract,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5382,7 +5382,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33292: /* module 130 call 12 */
         switch (itemIdx) {
         case 0: /* evm_set_code_V2 - contract */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_set_code_V2.contract,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5397,7 +5397,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33293: /* module 130 call 13 */
         switch (itemIdx) {
         case 0: /* evm_selfdestruct_V2 - contract */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evm_selfdestruct_V2.contract,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5407,12 +5407,12 @@ parser_error_t _getMethod_ItemValue_V2(
     case 33792: /* module 132 call 0 */
         switch (itemIdx) {
         case 0: /* evmaccounts_claim_account_V2 - eth_address */;
-            return _toStringEvmAddress_V2(
+            return _toStringEvmAddress(
                 &m->basic.evmaccounts_claim_account_V2.eth_address,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* evmaccounts_claim_account_V2 - eth_signature */;
-            return _toStringEip712Signature_V2(
+            return _toStringEip712Signature(
                 &m->basic.evmaccounts_claim_account_V2.eth_signature,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5427,7 +5427,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 51201: /* module 200 call 1 */
         switch (itemIdx) {
         case 0: /* stableasset_mint_V2 - pool_id */;
-            return _toStringStableAssetPoolId_V2(
+            return _toStringStableAssetPoolId(
                 &m->basic.stableasset_mint_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5447,17 +5447,17 @@ parser_error_t _getMethod_ItemValue_V2(
     case 51202: /* module 200 call 2 */
         switch (itemIdx) {
         case 0: /* stableasset_swap_V2 - pool_id */;
-            return _toStringStableAssetPoolId_V2(
+            return _toStringStableAssetPoolId(
                 &m->basic.stableasset_swap_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* stableasset_swap_V2 - i */;
-            return _toStringPoolTokenIndex_V2(
+            return _toStringPoolTokenIndex(
                 &m->basic.stableasset_swap_V2.i,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* stableasset_swap_V2 - j */;
-            return _toStringPoolTokenIndex_V2(
+            return _toStringPoolTokenIndex(
                 &m->basic.stableasset_swap_V2.j,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5482,7 +5482,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 51203: /* module 200 call 3 */
         switch (itemIdx) {
         case 0: /* stableasset_redeem_proportion_V2 - pool_id */;
-            return _toStringStableAssetPoolId_V2(
+            return _toStringStableAssetPoolId(
                 &m->basic.stableasset_redeem_proportion_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5502,7 +5502,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 51204: /* module 200 call 4 */
         switch (itemIdx) {
         case 0: /* stableasset_redeem_single_V2 - pool_id */;
-            return _toStringStableAssetPoolId_V2(
+            return _toStringStableAssetPoolId(
                 &m->basic.stableasset_redeem_single_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5512,7 +5512,7 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* stableasset_redeem_single_V2 - i */;
-            return _toStringPoolTokenIndex_V2(
+            return _toStringPoolTokenIndex(
                 &m->basic.stableasset_redeem_single_V2.i,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5532,7 +5532,7 @@ parser_error_t _getMethod_ItemValue_V2(
     case 51205: /* module 200 call 5 */
         switch (itemIdx) {
         case 0: /* stableasset_redeem_multi_V2 - pool_id */;
-            return _toStringStableAssetPoolId_V2(
+            return _toStringStableAssetPoolId(
                 &m->basic.stableasset_redeem_multi_V2.pool_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
