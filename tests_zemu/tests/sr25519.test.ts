@@ -40,7 +40,7 @@ const expected_pk = '5c87de599d85f1f964297d3b67a2473949ef2c579a1958dbf5826b5140c
 jest.setTimeout(180000)
 
 describe('SR25519', function () {
-  test('get address sr25519', async function () {
+  test.concurrent('get address sr25519', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
@@ -60,7 +60,7 @@ describe('SR25519', function () {
     }
   })
 
-  test('show address sr25519', async function () {
+  test.concurrent('show address sr25519', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions, model: 'nanos' })
@@ -85,7 +85,7 @@ describe('SR25519', function () {
     }
   })
 
-  test('show address - reject sr25519', async function () {
+  test.concurrent('show address - reject sr25519', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
@@ -106,7 +106,7 @@ describe('SR25519', function () {
     }
   })
 
-  test('sign basic normal', async function () {
+  test.concurrent('sign basic normal', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
@@ -148,7 +148,7 @@ describe('SR25519', function () {
     }
   })
 
-  test('sign basic expert', async function () {
+  test.concurrent('sign basic expert', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
@@ -196,7 +196,7 @@ describe('SR25519', function () {
     }
   })
 
-  test('sign basic expert - accept shortcut', async function () {
+  test.concurrent('sign basic expert - accept shortcut', async function () {
     const sim = new Zemu(APP_PATH)
     try {
       await sim.start({ ...defaultOptions })
