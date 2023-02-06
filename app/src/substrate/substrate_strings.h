@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2022 Zondax AG
+ *  (c) 2019 - 2023 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,7 +43,6 @@ static const char* STR_MO_NFT = "Nft";
 static const char* STR_MO_EVM = "Evm";
 static const char* STR_MO_EVMACCOUNTS = "Evmaccounts";
 static const char* STR_MO_STABLEASSET = "Stableasset";
-static const char* STR_MO_FINANCIALCOUNCIL = "Financialcouncil";
 
 // Methods names
 static const char* STR_ME_FILL_BLOCK = "Fill block";
@@ -63,8 +62,8 @@ static const char* STR_ME_PROXY = "Proxy";
 static const char* STR_ME_ADD_PROXY = "Add proxy";
 static const char* STR_ME_REMOVE_PROXY = "Remove proxy";
 static const char* STR_ME_REMOVE_PROXIES = "Remove proxies";
-static const char* STR_ME_ANONYMOUS = "Anonymous";
-static const char* STR_ME_KILL_ANONYMOUS = "Kill anonymous";
+static const char* STR_ME_CREATE_PURE = "Create pure";
+static const char* STR_ME_KILL_PURE = "Kill pure";
 static const char* STR_ME_ANNOUNCE = "Announce";
 static const char* STR_ME_REMOVE_ANNOUNCEMENT = "Remove announcement";
 static const char* STR_ME_REJECT_ANNOUNCEMENT = "Reject announcement";
@@ -123,11 +122,6 @@ static const char* STR_ME_VETO_EXTERNAL = "Veto external";
 static const char* STR_ME_CANCEL_REFERENDUM = "Cancel referendum";
 static const char* STR_ME_UNDELEGATE = "Undelegate";
 static const char* STR_ME_CLEAR_PUBLIC_PROPOSALS = "Clear public proposals";
-static const char* STR_ME_NOTE_PREIMAGE = "Note preimage";
-static const char* STR_ME_NOTE_PREIMAGE_OPERATIONAL = "Note preimage operational";
-static const char* STR_ME_NOTE_IMMINENT_PREIMAGE = "Note imminent preimage";
-static const char* STR_ME_NOTE_IMMINENT_PREIMAGE_OPERATIONAL = "Note imminent preimage operational";
-static const char* STR_ME_REAP_PREIMAGE = "Reap preimage";
 static const char* STR_ME_UNLOCK = "Unlock";
 static const char* STR_ME_CANCEL_PROPOSAL = "Cancel proposal";
 static const char* STR_ME_SWAP_WITH_EXACT_SUPPLY = "Swap with exact supply";
@@ -180,9 +174,7 @@ static const char* STR_ME_SWAP = "Swap";
 static const char* STR_ME_REDEEM_PROPORTION = "Redeem proportion";
 static const char* STR_ME_REDEEM_SINGLE = "Redeem single";
 static const char* STR_ME_REDEEM_MULTI = "Redeem multi";
-static const char* STR_ME_CREATE_PURE = "Create pure";
-static const char* STR_ME_KILL_PURE = "Kill pure";
-static const char* STR_ME_CLOSE_OLD_WEIGHT = "Close old weight";
+static const char* STR_ME_WITH_WEIGHT = "With weight";
 
 // Items names
 static const char* STR_IT_ratio = "Ratio";
@@ -200,7 +192,6 @@ static const char* STR_IT_as_origin = "As origin";
 static const char* STR_IT_other_signatories = "Other signatories";
 static const char* STR_IT_threshold = "Threshold";
 static const char* STR_IT_maybe_timepoint = "Maybe timepoint";
-static const char* STR_IT_store_call = "Store call";
 static const char* STR_IT_max_weight = "Max weight";
 static const char* STR_IT_call_hash = "Call hash";
 static const char* STR_IT_timepoint = "Timepoint";
@@ -241,23 +232,19 @@ static const char* STR_IT_bond = "Bond";
 static const char* STR_IT_new_candidate = "New candidate";
 static const char* STR_IT_proof = "Proof";
 static const char* STR_IT_weight_limit = "Weight limit";
-static const char* STR_IT_dest_weight = "Dest weight";
+static const char* STR_IT_dest_weight_limit = "Dest weight limit";
 static const char* STR_IT_asset = "Asset";
 static const char* STR_IT_currencies = "Currencies";
 static const char* STR_IT_fee_item = "Fee item";
 static const char* STR_IT_assets = "Assets";
-static const char* STR_IT_proposal_hash = "Proposal hash";
 static const char* STR_IT_proposal = "Proposal";
-static const char* STR_IT_seconds_upper_bound = "Seconds upper bound";
 static const char* STR_IT_ref_index = "Ref index";
 static const char* STR_IT_vote = "Vote";
+static const char* STR_IT_proposal_hash = "Proposal hash";
 static const char* STR_IT_voting_period = "Voting period";
-static const char* STR_IT_which = "Which";
 static const char* STR_IT_to = "To";
 static const char* STR_IT_conviction = "Conviction";
 static const char* STR_IT_balance = "Balance";
-static const char* STR_IT_encoded_proposal = "Encoded proposal";
-static const char* STR_IT_proposal_len_upper_bound = "Proposal len upper bound";
 static const char* STR_IT_target = "Target";
 static const char* STR_IT_maybe_ref_index = "Maybe ref index";
 static const char* STR_IT_prop_index = "Prop index";
@@ -349,13 +336,7 @@ static const char* STR_IT_min_redeem_amount = "Min redeem amount";
 static const char* STR_IT_max_redeem_amount = "Max redeem amount";
 static const char* STR_IT_a = "A";
 static const char* STR_IT_future_a_block = "Future a block";
-static const char* STR_IT_dest_weight_limit = "Dest weight limit";
-static const char* STR_IT_new_members = "New members";
-static const char* STR_IT_prime = "Prime";
-static const char* STR_IT_old_count = "Old count";
-static const char* STR_IT_length_bound = "Length bound";
-static const char* STR_IT_approve = "Approve";
-static const char* STR_IT_proposal_weight_bound = "Proposal weight bound";
+static const char* STR_IT_weight = "Weight";
 
 #ifdef __cplusplus
 }

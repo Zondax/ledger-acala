@@ -37,7 +37,7 @@ const expected_pk = '19306b58f9e46fc24a406534ec9bb7aea62f88b7b4965536c5dd1d80db1
 jest.setTimeout(180000)
 
 describe('Standard', function () {
-  test.each(models)('can start and stop container', async function (m) {
+  test.concurrent.each(models)('can start and stop container', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -46,7 +46,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('main menu', async function (m) {
+  test.concurrent.each(models)('main menu', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -56,7 +56,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('get app version', async function (m) {
+  test.concurrent.each(models)('get app version', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -76,7 +76,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('get address', async function (m) {
+  test.concurrent.each(models)('get address', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -99,7 +99,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('show address', async function (m) {
+  test.concurrent.each(models)('show address', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -125,7 +125,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('show address - reject', async function (m) {
+  test.concurrent.each(models)('show address - reject', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -146,7 +146,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('sign basic normal', async function (m) {
+  test.concurrent.each(models)('sign basic normal', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -187,7 +187,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('sign basic expert', async function (m) {
+  test.concurrent.each(models)('sign basic expert', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -234,7 +234,7 @@ describe('Standard', function () {
     }
   })
 
-  // test.each(models)('sign large nomination', async function (m) {
+  // test.concurrent.each(models)('sign large nomination', async function (m) {
   //   const sim = new Zemu(m.path)
   //   try {
   //     await sim.start({...defaultOptions, model: m.name})
@@ -275,7 +275,7 @@ describe('Standard', function () {
   //   }
   // })
 
-  test.each(models)('set keys', async function (m) {
+  test.concurrent.each(models)('set keys', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -316,7 +316,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('Proxy proxy balances transfer', async function (m) {
+  test.concurrent.each(models)('Proxy proxy balances transfer', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
@@ -355,7 +355,7 @@ describe('Standard', function () {
     }
   })
 
-  test.each(models)('Utility batch', async function (m) {
+  test.concurrent.each(models)('Utility batch', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })

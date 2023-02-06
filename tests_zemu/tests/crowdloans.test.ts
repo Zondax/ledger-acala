@@ -59,7 +59,7 @@ async function activateCrowdloanMode(sim: any) {
 }
 
 describe('Crowdloan', function () {
-  test.each(models)('crowdloan menu', async function (m) {
+  test.concurrent.each(models)('crowdloan menu', async function (m) {
     const sim = new Zemu(m.path)
     try {
       await sim.start({ ...defaultOptions, model: m.name })
