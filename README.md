@@ -28,7 +28,7 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala 3.2130.x
+# Acala 3.2160.x
 
 ## System
 
@@ -197,12 +197,6 @@ Please:
 | Close tip      |        |           |           |         | `Hash`hash<br/>                                                           |
 | Slash tip      |        |           |           |         | `Hash`hash<br/>                                                           |
 
-## Authorship
-
-| Name       | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                  |
-| ---------- | ------ | --------- | --------- | ------- | -------------------------- |
-| Set uncles |        |           |           |         | `VecHeader`new_uncles<br/> |
-
 ## CollatorSelection
 
 | Name                   | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                     |
@@ -230,17 +224,17 @@ Please:
 
 ## XcmpQueue
 
-| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                               |
-| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------- |
-| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
-| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
+| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                            |
+| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
+| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
+| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
 
 ## PolkadotXcm
 
@@ -249,7 +243,7 @@ Please:
 | Send                             |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/>                                                                                                    |
 | Teleport assets                  |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
 | Reserve transfer assets          |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
-| Execute                          |        |           |           |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`XcmWeight`max_weight<br/>                                                                                            |
+| Execute                          |        |           |           |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`Weight`max_weight<br/>                                                                                               |
 | Force xcm version                |        |           |           |         | `BoxMultiLocation`location<br/>`XcmVersion`xcm_version<br/>                                                                                                               |
 | Force default xcm version        |        |           |           |         | `OptionXcmVersion`maybe_xcm_version<br/>                                                                                                                                  |
 | Force subscribe version notify   |        |           |           |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
@@ -259,9 +253,9 @@ Please:
 
 ## DmpQueue
 
-| Name               | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                               |
-| ------------------ | ------ | --------- | --------- | ------- | ------------------------------------------------------- |
-| Service overweight |        |           |           |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
+| Name               | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                            |
+| ------------------ | ------ | --------- | --------- | ------- | ---------------------------------------------------- |
+| Service overweight |        |           |           |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
 
 ## XTokens
 
@@ -598,6 +592,7 @@ Please:
 | Name                         | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                      |
 | ---------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Eth call                     |        | :heavy_check_mark: | :heavy_check_mark: |         | `TransactionAction`action<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>`Compactu32`valid_until<br/> |
+| Eth call v2                  |        |                    |                    |         | `TransactionAction`action<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_price<br/>`Compactu64`gas_limit<br/>`VecAccessListItem`access_list<br/>                                 |
 | Call                         |        | :heavy_check_mark: | :heavy_check_mark: |         | `EvmAddress`target<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>                                    |
 | Scheduled call               |        |                    |                    |         | `EvmAddress`from<br/>`EvmAddress`target<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>               |
 | Create                       |        | :heavy_check_mark: | :heavy_check_mark: |         | `Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>                                                           |
