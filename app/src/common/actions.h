@@ -83,6 +83,7 @@ __Z_INLINE key_kind_e get_key_type(uint8_t num) {
     }
     return 0xff;
 #else
+    UNUSED(num);
     return key_ed25519;
 #endif
 }

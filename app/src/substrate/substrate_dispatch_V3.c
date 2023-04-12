@@ -123,6 +123,8 @@ __Z_INLINE parser_error_t _readMethod_session_set_keys_V3(
 __Z_INLINE parser_error_t _readMethod_session_purge_keys_V3(
     parser_context_t* c, pd_session_purge_keys_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -224,6 +226,8 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V3(
 __Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V3(
     parser_context_t* c, pd_proxy_remove_proxies_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -326,6 +330,8 @@ __Z_INLINE parser_error_t _readMethod_currencies_sweep_dust_V3(
 __Z_INLINE parser_error_t _readMethod_vesting_claim_V3(
     parser_context_t* c, pd_vesting_claim_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -468,6 +474,8 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_set_candidacy_bond_V3(
 __Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V3(
     parser_context_t* c, pd_collatorselection_register_as_candidate_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -481,12 +489,16 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_register_candidate_V3(
 __Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V3(
     parser_context_t* c, pd_collatorselection_leave_intent_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_collatorselection_withdraw_bond_V3(
     parser_context_t* c, pd_collatorselection_withdraw_bond_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -501,12 +513,16 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V3(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_suspend_xcm_execution_V3(
     parser_context_t* c, pd_xcmpqueue_suspend_xcm_execution_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_resume_xcm_execution_V3(
     parser_context_t* c, pd_xcmpqueue_resume_xcm_execution_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -621,12 +637,16 @@ __Z_INLINE parser_error_t _readMethod_democracy_cancel_referendum_V3(
 __Z_INLINE parser_error_t _readMethod_democracy_undelegate_V3(
     parser_context_t* c, pd_democracy_undelegate_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_clear_public_proposals_V3(
     parser_context_t* c, pd_democracy_clear_public_proposals_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -841,6 +861,8 @@ __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_all_V3(
     parser_context_t* c, pd_honzon_unauthorize_all_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -1034,12 +1056,16 @@ __Z_INLINE parser_error_t _readMethod_evm_publish_free_V3(
 __Z_INLINE parser_error_t _readMethod_evm_enable_contract_development_V3(
     parser_context_t* c, pd_evm_enable_contract_development_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_disable_contract_development_V3(
     parser_context_t* c, pd_evm_disable_contract_development_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -1069,6 +1095,8 @@ __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_account_V3(
 __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_default_account_V3(
     parser_context_t* c, pd_evmaccounts_claim_default_account_V3_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -5575,7 +5603,7 @@ parser_error_t _getMethod_ItemValue_V3(
     return parser_ok;
 }
 
-bool _getMethod_ItemIsExpert_V3(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+bool _getMethod_ItemIsExpert_V3(uint8_t moduleIdx, uint8_t callIdx, __Z_UNUSED uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 
