@@ -290,7 +290,7 @@ typedef struct {
 #define PD_CALL_XCMPQUEUE_SERVICE_OVERWEIGHT_V3 0
 typedef struct {
     pd_OverweightIndex_t index;
-    pd_XcmWeight_t weight_limit;
+    pd_Weight_t weight_limit;
 } pd_xcmpqueue_service_overweight_V3_t;
 
 #define PD_CALL_XCMPQUEUE_SUSPEND_XCM_EXECUTION_V3 1
@@ -318,17 +318,17 @@ typedef struct {
 
 #define PD_CALL_XCMPQUEUE_UPDATE_THRESHOLD_WEIGHT_V3 6
 typedef struct {
-    pd_XcmWeight_t new_;
+    pd_Weight_t new_;
 } pd_xcmpqueue_update_threshold_weight_V3_t;
 
 #define PD_CALL_XCMPQUEUE_UPDATE_WEIGHT_RESTRICT_DECAY_V3 7
 typedef struct {
-    pd_XcmWeight_t new_;
+    pd_Weight_t new_;
 } pd_xcmpqueue_update_weight_restrict_decay_V3_t;
 
 #define PD_CALL_XCMPQUEUE_UPDATE_XCMP_MAX_INDIVIDUAL_WEIGHT_V3 8
 typedef struct {
-    pd_XcmWeight_t new_;
+    pd_Weight_t new_;
 } pd_xcmpqueue_update_xcmp_max_individual_weight_V3_t;
 
 #define PD_CALL_DEMOCRACY_PROPOSE_V3 0
