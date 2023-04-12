@@ -25,38 +25,7 @@ const defaultOptions = {
   X11: false,
 }
 
-jest.setTimeout(180000)
-
-async function activateCrowdloanMode(sim: any) {
-  // Crowdloan can be activate only when expert mode is enabled
-  await sim.clickRight()
-  await sim.clickRight()
-  await sim.clickBoth('', false)
-  await sim.clickBoth('', false)
-  await sim.clickLeft()
-  await sim.clickLeft()
-
-  // Activale Expert mode
-  await sim.clickRight()
-  await sim.clickBoth()
-
-  //Activate Crowdloan
-  await sim.clickRight()
-  await sim.clickBoth()
-
-  // Review warning message
-  const reviewSteps = sim.startOptions.model === 'nanos' ? 6 : 5
-  for (let i = 0; i < reviewSteps; i += 1) {
-    await sim.clickRight()
-  }
-
-  // Accept
-  await sim.clickBoth()
-
-  // Just go forward
-  await sim.clickRight()
-  await sim.clickRight()
-}
+jest.setTimeout(60000)
 
 describe('Crowdloan', function () {
   test.concurrent.each(models)('crowdloan menu', async function (m) {
@@ -79,7 +48,7 @@ describe('Crowdloan', function () {
       expect(resp.return_code).toEqual(0x9000)
       expect(resp.error_message).toEqual('No errors')
 
-      await activateCrowdloanMode(sim)
+      await sim.enableSpecialMode('Account')
 
       resp = await app.getAddress(0x80000000, 0x80000000, 0x80000000)
 

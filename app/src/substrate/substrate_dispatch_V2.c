@@ -133,8 +133,8 @@ __Z_INLINE parser_error_t _readMethod_xtokens_transfer_V2(
 {
     CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
-    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
-    CHECK_ERROR(_readWeightLimit(c, &m->dest_weight_limit))
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V2(c, &m->dest))
+    CHECK_ERROR(_readWeightLimit_V2(c, &m->dest_weight_limit))
     return parser_ok;
 }
 #endif
@@ -1649,6 +1649,16 @@ const char* _getMethod_Name_V2(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_SET_KEYS;
     case 10753: /* module 42 call 1 */
         return STR_ME_PURGE_KEYS;
+    default:
+        return _getMethod_Name_V2_ParserFull(callPrivIdx);
+    }
+
+    return NULL;
+}
+
+const char* _getMethod_Name_V2_ParserFull(uint16_t callPrivIdx)
+{
+    switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
     case 13824: /* module 54 call 0 */
@@ -3671,12 +3681,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* xtokens_transfer_V2 - dest */;
-            return _toStringBoxVersionedMultiLocation(
+            return _toStringBoxVersionedMultiLocation_V2(
                 &m->basic.xtokens_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* xtokens_transfer_V2 - dest_weight_limit */;
-            return _toStringWeightLimit(
+            return _toStringWeightLimit_V2(
                 &m->basic.xtokens_transfer_V2.dest_weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
