@@ -82,7 +82,7 @@ zxerr_t account_getItem(int8_t displayIdx,
 zxerr_t account_enabled() {
 #ifdef APP_ACCOUNT_MODE_ENABLED
     view_review_init(account_getItem, account_getNumItems, account_accept);
-    view_review_show(0x00);
+    view_review_show(REVIEW_UI);
 #endif
     return zxerr_ok;
 }

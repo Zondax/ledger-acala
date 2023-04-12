@@ -123,6 +123,8 @@ __Z_INLINE parser_error_t _readMethod_session_set_keys_V2(
 __Z_INLINE parser_error_t _readMethod_session_purge_keys_V2(
     parser_context_t* c, pd_session_purge_keys_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -133,8 +135,8 @@ __Z_INLINE parser_error_t _readMethod_xtokens_transfer_V2(
 {
     CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
-    CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
-    CHECK_ERROR(_readWeightLimit(c, &m->dest_weight_limit))
+    CHECK_ERROR(_readBoxVersionedMultiLocation_V2(c, &m->dest))
+    CHECK_ERROR(_readWeightLimit_V2(c, &m->dest_weight_limit))
     return parser_ok;
 }
 #endif
@@ -223,6 +225,8 @@ __Z_INLINE parser_error_t _readMethod_multisig_cancel_as_multi_V2(
 __Z_INLINE parser_error_t _readMethod_proxy_remove_proxies_V2(
     parser_context_t* c, pd_proxy_remove_proxies_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -325,6 +329,8 @@ __Z_INLINE parser_error_t _readMethod_currencies_sweep_dust_V2(
 __Z_INLINE parser_error_t _readMethod_vesting_claim_V2(
     parser_context_t* c, pd_vesting_claim_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -467,6 +473,8 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_set_candidacy_bond_V2(
 __Z_INLINE parser_error_t _readMethod_collatorselection_register_as_candidate_V2(
     parser_context_t* c, pd_collatorselection_register_as_candidate_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -480,12 +488,16 @@ __Z_INLINE parser_error_t _readMethod_collatorselection_register_candidate_V2(
 __Z_INLINE parser_error_t _readMethod_collatorselection_leave_intent_V2(
     parser_context_t* c, pd_collatorselection_leave_intent_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_collatorselection_withdraw_bond_V2(
     parser_context_t* c, pd_collatorselection_withdraw_bond_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -500,12 +512,16 @@ __Z_INLINE parser_error_t _readMethod_xcmpqueue_service_overweight_V2(
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_suspend_xcm_execution_V2(
     parser_context_t* c, pd_xcmpqueue_suspend_xcm_execution_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_xcmpqueue_resume_xcm_execution_V2(
     parser_context_t* c, pd_xcmpqueue_resume_xcm_execution_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -620,12 +636,16 @@ __Z_INLINE parser_error_t _readMethod_democracy_cancel_referendum_V2(
 __Z_INLINE parser_error_t _readMethod_democracy_undelegate_V2(
     parser_context_t* c, pd_democracy_undelegate_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_democracy_clear_public_proposals_V2(
     parser_context_t* c, pd_democracy_clear_public_proposals_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -840,6 +860,8 @@ __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_V2(
 __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_all_V2(
     parser_context_t* c, pd_honzon_unauthorize_all_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -1033,12 +1055,16 @@ __Z_INLINE parser_error_t _readMethod_evm_publish_free_V2(
 __Z_INLINE parser_error_t _readMethod_evm_enable_contract_development_V2(
     parser_context_t* c, pd_evm_enable_contract_development_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_evm_disable_contract_development_V2(
     parser_context_t* c, pd_evm_disable_contract_development_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -1068,6 +1094,8 @@ __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_account_V2(
 __Z_INLINE parser_error_t _readMethod_evmaccounts_claim_default_account_V2(
     parser_context_t* c, pd_evmaccounts_claim_default_account_V2_t* m)
 {
+    UNUSED(c);
+    UNUSED(m);
     return parser_ok;
 }
 
@@ -1649,6 +1677,16 @@ const char* _getMethod_Name_V2(uint8_t moduleIdx, uint8_t callIdx)
         return STR_ME_SET_KEYS;
     case 10753: /* module 42 call 1 */
         return STR_ME_PURGE_KEYS;
+    default:
+        return _getMethod_Name_V2_ParserFull(callPrivIdx);
+    }
+
+    return NULL;
+}
+
+const char* _getMethod_Name_V2_ParserFull(uint16_t callPrivIdx)
+{
+    switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
     case 13824: /* module 54 call 0 */
@@ -3671,12 +3709,12 @@ parser_error_t _getMethod_ItemValue_V2(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* xtokens_transfer_V2 - dest */;
-            return _toStringBoxVersionedMultiLocation(
+            return _toStringBoxVersionedMultiLocation_V2(
                 &m->basic.xtokens_transfer_V2.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* xtokens_transfer_V2 - dest_weight_limit */;
-            return _toStringWeightLimit(
+            return _toStringWeightLimit_V2(
                 &m->basic.xtokens_transfer_V2.dest_weight_limit,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5557,7 +5595,7 @@ parser_error_t _getMethod_ItemValue_V2(
     return parser_ok;
 }
 
-bool _getMethod_ItemIsExpert_V2(uint8_t moduleIdx, uint8_t callIdx, uint8_t itemIdx)
+bool _getMethod_ItemIsExpert_V2(uint8_t moduleIdx, uint8_t callIdx, __Z_UNUSED uint8_t itemIdx)
 {
     uint16_t callPrivIdx = ((uint16_t)moduleIdx << 8u) + callIdx;
 

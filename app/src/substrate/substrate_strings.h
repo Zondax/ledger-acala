@@ -337,6 +337,7 @@ static const char* STR_IT_max_redeem_amount = "Max redeem amount";
 static const char* STR_IT_a = "A";
 static const char* STR_IT_future_a_block = "Future a block";
 static const char* STR_IT_weight = "Weight";
+static const char* STR_IT_gas_price = "Gas price";
 
 #ifdef __cplusplus
 }

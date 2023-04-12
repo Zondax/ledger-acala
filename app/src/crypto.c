@@ -18,9 +18,12 @@
 #include "base58.h"
 #include "coin.h"
 #include "cx.h"
-#include "rslib.h"
 #include "zxmacros.h"
 #include "ristretto.h"
+
+#ifdef SUPPORT_SR25519
+#include "rslib.h"
+#endif
 
 uint32_t hdPath[HDPATH_LEN_DEFAULT];
 

@@ -141,7 +141,7 @@ describe('SR25519', function () {
         prehash = Buffer.from(blake2bFinal(context))
       }
       const signingcontext = Buffer.from([])
-      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.slice(1))
+      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.subarray(1))
       expect(valid).toEqual(true)
     } finally {
       await sim.close()
@@ -189,7 +189,7 @@ describe('SR25519', function () {
         prehash = Buffer.from(blake2bFinal(context))
       }
       const signingcontext = Buffer.from([])
-      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.slice(1))
+      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.subarray(1))
       expect(valid).toEqual(true)
     } finally {
       await sim.close()
@@ -241,7 +241,7 @@ describe('SR25519', function () {
         prehash = Buffer.from(blake2bFinal(context))
       }
       const signingcontext = Buffer.from([])
-      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.slice(1))
+      const valid = addon.schnorrkel_verify(pubKey, signingcontext, prehash, signatureResponse.signature.subarray(1))
       expect(valid).toEqual(true)
     } finally {
       await sim.close()

@@ -15,11 +15,11 @@
   ],
   "scripts": {
     "clean": "ts-node tests/pullImageKillOld.ts",
-    "test": "yarn clean && jest "
+    "test": "yarn clean && jest"
   },
   "dependencies": {
     "@zondax/ledger-substrate": "^0.40.2",
-    "@zondax/zemu": "^0.34.0"
+    "@zondax/zemu": "^0.39.1"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
@@ -34,7 +34,7 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jest": "^27.1.6",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "29.3.1",
+    "jest": "29.5.0",
     "jssha": "^3.2.0",
     "prettier": "^2.4.1",
     "ts-jest": "^29.0.3",
