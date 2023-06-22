@@ -50,11 +50,16 @@ __Z_INLINE void app_sign_ed25519() {
 
 #ifdef SUPPORT_SR25519
 __Z_INLINE void app_return_sr25519() {
-    copy_sr25519_signdata(G_io_apdu_buffer);
+    const zxerr_t err = copy_sr25519_signdata(G_io_apdu_buffer, sizeof(G_io_apdu_buffer) - 2);
     zeroize_sr25519_signdata();
 
-    set_code(G_io_apdu_buffer, SIG_PLUS_TYPE_LEN, APDU_CODE_OK);
-    io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, SIG_PLUS_TYPE_LEN + 2);
+    if (err != zxerr_ok) {
+        set_code(G_io_apdu_buffer, 0, APDU_CODE_SIGN_VERIFY_ERROR);
+        io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, 2);
+    } else {
+        set_code(G_io_apdu_buffer, SIG_PLUS_TYPE_LEN, APDU_CODE_OK);
+        io_exchange(CHANNEL_APDU | IO_RETURN_AFTER_TX, SIG_PLUS_TYPE_LEN + 2);
+    }
 }
 #endif
 

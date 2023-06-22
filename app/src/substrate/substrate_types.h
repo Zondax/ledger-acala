@@ -23,9 +23,11 @@ extern "C" {
 #include <stddef.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wextern-c-compat"
 #pragma clang diagnostic pop
+#endif
 
 // https://github.com/paritytech/substrate/blob/effe489951d1edab9d34846b1eefdfaf9511dab9/frame/identity/src/lib.rs
 #define Data_e_NONE 0
