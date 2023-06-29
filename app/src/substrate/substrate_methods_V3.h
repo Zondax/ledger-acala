@@ -13,11 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  ********************************************************************************/
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wextern-c-compat"
 #pragma once
 
 #ifdef __cplusplus
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wextern-c-compat"
+
 extern "C" {
 #endif
 
@@ -88,7 +89,7 @@ typedef struct {
 #ifndef TARGET_NANOS
 #define PD_CALL_XTOKENS_TRANSFER_V3 0
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Balance_t amount;
     pd_BoxVersionedMultiLocation_t dest;
     pd_WeightLimit_t dest_weight_limit;
@@ -156,13 +157,13 @@ typedef struct {
 #define PD_CALL_CURRENCIES_UPDATE_BALANCE_V3 2
 typedef struct {
     pd_LookupasStaticLookupSource_t who;
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Amount_t amount;
 } pd_currencies_update_balance_V3_t;
 
 #define PD_CALL_CURRENCIES_SWEEP_DUST_V3 3
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_VecAccountId_t accounts;
 } pd_currencies_sweep_dust_V3_t;
 
@@ -177,7 +178,7 @@ typedef struct {
 
 #define PD_CALL_TRANSACTIONPAYMENT_DISABLE_CHARGE_FEE_POOL_V3 2
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
 } pd_transactionpayment_disable_charge_fee_pool_V3_t;
 
 #define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_PATH_V3 3
@@ -188,7 +189,7 @@ typedef struct {
 
 #define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_CURRENCY_V3 4
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Call_t call;
 } pd_transactionpayment_with_fee_currency_V3_t;
 
@@ -406,8 +407,8 @@ typedef struct {
 
 #define PD_CALL_DEX_ADD_PROVISION_V3 3
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
     pd_Compactu128_t amount_a;
     pd_Compactu128_t amount_b;
 } pd_dex_add_provision_V3_t;
@@ -415,14 +416,14 @@ typedef struct {
 #define PD_CALL_DEX_CLAIM_DEX_SHARE_V3 4
 typedef struct {
     pd_AccountId_t owner;
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_claim_dex_share_V3_t;
 
 #define PD_CALL_DEX_LIST_PROVISIONING_V3 6
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
     pd_Compactu128_t min_contribution_a;
     pd_Compactu128_t min_contribution_b;
     pd_Compactu128_t target_provision_a;
@@ -432,8 +433,8 @@ typedef struct {
 
 #define PD_CALL_DEX_UPDATE_PROVISIONING_PARAMETERS_V3 7
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
     pd_Compactu128_t min_contribution_a;
     pd_Compactu128_t min_contribution_b;
     pd_Compactu128_t target_provision_a;
@@ -443,56 +444,56 @@ typedef struct {
 
 #define PD_CALL_DEX_END_PROVISIONING_V3 8
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_end_provisioning_V3_t;
 
 #define PD_CALL_DEX_ENABLE_TRADING_PAIR_V3 9
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_enable_trading_pair_V3_t;
 
 #define PD_CALL_DEX_DISABLE_TRADING_PAIR_V3 10
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_disable_trading_pair_V3_t;
 
 #define PD_CALL_DEX_REFUND_PROVISION_V3 11
 typedef struct {
     pd_AccountId_t owner;
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_refund_provision_V3_t;
 
 #define PD_CALL_DEX_ABORT_PROVISIONING_V3 12
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
 } pd_dex_abort_provisioning_V3_t;
 
 #define PD_CALL_HONZON_CLOSE_LOAN_HAS_DEBIT_BY_DEX_V3 1
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Compactu128_t max_collateral_amount;
 } pd_honzon_close_loan_has_debit_by_dex_V3_t;
 
 #define PD_CALL_HONZON_TRANSFER_LOAN_FROM_V3 2
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_LookupasStaticLookupSource_t from;
 } pd_honzon_transfer_loan_from_V3_t;
 
 #define PD_CALL_HONZON_AUTHORIZE_V3 3
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_LookupasStaticLookupSource_t to;
 } pd_honzon_authorize_V3_t;
 
 #define PD_CALL_HONZON_UNAUTHORIZE_V3 4
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_LookupasStaticLookupSource_t to;
 } pd_honzon_unauthorize_V3_t;
 
@@ -502,29 +503,29 @@ typedef struct {
 
 #define PD_CALL_HONZON_EXPAND_POSITION_COLLATERAL_V3 6
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Balance_t increase_debit_value;
     pd_Balance_t min_increase_collateral;
 } pd_honzon_expand_position_collateral_V3_t;
 
 #define PD_CALL_HONZON_SHRINK_POSITION_DEBIT_V3 7
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Balance_t decrease_collateral;
     pd_Balance_t min_decrease_debit_value;
 } pd_honzon_shrink_position_debit_V3_t;
 
 #define PD_CALL_HONZON_ADJUST_LOAN_BY_DEBIT_VALUE_V3 8
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Amount_t collateral_adjustment;
     pd_Amount_t debit_value_adjustment;
 } pd_honzon_adjust_loan_by_debit_value_V3_t;
 
 #define PD_CALL_HONZON_TRANSFER_DEBIT_V3 9
 typedef struct {
-    pd_CurrencyId_t from_currency;
-    pd_CurrencyId_t to_currency;
+    pd_CurrencyId_V3_t from_currency;
+    pd_CurrencyId_V3_t to_currency;
     pd_Balance_t debit_transfer;
 } pd_honzon_transfer_debit_V3_t;
 
@@ -545,7 +546,7 @@ typedef struct {
 
 #define PD_CALL_INCENTIVES_DEPOSIT_DEX_SHARE_V3 0
 typedef struct {
-    pd_CurrencyId_t lp_currency_id;
+    pd_CurrencyId_V3_t lp_currency_id;
     pd_Compactu128_t amount;
 } pd_incentives_deposit_dex_share_V3_t;
 
@@ -843,7 +844,7 @@ typedef struct {
 #define PD_CALL_CURRENCIES_TRANSFER_V3 0
 typedef struct {
     pd_LookupasStaticLookupSource_t dest;
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Compactu128_t amount;
 } pd_currencies_transfer_V3_t;
 
@@ -929,8 +930,8 @@ typedef struct {
 
 #define PD_CALL_DEX_ADD_LIQUIDITY_V3 2
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
     pd_Compactu128_t max_amount_a;
     pd_Compactu128_t max_amount_b;
     pd_Compactu128_t min_share_increment;
@@ -939,8 +940,8 @@ typedef struct {
 
 #define PD_CALL_DEX_REMOVE_LIQUIDITY_V3 5
 typedef struct {
-    pd_CurrencyId_t currency_id_a;
-    pd_CurrencyId_t currency_id_b;
+    pd_CurrencyId_V3_t currency_id_a;
+    pd_CurrencyId_V3_t currency_id_b;
     pd_Compactu128_t remove_share;
     pd_Compactu128_t min_withdrawn_a;
     pd_Compactu128_t min_withdrawn_b;
@@ -968,7 +969,7 @@ typedef struct {
 
 #define PD_CALL_HONZON_ADJUST_LOAN_V3 0
 typedef struct {
-    pd_CurrencyId_t currency_id;
+    pd_CurrencyId_V3_t currency_id;
     pd_Amount_t collateral_adjustment;
     pd_Amount_t debit_adjustment;
 } pd_honzon_adjust_loan_V3_t;
@@ -996,7 +997,7 @@ typedef struct {
 
 #define PD_CALL_INCENTIVES_WITHDRAW_DEX_SHARE_V3 1
 typedef struct {
-    pd_CurrencyId_t lp_currency_id;
+    pd_CurrencyId_V3_t lp_currency_id;
     pd_Compactu128_t amount;
 } pd_incentives_withdraw_dex_share_V3_t;
 
@@ -1046,6 +1047,5 @@ typedef union {
 
 #ifdef __cplusplus
 }
-#endif
-
 #pragma clang diagnostic pop
+#endif

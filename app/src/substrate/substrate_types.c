@@ -1596,6 +1596,7 @@ parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v) {
 
 parser_error_t _readOptionNetworkIdV3(parser_context_t* c, pd_OptionNetworkIdV3_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readNetworkIdV3(c, &v->contained))
@@ -1605,6 +1606,7 @@ parser_error_t _readOptionNetworkIdV3(parser_context_t* c, pd_OptionNetworkIdV3_
 
 parser_error_t _readOptionVecSwapPath(parser_context_t* c, pd_OptionVecSwapPath_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readVecSwapPath(c, &v->contained))
@@ -1614,6 +1616,7 @@ parser_error_t _readOptionVecSwapPath(parser_context_t* c, pd_OptionVecSwapPath_
 
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readTimepoint(c, &v->contained))
@@ -1623,6 +1626,7 @@ parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v
 
 parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readProxyType(c, &v->contained))
@@ -1632,6 +1636,7 @@ parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v
 
 parser_error_t _readOptionVecCurrencyId(parser_context_t* c, pd_OptionVecCurrencyId_t* v)
 {
+    CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->some))
     if (v->some > 0) {
         CHECK_ERROR(_readVecCurrencyId(c, &v->contained))

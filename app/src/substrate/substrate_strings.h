@@ -338,6 +338,7 @@ static const char* STR_IT_a = "A";
 static const char* STR_IT_future_a_block = "Future a block";
 static const char* STR_IT_weight = "Weight";
 static const char* STR_IT_gas_price = "Gas price";
+static const char* STR_IT_maybe_hash = "Maybe hash";
 
 #ifdef __cplusplus
 }

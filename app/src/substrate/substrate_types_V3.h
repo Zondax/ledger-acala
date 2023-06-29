@@ -25,6 +25,22 @@ extern "C" {
 
 // Versioned types functions for tx version V3
 
+typedef struct {
+    uint8_t value;
+} pd_TokenSymbol_V3_t;
+
+typedef struct {
+    uint8_t value;
+    union {
+        pd_TokenSymbol_V3_t token;
+        pd_DexShareFixed_t dexShare;
+        pd_EvmAddress_t erc20;
+        uint32_t stableAssetPoolToken;
+        uint32_t liquidCrowdloan;
+        uint16_t foreignAsset;
+    };
+} pd_CurrencyId_V3_t;
+
 #ifdef __cplusplus
 }
 #endif
