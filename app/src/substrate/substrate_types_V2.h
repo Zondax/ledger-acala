@@ -25,6 +25,19 @@ extern "C" {
 
 // Versioned types functions for tx version V2
 
+typedef struct {
+    uint8_t value;
+    union {
+        pd_MultiLocationV0_t multilocationV0;
+        pd_MultiLocationV1_t multilocationV1;
+    };
+} pd_BoxVersionedMultiLocation_V2_t;
+
+typedef struct {
+    uint8_t value;
+    pd_Compactu64_t limited;
+} pd_WeightLimit_V2_t;
+
 #ifdef __cplusplus
 }
 #endif

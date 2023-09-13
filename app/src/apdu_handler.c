@@ -30,6 +30,7 @@
 #include "coin.h"
 #include "zxmacros.h"
 #include "app_mode.h"
+#include "view.h"
 
 static bool tx_initialized = false;
 
@@ -92,17 +93,15 @@ __Z_INLINE bool process_chunk(__Z_UNUSED volatile uint32_t *tx, uint32_t rx) {
             added = tx_append(&(G_io_apdu_buffer[OFFSET_DATA]), rx - OFFSET_DATA);
             tx_initialized = false;
             if (added != rx - OFFSET_DATA) {
-                tx_initialized = false;
                 THROW(APDU_CODE_OUTPUT_BUFFER_TOO_SMALL);
             }
-            tx_initialized = false;
             return true;
     }
 
     THROW(APDU_CODE_INVALIDP1P2);
 }
 
-__Z_INLINE void handle_getversion(volatile uint32_t *flags, volatile uint32_t *tx) {
+__Z_INLINE void handle_getversion(__Z_UNUSED volatile uint32_t *flags, volatile uint32_t *tx) {
     G_io_apdu_buffer[0] = 0;
 
 #if defined(APP_TESTING)
@@ -143,53 +142,12 @@ __Z_INLINE void handleGetAddr(volatile uint32_t *flags, volatile uint32_t *tx, u
     }
     if (requireConfirmation) {
         view_review_init(addr_getItem, addr_getNumItems, app_reply_address);
-        view_review_show(0x03);
+        view_review_show(REVIEW_ADDRESS);
         *flags |= IO_ASYNCH_REPLY;
         return;
     }
     *tx = action_addrResponseLen;
     THROW(APDU_CODE_OK);
-}
-
-#ifdef SUPPORT_SR25519
-__Z_INLINE void handleSignSr25519(volatile uint32_t *flags, volatile uint32_t *tx) {
-    zxerr_t err = app_sign_sr25519();
-    if(err != zxerr_ok){
-        *tx = 0;
-        THROW(APDU_CODE_DATA_INVALID);
-    }
-
-    CHECK_APP_CANARY()
-
-    const char *error_msg = tx_parse();
-    CHECK_APP_CANARY()
-
-    if (error_msg != NULL) {
-        int error_msg_length = strlen(error_msg);
-        memcpy(G_io_apdu_buffer, error_msg, error_msg_length);
-        *tx += (error_msg_length);
-        THROW(APDU_CODE_DATA_INVALID);
-    }
-
-    view_review_init(tx_getItem, tx_getNumItems, app_return_sr25519);
-    view_review_show(0x03);
-    *flags |= IO_ASYNCH_REPLY;
-}
-#endif
-
-__Z_INLINE void handleSignEd25519(volatile uint32_t *flags, volatile uint32_t *tx) {
-    const char *error_msg = tx_parse();
-    CHECK_APP_CANARY()
-    if (error_msg != NULL) {
-        int error_msg_length = strlen(error_msg);
-        memcpy(G_io_apdu_buffer, error_msg, error_msg_length);
-        *tx += (error_msg_length);
-        THROW(APDU_CODE_DATA_INVALID);
-    }
-
-    view_review_init(tx_getItem, tx_getNumItems, app_sign_ed25519);
-    view_review_show(0x03);
-    *flags |= IO_ASYNCH_REPLY;
 }
 
 __Z_INLINE void handleSign(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
@@ -204,14 +162,79 @@ __Z_INLINE void handleSign(volatile uint32_t *flags, volatile uint32_t *tx, uint
     const key_kind_e key_type = get_key_type(addr_type);
 
     *tx = 0;
+    const char *error_msg = tx_parse();
+    CHECK_APP_CANARY()
+    if (error_msg != NULL) {
+        const int error_msg_length = strnlen(error_msg, sizeof(G_io_apdu_buffer));
+        memcpy(G_io_apdu_buffer, error_msg, error_msg_length);
+        *tx += (error_msg_length);
+        THROW(APDU_CODE_DATA_INVALID);
+    }
     switch (key_type) {
-        case key_ed25519:
-            handleSignEd25519(flags, tx);
+        case key_ed25519: {
+            view_review_init(tx_getItem, tx_getNumItems, app_sign_ed25519);
+            view_review_show(REVIEW_TXN);
+            *flags |= IO_ASYNCH_REPLY;
             break;
+        }
 #ifdef SUPPORT_SR25519
-        case key_sr25519:
-            handleSignSr25519(flags, tx);
+        case key_sr25519: {
+            zxerr_t err = app_sign_sr25519();
+            if(err != zxerr_ok){
+                *tx = 0;
+                THROW(APDU_CODE_DATA_INVALID);
+            }
+            view_review_init(tx_getItem, tx_getNumItems, app_return_sr25519);
+            view_review_show(REVIEW_TXN);
+            *flags |= IO_ASYNCH_REPLY;
             break;
+        }
+#endif
+        default: {
+            THROW(APDU_CODE_DATA_INVALID);
+        }
+    }
+}
+
+__Z_INLINE void handleSignRaw(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
+    zemu_log("handleSignRaw\n");
+    if (!process_chunk(tx, rx)) {
+        THROW(APDU_CODE_OK);
+    }
+    if (app_mode_secret()) {
+        app_mode_set_secret(false);
+    }
+    const uint8_t addr_type = G_io_apdu_buffer[OFFSET_P2];
+    const key_kind_e key_type = get_key_type(addr_type);
+
+    *tx = 0;
+    const char *error_msg = tx_raw_parse();
+    CHECK_APP_CANARY()
+    if (error_msg != NULL) {
+        const int error_msg_length = strnlen(error_msg, sizeof(G_io_apdu_buffer));
+        memcpy(G_io_apdu_buffer, error_msg, error_msg_length);
+        *tx += (error_msg_length);
+        THROW(APDU_CODE_DATA_INVALID);
+    }
+    switch (key_type) {
+        case key_ed25519: {
+            view_review_init(tx_raw_getItem, tx_raw_getNumItems, app_sign_ed25519);
+            view_review_show(REVIEW_TXN);
+            *flags |= IO_ASYNCH_REPLY;
+            break;
+        }
+#ifdef SUPPORT_SR25519
+        case key_sr25519: {
+            zxerr_t err = app_sign_sr25519();
+            if(err != zxerr_ok){
+                *tx = 0;
+                THROW(APDU_CODE_DATA_INVALID);
+            }
+            view_review_init(tx_raw_getItem, tx_raw_getNumItems, app_return_sr25519);
+            view_review_show(REVIEW_TXN);
+            *flags |= IO_ASYNCH_REPLY;
+            break;
+        }
 #endif
         default: {
             THROW(APDU_CODE_DATA_INVALID);
@@ -226,7 +249,7 @@ void handleTest(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
 #endif
 
 void handleApdu(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
-    uint16_t sw = 0;
+    volatile uint16_t sw = 0;
 
     BEGIN_TRY
     {
@@ -247,17 +270,18 @@ void handleApdu(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
                 }
 
                 case INS_GET_ADDR: {
-                    if( os_global_pin_is_validated() != BOLOS_UX_OK ) {
-                        THROW(APDU_CODE_COMMAND_NOT_ALLOWED);
-                    }
+                    CHECK_PIN_VALIDATED()
                     handleGetAddr(flags, tx, rx);
                     break;
                 }
 
+                case INS_SIGN_RAW:
+                    CHECK_PIN_VALIDATED()
+                    handleSignRaw(flags, tx, rx);
+                    break;
+
                 case INS_SIGN: {
-                    if( os_global_pin_is_validated() != BOLOS_UX_OK ) {
-                        THROW(APDU_CODE_COMMAND_NOT_ALLOWED);
-                    }
+                    CHECK_PIN_VALIDATED()
                     handleSign(flags, tx, rx);
                     break;
                 }
@@ -289,7 +313,7 @@ void handleApdu(volatile uint32_t *flags, volatile uint32_t *tx, uint32_t rx) {
                     break;
             }
             G_io_apdu_buffer[*tx] = sw >> 8;
-            G_io_apdu_buffer[*tx + 1] = sw;
+            G_io_apdu_buffer[*tx + 1] = sw & 0xFF;
             *tx += 2;
         }
         FINALLY

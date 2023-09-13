@@ -27,15 +27,12 @@
 parser_error_t parser_init_context(parser_context_t *ctx,
                                    const uint8_t *buffer,
                                    uint16_t bufferSize) {
-    ctx->offset = 0;
-    ctx->buffer = NULL;
-    ctx->bufferLen = 0;
-
-    if (bufferSize == 0 || buffer == NULL) {
+    if (ctx == NULL || bufferSize == 0 || buffer == NULL) {
         // Not available, use defaults
         return parser_init_context_empty;
     }
 
+    ctx->offset = 0;
     ctx->buffer = buffer;
     ctx->bufferLen = bufferSize;
     return parser_ok;
@@ -199,8 +196,8 @@ parser_error_t _getValue(const compactInt_t *c, uint64_t *v) {
 parser_error_t _toStringCompactInt(const compactInt_t *c,
                                    uint8_t decimalPlaces,
                                    bool trimTrailingZeros,
-                                   char postfix[],
-                                   char prefix[],
+                                   const char postfix[],
+                                   const char prefix[],
                                    char *outValue, uint16_t outValueLen,
                                    uint8_t pageIdx, uint8_t *pageCount) {
     char bufferUI[200];
@@ -479,7 +476,7 @@ parser_error_t _toStringAddress(const pd_Address_t *v,
                                 uint8_t pageIdx, uint8_t *pageCount) {
     MEMZERO(outValue, outValueLen);
     if (v == NULL) {
-        return parser_ok;
+        return parser_no_data;
     }
 
     *pageCount = 1;

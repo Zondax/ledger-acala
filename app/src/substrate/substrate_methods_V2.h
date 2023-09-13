@@ -90,8 +90,8 @@ typedef struct {
 typedef struct {
     pd_CurrencyId_t currency_id;
     pd_Balance_t amount;
-    pd_BoxVersionedMultiLocation_t dest;
-    pd_WeightLimit_t dest_weight_limit;
+    pd_BoxVersionedMultiLocation_V2_t dest;
+    pd_WeightLimit_V2_t dest_weight_limit;
 } pd_xtokens_transfer_V2_t;
 #endif
 

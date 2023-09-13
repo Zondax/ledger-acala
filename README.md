@@ -28,11 +28,11 @@ Please:
 - **Do not use in production**
 - **Do not use a Ledger device with funds for development purposes.**
 - **Have a separate and marked device that is used ONLY for development and testing**
-# Acala 3.2130.x
+# Acala 3.2180.x
 
 ## System
 
-| Name                    | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                         |
+| Name                    | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                         |
 | ----------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------- |
 | Remark                  |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Bytes`remark<br/>                |
 | Set heap pages          |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `u64`pages<br/>                   |
@@ -45,24 +45,24 @@ Please:
 
 ## Timestamp
 
-| Name | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments            |
-| ---- | ------ | --------- | --------- | ------- | -------------------- |
-| Set  |        |           |           |         | `Compactu64`now<br/> |
+| Name | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments            |
+| ---- | ------ | --------- | ---------------- | ------- | -------------------- |
+| Set  |        |           |                  |         | `Compactu64`now<br/> |
 
 ## Scheduler
 
-| Name                 | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                                                  |
-| -------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Schedule             |        |           |           |         | `BlockNumber`when<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>                   |
-| Cancel               |        |           |           |         | `BlockNumber`when<br/>`u32`index<br/>                                                                                                      |
-| Schedule named       |        |           |           |         | `TaskName`id<br/>`BlockNumber`when<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>  |
-| Cancel named         |        |           |           |         | `TaskName`id<br/>                                                                                                                          |
-| Schedule after       |        |           |           |         | `BlockNumber`after<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>                  |
-| Schedule named after |        |           |           |         | `TaskName`id<br/>`BlockNumber`after<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/> |
+| Name                 | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                                                  |
+| -------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Schedule             |        |           |                  |         | `BlockNumber`when<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>                   |
+| Cancel               |        |           |                  |         | `BlockNumber`when<br/>`u32`index<br/>                                                                                                      |
+| Schedule named       |        |           |                  |         | `TaskName`id<br/>`BlockNumber`when<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>  |
+| Cancel named         |        |           |                  |         | `TaskName`id<br/>                                                                                                                          |
+| Schedule after       |        |           |                  |         | `BlockNumber`after<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/>                  |
+| Schedule named after |        |           |                  |         | `TaskName`id<br/>`BlockNumber`after<br/>`OptionschedulePeriodBlockNumber`maybe_periodic<br/>`schedulePriority`priority<br/>`Call`call<br/> |
 
 ## Utility
 
-| Name          | Nano S             | Nano S XL          | Nano SP/X          | Nesting | Arguments                                       |
+| Name          | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                       |
 | ------------- | ------------------ | ------------------ | ------------------ | ------- | ----------------------------------------------- |
 | Batch         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `VecCall`calls<br/>                             |
 | As derivative |                    |                    |                    |         | `u16`index<br/>`Call`call<br/>                  |
@@ -73,7 +73,7 @@ Please:
 
 ## Multisig
 
-| Name                 | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                               |
+| Name                 | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                               |
 | -------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
 | As multi threshold 1 |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `VecAccountId`other_signatories<br/>`Call`call<br/>                                                                                     |
 | As multi             |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `u16`threshold<br/>`VecAccountId`other_signatories<br/>`OptionTimepoint`maybe_timepoint<br/>`Call`call<br/>`Weight`max_weight<br/>      |
@@ -82,7 +82,7 @@ Please:
 
 ## Proxy
 
-| Name                | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                  |
+| Name                | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                  |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | Proxy               | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`real<br/>`OptionProxyType`force_proxy_type<br/>`Call`call<br/>                                         |
 | Add proxy           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`delegate<br/>`ProxyType`proxy_type<br/>`BlockNumber`delay<br/>                                         |
@@ -97,31 +97,31 @@ Please:
 
 ## TransactionPause
 
-| Name                   | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                        |
-| ---------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------ |
-| Pause transaction      |        |           |           |         | `Vecu8`pallet_name<br/>`Vecu8`function_name<br/> |
-| Unpause transaction    |        |           |           |         | `Vecu8`pallet_name<br/>`Vecu8`function_name<br/> |
-| Pause evm precompile   |        |           |           |         | `H160`address<br/>                               |
-| Unpause evm precompile |        |           |           |         | `H160`address<br/>                               |
+| Name                   | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                        |
+| ---------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------ |
+| Pause transaction      |        |           |                  |         | `Vecu8`pallet_name<br/>`Vecu8`function_name<br/> |
+| Unpause transaction    |        |           |                  |         | `Vecu8`pallet_name<br/>`Vecu8`function_name<br/> |
+| Pause evm precompile   |        |           |                  |         | `H160`address<br/>                               |
+| Unpause evm precompile |        |           |                  |         | `H160`address<br/>                               |
 
 ## IdleScheduler
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments       |
-| ------------- | ------ | --------- | --------- | ------- | --------------- |
-| Schedule task |        |           |           |         | `Task`task<br/> |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments       |
+| ------------- | ------ | --------- | ---------------- | ------- | --------------- |
+| Schedule task |        |           |                  |         | `Task`task<br/> |
 
 ## Preimage
 
-| Name               | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments         |
-| ------------------ | ------ | --------- | --------- | ------- | ----------------- |
-| Note preimage      |        |           |           |         | `Vecu8`bytes<br/> |
-| Unnote preimage    |        |           |           |         | `Hash`hash<br/>   |
-| Request preimage   |        |           |           |         | `Hash`hash<br/>   |
-| Unrequest preimage |        |           |           |         | `Hash`hash<br/>   |
+| Name               | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments         |
+| ------------------ | ------ | --------- | ---------------- | ------- | ----------------- |
+| Note preimage      |        |           |                  |         | `Vecu8`bytes<br/> |
+| Unnote preimage    |        |           |                  |         | `Hash`hash<br/>   |
+| Request preimage   |        |           |                  |         | `Hash`hash<br/>   |
+| Unrequest preimage |        |           |                  |         | `Hash`hash<br/>   |
 
 ## Balances
 
-| Name                | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                  |
+| Name                | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                  |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------------------------------------------------------------------------ |
 | Transfer            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`dest<br/>`CompactBalance`amount<br/>                                   |
 | Set balance         |                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `AccountIdLookupOfT`who<br/>`CompactBalance`new_free<br/>`CompactBalance`new_reserved<br/> |
@@ -132,7 +132,7 @@ Please:
 
 ## Currencies
 
-| Name                     | Nano S             | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                            |
+| Name                     | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                            |
 | ------------------------ | ------------------ | ------------------ | ------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | Transfer                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource`dest<br/>`CurrencyId`currency_id<br/>`Compactu128`amount<br/>                            |
 | Transfer native currency |                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `LookupasStaticLookupSource`dest<br/>`Compactu128`amount<br/>                                                        |
@@ -143,7 +143,7 @@ Please:
 
 ## Vesting
 
-| Name                     | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                        |
+| Name                     | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                        |
 | ------------------------ | ------ | ------------------ | ------------------ | ------- | -------------------------------------------------------------------------------- |
 | Claim                    |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                                                  |
 | Vested transfer          |        |                    |                    |         | `LookupasStaticLookupSource`dest<br/>`VestingScheduleOf`schedule<br/>            |
@@ -152,7 +152,7 @@ Please:
 
 ## TransactionPayment
 
-| Name                          | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                       |
+| Name                          | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                       |
 | ----------------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------------------------------- |
 | Set alternative fee swap path |        | :heavy_check_mark: | :heavy_check_mark: |         | `OptionVecCurrencyId`fee_swap_path<br/>                                         |
 | Enable charge fee pool        |        |                    |                    |         | `CurrencyId`currency_id<br/>`Balance`pool_size<br/>`Balance`swap_threshold<br/> |
@@ -164,17 +164,17 @@ Please:
 
 ## Treasury
 
-| Name             | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                       |
-| ---------------- | ------ | --------- | --------- | ------- | --------------------------------------------------------------- |
-| Propose spend    |        |           |           |         | `CompactBalance`amount<br/>`AccountIdLookupOfT`beneficiary<br/> |
-| Reject proposal  |        |           |           |         | `Compactu32`proposal_id<br/>                                    |
-| Approve proposal |        |           |           |         | `Compactu32`proposal_id<br/>                                    |
-| Spend            |        |           |           |         | `CompactBalance`amount<br/>`AccountIdLookupOfT`beneficiary<br/> |
-| Remove approval  |        |           |           |         | `Compactu32`proposal_id<br/>                                    |
+| Name             | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                       |
+| ---------------- | ------ | --------- | ---------------- | ------- | --------------------------------------------------------------- |
+| Propose spend    |        |           |                  |         | `CompactBalance`amount<br/>`AccountIdLookupOfT`beneficiary<br/> |
+| Reject proposal  |        |           |                  |         | `Compactu32`proposal_id<br/>                                    |
+| Approve proposal |        |           |                  |         | `Compactu32`proposal_id<br/>                                    |
+| Spend            |        |           |                  |         | `CompactBalance`amount<br/>`AccountIdLookupOfT`beneficiary<br/> |
+| Remove approval  |        |           |                  |         | `Compactu32`proposal_id<br/>                                    |
 
 ## Bounties
 
-| Name                 | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                          |
+| Name                 | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                          |
 | -------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------------------------------------- |
 | Propose bounty       |        | :heavy_check_mark: | :heavy_check_mark: |         | `CompactBalance`amount<br/>`Bytes`description<br/>                                 |
 | Approve bounty       |        | :heavy_check_mark: | :heavy_check_mark: |         | `Compactu32`bounty_id<br/>                                                         |
@@ -188,24 +188,18 @@ Please:
 
 ## Tips
 
-| Name           | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                 |
-| -------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------------------------- |
-| Report awesome |        |           |           |         | `Bytes`reason<br/>`AccountIdLookupOfT`who<br/>                            |
-| Retract tip    |        |           |           |         | `Hash`hash<br/>                                                           |
-| Tip new        |        |           |           |         | `Bytes`reason<br/>`AccountIdLookupOfT`who<br/>`Compactu128`tip_value<br/> |
-| Tip            |        |           |           |         | `Hash`hash<br/>`Compactu128`tip_value<br/>                                |
-| Close tip      |        |           |           |         | `Hash`hash<br/>                                                           |
-| Slash tip      |        |           |           |         | `Hash`hash<br/>                                                           |
-
-## Authorship
-
-| Name       | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                  |
-| ---------- | ------ | --------- | --------- | ------- | -------------------------- |
-| Set uncles |        |           |           |         | `VecHeader`new_uncles<br/> |
+| Name           | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                 |
+| -------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------------------------- |
+| Report awesome |        |           |                  |         | `Bytes`reason<br/>`AccountIdLookupOfT`who<br/>                            |
+| Retract tip    |        |           |                  |         | `Hash`hash<br/>                                                           |
+| Tip new        |        |           |                  |         | `Bytes`reason<br/>`AccountIdLookupOfT`who<br/>`Compactu128`tip_value<br/> |
+| Tip            |        |           |                  |         | `Hash`hash<br/>`Compactu128`tip_value<br/>                                |
+| Close tip      |        |           |                  |         | `Hash`hash<br/>                                                           |
+| Slash tip      |        |           |                  |         | `Hash`hash<br/>                                                           |
 
 ## CollatorSelection
 
-| Name                   | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                     |
+| Name                   | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                     |
 | ---------------------- | ------ | ------------------ | ------------------ | ------- | ----------------------------- |
 | Set invulnerables      |        | :heavy_check_mark: | :heavy_check_mark: |         | `VecAccountId`new\_<br/>      |
 | Set desired candidates |        | :heavy_check_mark: | :heavy_check_mark: |         | `Compactu32`max<br/>          |
@@ -217,55 +211,55 @@ Please:
 
 ## Session
 
-| Name       | Nano S             | Nano S XL          | Nano SP/X          | Nesting | Arguments                        |
+| Name       | Nano S             | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                        |
 | ---------- | ------------------ | ------------------ | ------------------ | ------- | -------------------------------- |
 | Set keys   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         | `Keys`keys<br/>`Bytes`proof<br/> |
 | Purge keys | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |         |                                  |
 
 ## SessionManager
 
-| Name                      | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                               |
-| ------------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------- |
-| Schedule session duration |        |           |           |         | `Compactu32`start_session<br/>`Compactu32`duration<br/> |
+| Name                      | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                               |
+| ------------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------- |
+| Schedule session duration |        |           |                  |         | `Compactu32`start_session<br/>`Compactu32`duration<br/> |
 
 ## XcmpQueue
 
-| Name                              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                               |
-| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------- |
-| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
-| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                         |
-| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                         |
-| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
-| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `XcmWeight`new\_<br/>                                   |
+| Name                              | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                            |
+| --------------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------- |
+| Service overweight                |        | :heavy_check_mark: | :heavy_check_mark: |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
+| Suspend xcm execution             |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Resume xcm execution              |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                      |
+| Update suspend threshold          |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update drop threshold             |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update resume threshold           |        | :heavy_check_mark: | :heavy_check_mark: |         | `u32`new\_<br/>                                      |
+| Update threshold weight           |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update weight restrict decay      |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
+| Update xcmp max individual weight |        | :heavy_check_mark: | :heavy_check_mark: |         | `Weight`new\_<br/>                                   |
 
 ## PolkadotXcm
 
-| Name                             | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                                                                                 |
-| -------------------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Send                             |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/>                                                                                                    |
-| Teleport assets                  |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
-| Reserve transfer assets          |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
-| Execute                          |        |           |           |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`XcmWeight`max_weight<br/>                                                                                            |
-| Force xcm version                |        |           |           |         | `BoxMultiLocation`location<br/>`XcmVersion`xcm_version<br/>                                                                                                               |
-| Force default xcm version        |        |           |           |         | `OptionXcmVersion`maybe_xcm_version<br/>                                                                                                                                  |
-| Force subscribe version notify   |        |           |           |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
-| Force unsubscribe version notify |        |           |           |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
-| Limited reserve transfer assets  |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
-| Limited teleport assets          |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
+| Name                             | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                                                                                 |
+| -------------------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Send                             |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/>                                                                                                    |
+| Teleport assets                  |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
+| Reserve transfer assets          |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>                               |
+| Execute                          |        |           |                  |         | `BoxVersionedXcmTasSysConfigRuntimeCall`message<br/>`Weight`max_weight<br/>                                                                                               |
+| Force xcm version                |        |           |                  |         | `BoxMultiLocation`location<br/>`XcmVersion`xcm_version<br/>                                                                                                               |
+| Force default xcm version        |        |           |                  |         | `OptionXcmVersion`maybe_xcm_version<br/>                                                                                                                                  |
+| Force subscribe version notify   |        |           |                  |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
+| Force unsubscribe version notify |        |           |                  |         | `BoxVersionedMultiLocation`location<br/>                                                                                                                                  |
+| Limited reserve transfer assets  |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
+| Limited teleport assets          |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedMultiLocation`beneficiary<br/>`BoxVersionedMultiAssets`assets<br/>`u32`fee_asset_item<br/>`WeightLimit`weight_limit<br/> |
 
 ## DmpQueue
 
-| Name               | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                               |
-| ------------------ | ------ | --------- | --------- | ------- | ------------------------------------------------------- |
-| Service overweight |        |           |           |         | `OverweightIndex`index<br/>`XcmWeight`weight_limit<br/> |
+| Name               | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                            |
+| ------------------ | ------ | --------- | ---------------- | ------- | ---------------------------------------------------- |
+| Service overweight |        |           |                  |         | `OverweightIndex`index<br/>`Weight`weight_limit<br/> |
 
 ## XTokens
 
-| Name                         | Nano S | Nano S XL | Nano SP/X          | Nesting | Arguments                                                                                                                                 |
+| Name                         | Nano S | Nano S XL | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                 |
 | ---------------------------- | ------ | --------- | ------------------ | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Transfer                     |        |           | :heavy_check_mark: |         | `CurrencyId`currency_id<br/>`Balance`amount<br/>`BoxVersionedMultiLocation`dest<br/>`WeightLimit`dest_weight_limit<br/>                   |
 | Transfer multiasset          |        |           |                    |         | `BoxVersionedMultiAsset`asset<br/>`BoxVersionedMultiLocation`dest<br/>`WeightLimit`dest_weight_limit<br/>                                 |
@@ -276,123 +270,122 @@ Please:
 
 ## OrmlXcm
 
-| Name              | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                              |
-| ----------------- | ------ | --------- | --------- | ------- | ---------------------------------------------------------------------- |
-| Send as sovereign |        |           |           |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/> |
+| Name              | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                              |
+| ----------------- | ------ | --------- | ---------------- | ------- | ---------------------------------------------------------------------- |
+| Send as sovereign |        |           |                  |         | `BoxVersionedMultiLocation`dest<br/>`BoxVersionedXcmTuple`message<br/> |
 
 ## Authority
 
-| Name                          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                              |
-| ----------------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------------------------------------------------------ |
-| Dispatch as                   |        |           |           |         | `AsOriginId`as_origin<br/>`Call`call<br/>                                                              |
-| Schedule dispatch             |        |           |           |         | `DispatchTimeBlockNumber`when<br/>`Priority`priority<br/>`bool`with_delayed_origin<br/>`Call`call<br/> |
-| Fast track scheduled dispatch |        |           |           |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>`DispatchTimeBlockNumber`when<br/> |
-| Delay scheduled dispatch      |        |           |           |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>`BlockNumber`additional_delay<br/> |
-| Cancel scheduled dispatch     |        |           |           |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>                                   |
-| Authorize call                |        |           |           |         | `Call`call<br/>`OptionAccountId`caller<br/>                                                            |
-| Remove authorized call        |        |           |           |         | `Hash`hash<br/>                                                                                        |
-| Trigger old call              |        |           |           |         | `Hash`hash<br/>`Compactu64`call_weight_bound<br/>                                                      |
-| Trigger call                  |        |           |           |         | `Hash`hash<br/>`Weight`call_weight_bound<br/>                                                          |
+| Name                          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                              |
+| ----------------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------ |
+| Dispatch as                   |        |           |                  |         | `AsOriginId`as_origin<br/>`Call`call<br/>                                                              |
+| Schedule dispatch             |        |           |                  |         | `DispatchTimeBlockNumber`when<br/>`Priority`priority<br/>`bool`with_delayed_origin<br/>`Call`call<br/> |
+| Fast track scheduled dispatch |        |           |                  |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>`DispatchTimeBlockNumber`when<br/> |
+| Delay scheduled dispatch      |        |           |                  |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>`BlockNumber`additional_delay<br/> |
+| Cancel scheduled dispatch     |        |           |                  |         | `BoxPalletsOrigin`initial_origin<br/>`ScheduleTaskIndex`task_id<br/>                                   |
+| Authorize call                |        |           |                  |         | `Call`call<br/>`OptionAccountId`caller<br/>                                                            |
+| Remove authorized call        |        |           |                  |         | `Hash`hash<br/>                                                                                        |
+| Trigger call                  |        |           |                  |         | `Hash`hash<br/>`Weight`call_weight_bound<br/>                                                          |
 
 ## GeneralCouncil
 
-| Name                | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                         |
-| ------------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| Set members         |        |           |           |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
-| Execute             |        |           |           |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
-| Propose             |        |           |           |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
-| Vote                |        |           |           |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
-| Close old weight    |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
-| Disapprove proposal |        |           |           |         | `Hash`proposal_hash<br/>                                                                                          |
-| Close               |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
+| Name                | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                         |
+| ------------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| Set members         |        |           |                  |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
+| Execute             |        |           |                  |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
+| Propose             |        |           |                  |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
+| Vote                |        |           |                  |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
+| Close old weight    |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
+| Disapprove proposal |        |           |                  |         | `Hash`proposal_hash<br/>                                                                                          |
+| Close               |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
 
 ## GeneralCouncilMembership
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                   |
-| ------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------- |
-| Add member    |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Remove member |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Swap member   |        |           |           |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
-| Reset members |        |           |           |         | `VecAccountId`members<br/>                                  |
-| Change key    |        |           |           |         | `AccountIdLookupOfT`new\_<br/>                              |
-| Set prime     |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Clear prime   |        |           |           |         |                                                             |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                   |
+| ------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------- |
+| Add member    |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Remove member |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Swap member   |        |           |                  |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
+| Reset members |        |           |                  |         | `VecAccountId`members<br/>                                  |
+| Change key    |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>                              |
+| Set prime     |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Clear prime   |        |           |                  |         |                                                             |
 
 ## FinancialCouncil
 
-| Name                | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                         |
-| ------------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| Set members         |        |           |           |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
-| Execute             |        |           |           |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
-| Propose             |        |           |           |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
-| Vote                |        |           |           |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
-| Close old weight    |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
-| Disapprove proposal |        |           |           |         | `Hash`proposal_hash<br/>                                                                                          |
-| Close               |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
+| Name                | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                         |
+| ------------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| Set members         |        |           |                  |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
+| Execute             |        |           |                  |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
+| Propose             |        |           |                  |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
+| Vote                |        |           |                  |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
+| Close old weight    |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
+| Disapprove proposal |        |           |                  |         | `Hash`proposal_hash<br/>                                                                                          |
+| Close               |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
 
 ## FinancialCouncilMembership
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                   |
-| ------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------- |
-| Add member    |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Remove member |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Swap member   |        |           |           |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
-| Reset members |        |           |           |         | `VecAccountId`members<br/>                                  |
-| Change key    |        |           |           |         | `AccountIdLookupOfT`new\_<br/>                              |
-| Set prime     |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Clear prime   |        |           |           |         |                                                             |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                   |
+| ------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------- |
+| Add member    |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Remove member |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Swap member   |        |           |                  |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
+| Reset members |        |           |                  |         | `VecAccountId`members<br/>                                  |
+| Change key    |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>                              |
+| Set prime     |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Clear prime   |        |           |                  |         |                                                             |
 
 ## HomaCouncil
 
-| Name                | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                         |
-| ------------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| Set members         |        |           |           |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
-| Execute             |        |           |           |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
-| Propose             |        |           |           |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
-| Vote                |        |           |           |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
-| Close old weight    |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
-| Disapprove proposal |        |           |           |         | `Hash`proposal_hash<br/>                                                                                          |
-| Close               |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
+| Name                | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                         |
+| ------------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| Set members         |        |           |                  |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
+| Execute             |        |           |                  |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
+| Propose             |        |           |                  |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
+| Vote                |        |           |                  |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
+| Close old weight    |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
+| Disapprove proposal |        |           |                  |         | `Hash`proposal_hash<br/>                                                                                          |
+| Close               |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
 
 ## HomaCouncilMembership
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                   |
-| ------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------- |
-| Add member    |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Remove member |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Swap member   |        |           |           |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
-| Reset members |        |           |           |         | `VecAccountId`members<br/>                                  |
-| Change key    |        |           |           |         | `AccountIdLookupOfT`new\_<br/>                              |
-| Set prime     |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Clear prime   |        |           |           |         |                                                             |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                   |
+| ------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------- |
+| Add member    |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Remove member |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Swap member   |        |           |                  |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
+| Reset members |        |           |                  |         | `VecAccountId`members<br/>                                  |
+| Change key    |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>                              |
+| Set prime     |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Clear prime   |        |           |                  |         |                                                             |
 
 ## TechnicalCommittee
 
-| Name                | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                         |
-| ------------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| Set members         |        |           |           |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
-| Execute             |        |           |           |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
-| Propose             |        |           |           |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
-| Vote                |        |           |           |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
-| Close old weight    |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
-| Disapprove proposal |        |           |           |         | `Hash`proposal_hash<br/>                                                                                          |
-| Close               |        |           |           |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
+| Name                | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                         |
+| ------------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| Set members         |        |           |                  |         | `VecAccountId`new_members<br/>`OptionAccountId`prime<br/>`MemberCount`old_count<br/>                              |
+| Execute             |        |           |                  |         | `Proposal`proposal<br/>`Compactu32`length_bound<br/>                                                              |
+| Propose             |        |           |                  |         | `Compactu32`threshold<br/>`Proposal`proposal<br/>`Compactu32`length_bound<br/>                                    |
+| Vote                |        |           |                  |         | `Hash`proposal<br/>`Compactu32`index<br/>`bool`approve<br/>                                                       |
+| Close old weight    |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Compactu64`proposal_weight_bound<br/>`Compactu32`length_bound<br/> |
+| Disapprove proposal |        |           |                  |         | `Hash`proposal_hash<br/>                                                                                          |
+| Close               |        |           |                  |         | `Hash`proposal_hash<br/>`Compactu32`index<br/>`Weight`proposal_weight_bound<br/>`Compactu32`length_bound<br/>     |
 
 ## TechnicalCommitteeMembership
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                   |
-| ------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------- |
-| Add member    |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Remove member |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Swap member   |        |           |           |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
-| Reset members |        |           |           |         | `VecAccountId`members<br/>                                  |
-| Change key    |        |           |           |         | `AccountIdLookupOfT`new\_<br/>                              |
-| Set prime     |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Clear prime   |        |           |           |         |                                                             |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                   |
+| ------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------- |
+| Add member    |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Remove member |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Swap member   |        |           |                  |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
+| Reset members |        |           |                  |         | `VecAccountId`members<br/>                                  |
+| Change key    |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>                              |
+| Set prime     |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Clear prime   |        |           |                  |         |                                                             |
 
 ## Democracy
 
-| Name                      | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                      |
+| Name                      | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                      |
 | ------------------------- | ------ | ------------------ | ------------------ | ------- | ------------------------------------------------------------------------------ |
 | Propose                   |        | :heavy_check_mark: | :heavy_check_mark: |         | `BoundedCallOfT`proposal<br/>`CompactBalance`amount<br/>                       |
 | Second                    |        | :heavy_check_mark: | :heavy_check_mark: |         | `Compactu32`proposal<br/>                                                      |
@@ -412,46 +405,47 @@ Please:
 | Remove other vote         |        |                    |                    |         | `AccountIdLookupOfT`target<br/>`ReferendumIndex`index<br/>                     |
 | Blacklist                 |        |                    |                    |         | `H256`proposal_hash<br/>`OptionReferendumIndex`maybe_ref_index<br/>            |
 | Cancel proposal           |        | :heavy_check_mark: | :heavy_check_mark: |         | `Compactu32`prop_index<br/>                                                    |
+| Set metadata              |        |                    |                    |         | `MetadataOwner`owner<br/>`OptionPreimageHash`maybe_hash<br/>                   |
 
 ## AcalaOracle
 
-| Name        | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                 |
-| ----------- | ------ | --------- | --------- | ------- | ----------------------------------------- |
-| Feed values |        |           |           |         | `VecTupleOracleKeyOracleValue`values<br/> |
+| Name        | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                 |
+| ----------- | ------ | --------- | ---------------- | ------- | ----------------------------------------- |
+| Feed values |        |           |                  |         | `VecTupleOracleKeyOracleValue`values<br/> |
 
 ## OperatorMembershipAcala
 
-| Name          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                   |
-| ------------- | ------ | --------- | --------- | ------- | ----------------------------------------------------------- |
-| Add member    |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Remove member |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Swap member   |        |           |           |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
-| Reset members |        |           |           |         | `VecAccountId`members<br/>                                  |
-| Change key    |        |           |           |         | `AccountIdLookupOfT`new\_<br/>                              |
-| Set prime     |        |           |           |         | `AccountIdLookupOfT`who<br/>                                |
-| Clear prime   |        |           |           |         |                                                             |
+| Name          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                   |
+| ------------- | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------- |
+| Add member    |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Remove member |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Swap member   |        |           |                  |         | `AccountIdLookupOfT`remove<br/>`AccountIdLookupOfT`add<br/> |
+| Reset members |        |           |                  |         | `VecAccountId`members<br/>                                  |
+| Change key    |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>                              |
+| Set prime     |        |           |                  |         | `AccountIdLookupOfT`who<br/>                                |
+| Clear prime   |        |           |                  |         |                                                             |
 
 ## Auction
 
-| Name | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                  |
-| ---- | ------ | --------- | --------- | ------- | ------------------------------------------ |
-| Bid  |        |           |           |         | `AuctionId`id<br/>`Compactu128`amount<br/> |
+| Name | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                  |
+| ---- | ------ | --------- | ---------------- | ------- | ------------------------------------------ |
+| Bid  |        |           |                  |         | `AuctionId`id<br/>`Compactu128`amount<br/> |
 
 ## Rewards
 
-| Name | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments |
-| ---- | ------ | --------- | --------- | ------- | --------- |
+| Name | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments |
+| ---- | ------ | --------- | ---------------- | ------- | --------- |
 
 ## Prices
 
-| Name         | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                    |
-| ------------ | ------ | --------- | --------- | ------- | ---------------------------- |
-| Lock price   |        |           |           |         | `CurrencyId`currency_id<br/> |
-| Unlock price |        |           |           |         | `CurrencyId`currency_id<br/> |
+| Name         | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                    |
+| ------------ | ------ | --------- | ---------------- | ------- | ---------------------------- |
+| Lock price   |        |           |                  |         | `CurrencyId`currency_id<br/> |
+| Unlock price |        |           |                  |         | `CurrencyId`currency_id<br/> |
 
 ## Dex
 
-| Name                           | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                                                                                                                               |
+| Name                           | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                                                                                                                               |
 | ------------------------------ | ------ | ------------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Swap with exact supply         |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `VecCurrencyId`path<br/>`Compactu128`supply_amount<br/>`Compactu128`min_target_amount<br/>                                                                                                                                              |
 | Swap with exact target         |        | :heavy_check_mark: | :heavy_check_mark: |                    | `VecCurrencyId`path<br/>`Compactu128`target_amount<br/>`Compactu128`max_supply_amount<br/>                                                                                                                                              |
@@ -469,15 +463,15 @@ Please:
 
 ## DexOracle
 
-| Name                          | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                             |
-| ----------------------------- | ------ | --------- | --------- | ------- | ------------------------------------------------------------------------------------- |
-| Enable average price          |        |           |           |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>`Moment`interval<br/>     |
-| Disable average price         |        |           |           |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>                          |
-| Update average price interval |        |           |           |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>`Moment`new_interval<br/> |
+| Name                          | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                             |
+| ----------------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------- |
+| Enable average price          |        |           |                  |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>`Moment`interval<br/>     |
+| Disable average price         |        |           |                  |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>                          |
+| Update average price interval |        |           |                  |         | `CurrencyId`currency_id_a<br/>`CurrencyId`currency_id_b<br/>`Moment`new_interval<br/> |
 
 ## AggregatedDex
 
-| Name                         | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                       |
+| Name                         | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                       |
 | ---------------------------- | ------ | ------------------ | ------------------ | ------------------ | ----------------------------------------------------------------------------------------------- |
 | Swap with exact supply       |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `VecSwapPath`paths<br/>`CompactBalance`supply_amount<br/>`CompactBalance`min_target_amount<br/> |
 | Swap with exact target       |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `VecSwapPath`paths<br/>`CompactBalance`target_amount<br/>`CompactBalance`max_supply_amount<br/> |
@@ -485,18 +479,18 @@ Please:
 
 ## AuctionManager
 
-| Name   | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments          |
-| ------ | ------ | --------- | --------- | ------- | ------------------ |
-| Cancel |        |           |           |         | `AuctionId`id<br/> |
+| Name   | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments          |
+| ------ | ------ | --------- | ---------------- | ------- | ------------------ |
+| Cancel |        |           |                  |         | `AuctionId`id<br/> |
 
 ## Loans
 
-| Name | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments |
-| ---- | ------ | --------- | --------- | ------- | --------- |
+| Name | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments |
+| ---- | ------ | --------- | ---------------- | ------- | --------- |
 
 ## Honzon
 
-| Name                        | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                           |
+| Name                        | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                           |
 | --------------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------- |
 | Adjust loan                 |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId`currency_id<br/>`Amount`collateral_adjustment<br/>`Amount`debit_adjustment<br/>         |
 | Close loan has debit by dex |        | :heavy_check_mark: | :heavy_check_mark: |                    | `CurrencyId`currency_id<br/>`Compactu128`max_collateral_amount<br/>                                 |
@@ -511,35 +505,35 @@ Please:
 
 ## CdpTreasury
 
-| Name                                 | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                      |
-| ------------------------------------ | ------ | --------- | --------- | ------- | ---------------------------------------------------------------------------------------------- |
-| Extract surplus to treasury          |        |           |           |         | `Compactu128`amount<br/>                                                                       |
-| Auction collateral                   |        |           |           |         | `CurrencyId`currency_id<br/>`Compactu128`amount<br/>`Compactu128`target<br/>`bool`splited<br/> |
-| Exchange collateral to stable        |        |           |           |         | `CurrencyId`currency_id<br/>`SwapLimitBalance`swap_limit<br/>                                  |
-| Set expected collateral auction size |        |           |           |         | `CurrencyId`currency_id<br/>`Compactu128`size<br/>                                             |
-| Set debit offset buffer              |        |           |           |         | `Compactu128`amount<br/>                                                                       |
+| Name                                 | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                      |
+| ------------------------------------ | ------ | --------- | ---------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| Extract surplus to treasury          |        |           |                  |         | `Compactu128`amount<br/>                                                                       |
+| Auction collateral                   |        |           |                  |         | `CurrencyId`currency_id<br/>`Compactu128`amount<br/>`Compactu128`target<br/>`bool`splited<br/> |
+| Exchange collateral to stable        |        |           |                  |         | `CurrencyId`currency_id<br/>`SwapLimitBalance`swap_limit<br/>                                  |
+| Set expected collateral auction size |        |           |                  |         | `CurrencyId`currency_id<br/>`Compactu128`size<br/>                                             |
+| Set debit offset buffer              |        |           |                  |         | `Compactu128`amount<br/>                                                                       |
 
 ## CdpEngine
 
-| Name                            | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                                                                                                                                                                 |
-| ------------------------------- | ------ | --------- | --------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Liquidate                       |        |           |           |         | `CurrencyId`currency_id<br/>`LookupasStaticLookupSource`who<br/>                                                                                                                                                                                          |
-| Settle                          |        |           |           |         | `CurrencyId`currency_id<br/>`LookupasStaticLookupSource`who<br/>                                                                                                                                                                                          |
-| Set collateral params           |        |           |           |         | `CurrencyId`currency_id<br/>`ChangeOptionRate`interest_rate_per_sec<br/>`ChangeOptionRatio`liquidation_ratio<br/>`ChangeOptionRate`liquidation_penalty<br/>`ChangeOptionRatio`required_collateral_ratio<br/>`ChangeBalance`maximum_total_debit_value<br/> |
-| Register liquidation contract   |        |           |           |         | `EvmAddress`address<br/>                                                                                                                                                                                                                                  |
-| Deregister liquidation contract |        |           |           |         | `EvmAddress`address<br/>                                                                                                                                                                                                                                  |
+| Name                            | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                                                                                                                                                                 |
+| ------------------------------- | ------ | --------- | ---------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Liquidate                       |        |           |                  |         | `CurrencyId`currency_id<br/>`LookupasStaticLookupSource`who<br/>                                                                                                                                                                                          |
+| Settle                          |        |           |                  |         | `CurrencyId`currency_id<br/>`LookupasStaticLookupSource`who<br/>                                                                                                                                                                                          |
+| Set collateral params           |        |           |                  |         | `CurrencyId`currency_id<br/>`ChangeOptionRate`interest_rate_per_sec<br/>`ChangeOptionRatio`liquidation_ratio<br/>`ChangeOptionRate`liquidation_penalty<br/>`ChangeOptionRatio`required_collateral_ratio<br/>`ChangeBalance`maximum_total_debit_value<br/> |
+| Register liquidation contract   |        |           |                  |         | `EvmAddress`address<br/>                                                                                                                                                                                                                                  |
+| Deregister liquidation contract |        |           |                  |         | `EvmAddress`address<br/>                                                                                                                                                                                                                                  |
 
 ## EmergencyShutdown
 
-| Name                   | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                |
-| ---------------------- | ------ | --------- | --------- | ------- | ------------------------ |
-| Emergency shutdown     |        |           |           |         |                          |
-| Open collateral refund |        |           |           |         |                          |
-| Refund collaterals     |        |           |           |         | `Compactu128`amount<br/> |
+| Name                   | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                |
+| ---------------------- | ------ | --------- | ---------------- | ------- | ------------------------ |
+| Emergency shutdown     |        |           |                  |         |                          |
+| Open collateral refund |        |           |                  |         |                          |
+| Refund collaterals     |        |           |                  |         | `Compactu128`amount<br/> |
 
 ## Homa
 
-| Name                          | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                                                                                                                                             |
+| Name                          | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                                                                                                                                             |
 | ----------------------------- | ------ | ------------------ | ------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Mint                          |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Compactu128`amount<br/>                                                                                                                                              |
 | Request redeem                |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `Compactu128`amount<br/>`bool`allow_fast_match<br/>                                                                                                                   |
@@ -554,13 +548,13 @@ Please:
 
 ## XcmInterface
 
-| Name                           | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                               |
-| ------------------------------ | ------ | --------- | --------- | ------- | ----------------------------------------------------------------------- |
-| Update xcm dest weight and fee |        |           |           |         | `VecTupleXcmInterfaceOperationOptionXcmWeightOptionBalance`updates<br/> |
+| Name                           | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                               |
+| ------------------------------ | ------ | --------- | ---------------- | ------- | ----------------------------------------------------------------------- |
+| Update xcm dest weight and fee |        |           |                  |         | `VecTupleXcmInterfaceOperationOptionXcmWeightOptionBalance`updates<br/> |
 
 ## Incentives
 
-| Name                                | Nano S | Nano S XL          | Nano SP/X          | Nesting            | Arguments                                               |
+| Name                                | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting            | Arguments                                               |
 | ----------------------------------- | ------ | ------------------ | ------------------ | ------------------ | ------------------------------------------------------- |
 | Deposit dex share                   |        | :heavy_check_mark: | :heavy_check_mark: |                    | `CurrencyId`lp_currency_id<br/>`Compactu128`amount<br/> |
 | Withdraw dex share                  |        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | `CurrencyId`lp_currency_id<br/>`Compactu128`amount<br/> |
@@ -570,7 +564,7 @@ Please:
 
 ## NFT
 
-| Name                    | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                          |
+| Name                    | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                          |
 | ----------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | Create class            |        |                    |                    |         | `CID`metadata<br/>`Properties`properties<br/>`Attributes`attributes<br/>                                                           |
 | Mint                    |        |                    |                    |         | `LookupasStaticLookupSource`to<br/>`ClassIdOfT`class_id<br/>`CID`metadata<br/>`Attributes`attributes<br/>`Compactu32`quantity<br/> |
@@ -582,22 +576,23 @@ Please:
 
 ## AssetRegistry
 
-| Name                   | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                                                                                              |
-| ---------------------- | ------ | --------- | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Register foreign asset |        |           |           |         | `BoxVersionedMultiLocation`location<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                      |
-| Update foreign asset   |        |           |           |         | `ForeignAssetId`foreign_asset_id<br/>`BoxVersionedMultiLocation`location<br/>`BoxAssetMetadataBalanceOfT`metadata<br/> |
-| Register stable asset  |        |           |           |         | `BoxAssetMetadataBalanceOfT`metadata<br/>                                                                              |
-| Update stable asset    |        |           |           |         | `StableAssetPoolId`stable_asset_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                       |
-| Register erc20 asset   |        |           |           |         | `EvmAddress`contract<br/>`Balance`minimal_balance<br/>                                                                 |
-| Update erc20 asset     |        |           |           |         | `EvmAddress`contract<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                     |
-| Register native asset  |        |           |           |         | `CurrencyId`currency_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                  |
-| Update native asset    |        |           |           |         | `CurrencyId`currency_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                  |
+| Name                   | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                                                                                              |
+| ---------------------- | ------ | --------- | ---------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Register foreign asset |        |           |                  |         | `BoxVersionedMultiLocation`location<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                      |
+| Update foreign asset   |        |           |                  |         | `ForeignAssetId`foreign_asset_id<br/>`BoxVersionedMultiLocation`location<br/>`BoxAssetMetadataBalanceOfT`metadata<br/> |
+| Register stable asset  |        |           |                  |         | `BoxAssetMetadataBalanceOfT`metadata<br/>                                                                              |
+| Update stable asset    |        |           |                  |         | `StableAssetPoolId`stable_asset_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                       |
+| Register erc20 asset   |        |           |                  |         | `EvmAddress`contract<br/>`Balance`minimal_balance<br/>                                                                 |
+| Update erc20 asset     |        |           |                  |         | `EvmAddress`contract<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                     |
+| Register native asset  |        |           |                  |         | `CurrencyId`currency_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                  |
+| Update native asset    |        |           |                  |         | `CurrencyId`currency_id<br/>`BoxAssetMetadataBalanceOfT`metadata<br/>                                                  |
 
 ## EVM
 
-| Name                         | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                      |
+| Name                         | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                                      |
 | ---------------------------- | ------ | ------------------ | ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Eth call                     |        | :heavy_check_mark: | :heavy_check_mark: |         | `TransactionAction`action<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>`Compactu32`valid_until<br/> |
+| Eth call v2                  |        |                    |                    |         | `TransactionAction`action<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_price<br/>`Compactu64`gas_limit<br/>`VecAccessListItem`access_list<br/>                                 |
 | Call                         |        | :heavy_check_mark: | :heavy_check_mark: |         | `EvmAddress`target<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>                                    |
 | Scheduled call               |        |                    |                    |         | `EvmAddress`from<br/>`EvmAddress`target<br/>`Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>               |
 | Create                       |        | :heavy_check_mark: | :heavy_check_mark: |         | `Vecu8`input<br/>`Compactu128`amount<br/>`Compactu64`gas_limit<br/>`Compactu32`storage_limit<br/>`VecAccessListItem`access_list<br/>                                                           |
@@ -615,14 +610,14 @@ Please:
 
 ## EvmAccounts
 
-| Name                  | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                       |
+| Name                  | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                       |
 | --------------------- | ------ | ------------------ | ------------------ | ------- | --------------------------------------------------------------- |
 | Claim account         |        | :heavy_check_mark: | :heavy_check_mark: |         | `EvmAddress`eth_address<br/>`Eip712Signature`eth_signature<br/> |
 | Claim default account |        | :heavy_check_mark: | :heavy_check_mark: |         |                                                                 |
 
 ## StableAsset
 
-| Name              | Nano S | Nano S XL          | Nano SP/X          | Nesting | Arguments                                                                                                                                                                                                                                                                                                                              |
+| Name              | Nano S | Nano S XL          | Nano SP/X - Stax   | Nesting | Arguments                                                                                                                                                                                                                                                                                                                              |
 | ----------------- | ------ | ------------------ | ------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Create pool       |        |                    |                    |         | `AssetId`pool_asset<br/>`VecAssetId`assets<br/>`VecAtLeast64BitUnsigned`precisions<br/>`AtLeast64BitUnsigned`mint_fee<br/>`AtLeast64BitUnsigned`swap_fee<br/>`AtLeast64BitUnsigned`redeem_fee<br/>`AtLeast64BitUnsigned`initial_a<br/>`AccountId`fee_recipient<br/>`AccountId`yield_recipient<br/>`AtLeast64BitUnsigned`precision<br/> |
 | Mint              |        | :heavy_check_mark: | :heavy_check_mark: |         | `StableAssetPoolId`pool_id<br/>`VecBalance`amounts<br/>`Balance`min_mint_amount<br/>                                                                                                                                                                                                                                                   |
@@ -636,18 +631,18 @@ Please:
 
 ## ParachainSystem
 
-| Name                     | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                        |
-| ------------------------ | ------ | --------- | --------- | ------- | -------------------------------- |
-| Set validation data      |        |           |           |         | `ParachainInherentData`data<br/> |
-| Sudo send upward message |        |           |           |         | `UpwardMessage`message<br/>      |
-| Authorize upgrade        |        |           |           |         | `Hash`code_hash<br/>             |
-| Enact authorized upgrade |        |           |           |         | `Vecu8`code<br/>                 |
+| Name                     | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                    |
+| ------------------------ | ------ | --------- | ---------------- | ------- | -------------------------------------------- |
+| Set validation data      |        |           |                  |         | `ParachainInherentData`data<br/>             |
+| Sudo send upward message |        |           |                  |         | `UpwardMessage`message<br/>                  |
+| Authorize upgrade        |        |           |                  |         | `Hash`code_hash<br/>`bool`check_version<br/> |
+| Enact authorized upgrade |        |           |                  |         | `Vecu8`code<br/>                             |
 
 ## Sudo
 
-| Name                  | Nano S | Nano S XL | Nano SP/X | Nesting | Arguments                                   |
-| --------------------- | ------ | --------- | --------- | ------- | ------------------------------------------- |
-| Sudo                  |        |           |           |         | `Call`call<br/>                             |
-| Sudo unchecked weight |        |           |           |         | `Call`call<br/>`Weight`weight<br/>          |
-| Set key               |        |           |           |         | `AccountIdLookupOfT`new\_<br/>              |
-| Sudo as               |        |           |           |         | `AccountIdLookupOfT`who<br/>`Call`call<br/> |
+| Name                  | Nano S | Nano S XL | Nano SP/X - Stax | Nesting | Arguments                                   |
+| --------------------- | ------ | --------- | ---------------- | ------- | ------------------------------------------- |
+| Sudo                  |        |           |                  |         | `Call`call<br/>                             |
+| Sudo unchecked weight |        |           |                  |         | `Call`call<br/>`Weight`weight<br/>          |
+| Set key               |        |           |                  |         | `AccountIdLookupOfT`new\_<br/>              |
+| Sudo as               |        |           |                  |         | `AccountIdLookupOfT`who<br/>`Call`call<br/> |
