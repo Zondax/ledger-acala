@@ -39,7 +39,7 @@ uint8_t _getMethod_NumItems(uint32_t transactionVersion, uint8_t moduleIdx, uint
     case 3:
         return _getMethod_NumItems_V3(moduleIdx, callIdx);
     default:
-        return parser_tx_version_not_supported;
+        return 0;
     }
 }
 
@@ -59,7 +59,7 @@ const char* _getMethod_Name(uint32_t transactionVersion, uint8_t moduleIdx, uint
     case 3:
         return _getMethod_Name_V3(moduleIdx, callIdx);
     default:
-        return 0;
+        return NULL;
     }
 }
 
