@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ static const char* STR_MO_XTOKENS = "Xtokens";
 static const char* STR_MO_DEMOCRACY = "Democracy";
 static const char* STR_MO_DEX = "Dex";
 static const char* STR_MO_AGGREGATEDDEX = "Aggregateddex";
+static const char* STR_MO_EARNING = "Earning";
 static const char* STR_MO_HONZON = "Honzon";
 static const char* STR_MO_HOMA = "Homa";
 static const char* STR_MO_INCENTIVES = "Incentives";
@@ -45,7 +46,6 @@ static const char* STR_MO_EVMACCOUNTS = "Evmaccounts";
 static const char* STR_MO_STABLEASSET = "Stableasset";
 
 // Methods names
-static const char* STR_ME_FILL_BLOCK = "Fill block";
 static const char* STR_ME_REMARK = "Remark";
 static const char* STR_ME_SET_HEAP_PAGES = "Set heap pages";
 static const char* STR_ME_SET_CODE = "Set code";
@@ -54,6 +54,7 @@ static const char* STR_ME_REMARK_WITH_EVENT = "Remark with event";
 static const char* STR_ME_BATCH = "Batch";
 static const char* STR_ME_BATCH_ALL = "Batch all";
 static const char* STR_ME_FORCE_BATCH = "Force batch";
+static const char* STR_ME_WITH_WEIGHT = "With weight";
 static const char* STR_ME_AS_MULTI_THRESHOLD_1 = "As multi threshold 1";
 static const char* STR_ME_AS_MULTI = "As multi";
 static const char* STR_ME_APPROVE_AS_MULTI = "Approve as multi";
@@ -68,12 +69,14 @@ static const char* STR_ME_ANNOUNCE = "Announce";
 static const char* STR_ME_REMOVE_ANNOUNCEMENT = "Remove announcement";
 static const char* STR_ME_REJECT_ANNOUNCEMENT = "Reject announcement";
 static const char* STR_ME_PROXY_ANNOUNCED = "Proxy announced";
-static const char* STR_ME_TRANSFER = "Transfer";
-static const char* STR_ME_SET_BALANCE = "Set balance";
+static const char* STR_ME_TRANSFER_ALLOW_DEATH = "Transfer allow death";
 static const char* STR_ME_FORCE_TRANSFER = "Force transfer";
 static const char* STR_ME_TRANSFER_KEEP_ALIVE = "Transfer keep alive";
 static const char* STR_ME_TRANSFER_ALL = "Transfer all";
 static const char* STR_ME_FORCE_UNRESERVE = "Force unreserve";
+static const char* STR_ME_UPGRADE_ACCOUNTS = "Upgrade accounts";
+static const char* STR_ME_FORCE_SET_BALANCE = "Force set balance";
+static const char* STR_ME_TRANSFER = "Transfer";
 static const char* STR_ME_TRANSFER_NATIVE_CURRENCY = "Transfer native currency";
 static const char* STR_ME_UPDATE_BALANCE = "Update balance";
 static const char* STR_ME_SWEEP_DUST = "Sweep dust";
@@ -82,7 +85,6 @@ static const char* STR_ME_SET_ALTERNATIVE_FEE_SWAP_PATH = "Set alternative fee s
 static const char* STR_ME_DISABLE_CHARGE_FEE_POOL = "Disable charge fee pool";
 static const char* STR_ME_WITH_FEE_PATH = "With fee path";
 static const char* STR_ME_WITH_FEE_CURRENCY = "With fee currency";
-static const char* STR_ME_WITH_FEE_PAID_BY = "With fee paid by";
 static const char* STR_ME_WITH_FEE_AGGREGATED_PATH = "With fee aggregated path";
 static const char* STR_ME_PROPOSE_BOUNTY = "Propose bounty";
 static const char* STR_ME_APPROVE_BOUNTY = "Approve bounty";
@@ -138,6 +140,11 @@ static const char* STR_ME_DISABLE_TRADING_PAIR = "Disable trading pair";
 static const char* STR_ME_REFUND_PROVISION = "Refund provision";
 static const char* STR_ME_ABORT_PROVISIONING = "Abort provisioning";
 static const char* STR_ME_UPDATE_AGGREGATED_SWAP_PATHS = "Update aggregated swap paths";
+static const char* STR_ME_BOND = "Bond";
+static const char* STR_ME_UNBOND = "Unbond";
+static const char* STR_ME_UNBOND_INSTANT = "Unbond instant";
+static const char* STR_ME_REBOND = "Rebond";
+static const char* STR_ME_WITHDRAW_UNBONDED = "Withdraw Unbonded";
 static const char* STR_ME_ADJUST_LOAN = "Adjust loan";
 static const char* STR_ME_CLOSE_LOAN_HAS_DEBIT_BY_DEX = "Close loan has debit by dex";
 static const char* STR_ME_TRANSFER_LOAN_FROM = "Transfer loan from";
@@ -174,10 +181,8 @@ static const char* STR_ME_SWAP = "Swap";
 static const char* STR_ME_REDEEM_PROPORTION = "Redeem proportion";
 static const char* STR_ME_REDEEM_SINGLE = "Redeem single";
 static const char* STR_ME_REDEEM_MULTI = "Redeem multi";
-static const char* STR_ME_WITH_WEIGHT = "With weight";
 
 // Items names
-static const char* STR_IT_ratio = "Ratio";
 static const char* STR_IT_remark = "Remark";
 static const char* STR_IT_pages = "Pages";
 static const char* STR_IT_code = "Code";
@@ -189,6 +194,7 @@ static const char* STR_IT_calls = "Calls";
 static const char* STR_IT_index = "Index";
 static const char* STR_IT_call = "Call";
 static const char* STR_IT_as_origin = "As origin";
+static const char* STR_IT_weight = "Weight";
 static const char* STR_IT_other_signatories = "Other signatories";
 static const char* STR_IT_threshold = "Threshold";
 static const char* STR_IT_maybe_timepoint = "Maybe timepoint";
@@ -205,11 +211,10 @@ static const char* STR_IT_height = "Height";
 static const char* STR_IT_ext_index = "Ext index";
 static const char* STR_IT_dest = "Dest";
 static const char* STR_IT_amount = "Amount";
-static const char* STR_IT_who = "Who";
-static const char* STR_IT_new_free = "New free";
-static const char* STR_IT_new_reserved = "New reserved";
 static const char* STR_IT_source = "Source";
 static const char* STR_IT_keep_alive = "Keep alive";
+static const char* STR_IT_who = "Who";
+static const char* STR_IT_new_free = "New free";
 static const char* STR_IT_currency_id = "Currency id";
 static const char* STR_IT_accounts = "Accounts";
 static const char* STR_IT_lock_id = "Lock id";
@@ -218,8 +223,6 @@ static const char* STR_IT_vesting_schedules = "Vesting schedules";
 static const char* STR_IT_fee_swap_path = "Fee swap path";
 static const char* STR_IT_pool_size = "Pool size";
 static const char* STR_IT_swap_threshold = "Swap threshold";
-static const char* STR_IT_payer_addr = "Payer addr";
-static const char* STR_IT_payer_sig = "Payer sig";
 static const char* STR_IT_fee_aggregated_path = "Fee aggregated path";
 static const char* STR_IT_description = "Description";
 static const char* STR_IT_bounty_id = "Bounty id";
@@ -248,6 +251,8 @@ static const char* STR_IT_balance = "Balance";
 static const char* STR_IT_target = "Target";
 static const char* STR_IT_maybe_ref_index = "Maybe ref index";
 static const char* STR_IT_prop_index = "Prop index";
+static const char* STR_IT_owner = "Owner";
+static const char* STR_IT_maybe_hash = "Maybe hash";
 static const char* STR_IT_path = "Path";
 static const char* STR_IT_supply_amount = "Supply amount";
 static const char* STR_IT_min_target_amount = "Min target amount";
@@ -261,7 +266,6 @@ static const char* STR_IT_min_share_increment = "Min share increment";
 static const char* STR_IT_stake_increment_share = "Stake increment share";
 static const char* STR_IT_amount_a = "Amount a";
 static const char* STR_IT_amount_b = "Amount b";
-static const char* STR_IT_owner = "Owner";
 static const char* STR_IT_remove_share = "Remove share";
 static const char* STR_IT_min_withdrawn_a = "Min withdrawn a";
 static const char* STR_IT_min_withdrawn_b = "Min withdrawn b";
@@ -310,6 +314,7 @@ static const char* STR_IT_gas_limit = "Gas limit";
 static const char* STR_IT_storage_limit = "Storage limit";
 static const char* STR_IT_access_list = "Access list";
 static const char* STR_IT_valid_until = "Valid until";
+static const char* STR_IT_gas_price = "Gas price";
 static const char* STR_IT_salt = "Salt";
 static const char* STR_IT_contract = "Contract";
 static const char* STR_IT_new_maintainer = "New maintainer";
@@ -336,9 +341,6 @@ static const char* STR_IT_min_redeem_amount = "Min redeem amount";
 static const char* STR_IT_max_redeem_amount = "Max redeem amount";
 static const char* STR_IT_a = "A";
 static const char* STR_IT_future_a_block = "Future a block";
-static const char* STR_IT_weight = "Weight";
-static const char* STR_IT_gas_price = "Gas price";
-static const char* STR_IT_maybe_hash = "Maybe hash";
 
 #ifdef __cplusplus
 }

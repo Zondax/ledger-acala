@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,53 +43,29 @@ parser_error_t _readBytes(parser_context_t* c, pd_Bytes_t* v);
 parser_error_t _readDexShareFixed(parser_context_t* c, pd_DexShareFixed_t* v);
 parser_error_t _readFraction(parser_context_t* c, pd_Fraction_t* v);
 parser_error_t _readNetworkIdV3(parser_context_t* c, pd_NetworkIdV3_t* v);
-parser_error_t _readBodyId(parser_context_t* c, pd_BodyId_t* v);
 parser_error_t _readBodyIdV2(parser_context_t* c, pd_BodyIdV2_t* v);
 parser_error_t _readBodyIdV3(parser_context_t* c, pd_BodyIdV3_t* v);
 parser_error_t _readBodyPart(parser_context_t* c, pd_BodyPart_t* v);
 parser_error_t _readCurrencyId(parser_context_t* c, pd_CurrencyId_t* v);
-parser_error_t _readNetworkId(parser_context_t* c, pd_NetworkId_t* v);
 parser_error_t _readNetworkIdV2(parser_context_t* c, pd_NetworkIdV2_t* v);
 parser_error_t _readOptionNetworkIdV3(parser_context_t* c, pd_OptionNetworkIdV3_t* v);
 parser_error_t _readu8_array_20(parser_context_t* c, pd_u8_array_20_t* v);
-parser_error_t _readAccountId32(parser_context_t* c, pd_AccountId32_t* v);
 parser_error_t _readAccountId32V2(parser_context_t* c, pd_AccountId32V2_t* v);
 parser_error_t _readAccountId32V3(parser_context_t* c, pd_AccountId32V3_t* v);
-parser_error_t _readAccountIndex64(parser_context_t* c, pd_AccountIndex64_t* v);
 parser_error_t _readAccountIndex64V2(parser_context_t* c, pd_AccountIndex64V2_t* v);
 parser_error_t _readAccountIndex64V3(parser_context_t* c, pd_AccountIndex64V3_t* v);
-parser_error_t _readAccountKey20(parser_context_t* c, pd_AccountKey20_t* v);
 parser_error_t _readAccountKey20V2(parser_context_t* c, pd_AccountKey20V2_t* v);
 parser_error_t _readAccountKey20V3(parser_context_t* c, pd_AccountKey20V3_t* v);
 parser_error_t _readCompactu128(parser_context_t* c, pd_Compactu128_t* v);
 parser_error_t _readGeneralKeyV3(parser_context_t* c, pd_GeneralKeyV3_t* v);
-parser_error_t _readPlurality(parser_context_t* c, pd_Plurality_t* v);
 parser_error_t _readPluralityV2(parser_context_t* c, pd_PluralityV2_t* v);
 parser_error_t _readPluralityV3(parser_context_t* c, pd_PluralityV3_t* v);
 parser_error_t _readTaiga(parser_context_t* c, pd_Taiga_t* v);
 parser_error_t _readVecCurrencyId(parser_context_t* c, pd_VecCurrencyId_t* v);
-parser_error_t _readJunctionV0(parser_context_t* c, pd_JunctionV0_t* v);
-parser_error_t _readJunctionV1(parser_context_t* c, pd_JunctionV1_t* v);
 parser_error_t _readJunctionV2(parser_context_t* c, pd_JunctionV2_t* v);
 parser_error_t _readJunctionV3(parser_context_t* c, pd_JunctionV3_t* v);
 parser_error_t _readSwapPath(parser_context_t* c, pd_SwapPath_t* v);
 parser_error_t _readH256(parser_context_t* c, pd_H256_t* v);
-parser_error_t _readJunctionV0X1(parser_context_t* c, pd_JunctionV0X1_t* v);
-parser_error_t _readJunctionV0X2(parser_context_t* c, pd_JunctionV0X2_t* v);
-parser_error_t _readJunctionV0X3(parser_context_t* c, pd_JunctionV0X3_t* v);
-parser_error_t _readJunctionV0X4(parser_context_t* c, pd_JunctionV0X4_t* v);
-parser_error_t _readJunctionV0X5(parser_context_t* c, pd_JunctionV0X5_t* v);
-parser_error_t _readJunctionV0X6(parser_context_t* c, pd_JunctionV0X6_t* v);
-parser_error_t _readJunctionV0X7(parser_context_t* c, pd_JunctionV0X7_t* v);
-parser_error_t _readJunctionV0X8(parser_context_t* c, pd_JunctionV0X8_t* v);
-parser_error_t _readJunctionV1X1(parser_context_t* c, pd_JunctionV1X1_t* v);
-parser_error_t _readJunctionV1X2(parser_context_t* c, pd_JunctionV1X2_t* v);
-parser_error_t _readJunctionV1X3(parser_context_t* c, pd_JunctionV1X3_t* v);
-parser_error_t _readJunctionV1X4(parser_context_t* c, pd_JunctionV1X4_t* v);
-parser_error_t _readJunctionV1X5(parser_context_t* c, pd_JunctionV1X5_t* v);
-parser_error_t _readJunctionV1X6(parser_context_t* c, pd_JunctionV1X6_t* v);
-parser_error_t _readJunctionV1X7(parser_context_t* c, pd_JunctionV1X7_t* v);
-parser_error_t _readJunctionV1X8(parser_context_t* c, pd_JunctionV1X8_t* v);
 parser_error_t _readJunctionV2X1(parser_context_t* c, pd_JunctionV2X1_t* v);
 parser_error_t _readJunctionV2X2(parser_context_t* c, pd_JunctionV2X2_t* v);
 parser_error_t _readJunctionV2X3(parser_context_t* c, pd_JunctionV2X3_t* v);
@@ -107,8 +83,6 @@ parser_error_t _readJunctionV3X6(parser_context_t* c, pd_JunctionV3X6_t* v);
 parser_error_t _readJunctionV3X7(parser_context_t* c, pd_JunctionV3X7_t* v);
 parser_error_t _readJunctionV3X8(parser_context_t* c, pd_JunctionV3X8_t* v);
 parser_error_t _readVecSwapPath(parser_context_t* c, pd_VecSwapPath_t* v);
-parser_error_t _readJunctionsV0(parser_context_t* c, pd_JunctionsV0_t* v);
-parser_error_t _readJunctionsV1(parser_context_t* c, pd_JunctionsV1_t* v);
 parser_error_t _readJunctionsV2(parser_context_t* c, pd_JunctionsV2_t* v);
 parser_error_t _readJunctionsV3(parser_context_t* c, pd_JunctionsV3_t* v);
 parser_error_t _readOptionVecSwapPath(parser_context_t* c, pd_OptionVecSwapPath_t* v);
@@ -119,14 +93,9 @@ parser_error_t _readBalance(parser_context_t* c, pd_Balance_t* v);
 parser_error_t _readCall(parser_context_t* c, pd_Call_t* v);
 parser_error_t _readClassIdOfT(parser_context_t* c, pd_ClassIdOfT_t* v);
 parser_error_t _readCompactAccountIndex(parser_context_t* c, pd_CompactAccountIndex_t* v);
-parser_error_t _readEcdsaSignature(parser_context_t* c, pd_EcdsaSignature_t* v);
-parser_error_t _readEd25519Signature(parser_context_t* c, pd_Ed25519Signature_t* v);
-parser_error_t _readMultiLocationV0(parser_context_t* c, pd_MultiLocationV0_t* v);
-parser_error_t _readMultiLocationV1(parser_context_t* c, pd_MultiLocationV1_t* v);
 parser_error_t _readMultiLocationV2(parser_context_t* c, pd_MultiLocationV2_t* v);
 parser_error_t _readMultiLocationV3(parser_context_t* c, pd_MultiLocationV3_t* v);
 parser_error_t _readProxyType(parser_context_t* c, pd_ProxyType_t* v);
-parser_error_t _readSr25519Signature(parser_context_t* c, pd_Sr25519Signature_t* v);
 parser_error_t _readTimepoint(parser_context_t* c, pd_Timepoint_t* v);
 parser_error_t _readTokenIdOfT(parser_context_t* c, pd_TokenIdOfT_t* v);
 parser_error_t _readTupleCurrencyIdCurrencyIdOptionVecSwapPath(parser_context_t* c, pd_TupleCurrencyIdCurrencyIdOptionVecSwapPath_t* v);
@@ -139,7 +108,6 @@ parser_error_t _readBoundedCallOfT(parser_context_t* c, pd_BoundedCallOfT_t* v);
 parser_error_t _readBoxVersionedMultiLocation(parser_context_t* c, pd_BoxVersionedMultiLocation_t* v);
 parser_error_t _readClassIdOfTTokenIdOfT(parser_context_t* c, pd_ClassIdOfTTokenIdOfT_t* v);
 parser_error_t _readLookupasStaticLookupSource(parser_context_t* c, pd_LookupasStaticLookupSource_t* v);
-parser_error_t _readMultiSignature(parser_context_t* c, pd_MultiSignature_t* v);
 parser_error_t _readOptionTimepoint(parser_context_t* c, pd_OptionTimepoint_t* v);
 parser_error_t _readPoolId(parser_context_t* c, pd_PoolId_t* v);
 parser_error_t _readTransactionAction(parser_context_t* c, pd_TransactionAction_t* v);
@@ -155,14 +123,12 @@ parser_error_t _readKeys(parser_context_t* c, pd_Keys_t* v);
 parser_error_t _readOptionProxyType(parser_context_t* c, pd_OptionProxyType_t* v);
 parser_error_t _readOptionVecCurrencyId(parser_context_t* c, pd_OptionVecCurrencyId_t* v);
 parser_error_t _readOverweightIndex(parser_context_t* c, pd_OverweightIndex_t* v);
-parser_error_t _readPerbill(parser_context_t* c, pd_Perbill_t* v);
 parser_error_t _readPoolTokenIndex(parser_context_t* c, pd_PoolTokenIndex_t* v);
 parser_error_t _readReferendumIndex(parser_context_t* c, pd_ReferendumIndex_t* v);
 parser_error_t _readStableAssetPoolId(parser_context_t* c, pd_StableAssetPoolId_t* v);
 parser_error_t _readVecAccountId(parser_context_t* c, pd_VecAccountId_t* v);
 parser_error_t _readVecBalance(parser_context_t* c, pd_VecBalance_t* v);
 parser_error_t _readVecu8(parser_context_t* c, pd_Vecu8_t* v);
-parser_error_t _readXcmWeight(parser_context_t* c, pd_XcmWeight_t* v);
 
 // Common toString functions
 
@@ -285,13 +251,6 @@ parser_error_t _toStringNetworkIdV3(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringBodyId(
-    const pd_BodyId_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringBodyIdV2(
     const pd_BodyIdV2_t* v,
     char* outValue,
@@ -320,13 +279,6 @@ parser_error_t _toStringCurrencyId(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringNetworkId(
-    const pd_NetworkId_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringNetworkIdV2(
     const pd_NetworkIdV2_t* v,
     char* outValue,
@@ -348,13 +300,6 @@ parser_error_t _toStringu8_array_20(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringAccountId32(
-    const pd_AccountId32_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringAccountId32V2(
     const pd_AccountId32V2_t* v,
     char* outValue,
@@ -369,13 +314,6 @@ parser_error_t _toStringAccountId32V3(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringAccountIndex64(
-    const pd_AccountIndex64_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringAccountIndex64V2(
     const pd_AccountIndex64V2_t* v,
     char* outValue,
@@ -385,13 +323,6 @@ parser_error_t _toStringAccountIndex64V2(
 
 parser_error_t _toStringAccountIndex64V3(
     const pd_AccountIndex64V3_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringAccountKey20(
-    const pd_AccountKey20_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -425,13 +356,6 @@ parser_error_t _toStringGeneralKeyV3(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringPlurality(
-    const pd_Plurality_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringPluralityV2(
     const pd_PluralityV2_t* v,
     char* outValue,
@@ -460,20 +384,6 @@ parser_error_t _toStringVecCurrencyId(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringJunctionV0(
-    const pd_JunctionV0_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1(
-    const pd_JunctionV1_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringJunctionV2(
     const pd_JunctionV2_t* v,
     char* outValue,
@@ -497,118 +407,6 @@ parser_error_t _toStringSwapPath(
 
 parser_error_t _toStringH256(
     const pd_H256_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X1(
-    const pd_JunctionV0X1_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X2(
-    const pd_JunctionV0X2_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X3(
-    const pd_JunctionV0X3_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X4(
-    const pd_JunctionV0X4_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X5(
-    const pd_JunctionV0X5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X6(
-    const pd_JunctionV0X6_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X7(
-    const pd_JunctionV0X7_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV0X8(
-    const pd_JunctionV0X8_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X1(
-    const pd_JunctionV1X1_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X2(
-    const pd_JunctionV1X2_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X3(
-    const pd_JunctionV1X3_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X4(
-    const pd_JunctionV1X4_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X5(
-    const pd_JunctionV1X5_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X6(
-    const pd_JunctionV1X6_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X7(
-    const pd_JunctionV1X7_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionV1X8(
-    const pd_JunctionV1X8_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -733,20 +531,6 @@ parser_error_t _toStringVecSwapPath(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringJunctionsV0(
-    const pd_JunctionsV0_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringJunctionsV1(
-    const pd_JunctionsV1_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringJunctionsV2(
     const pd_JunctionsV2_t* v,
     char* outValue,
@@ -817,34 +601,6 @@ parser_error_t _toStringCompactAccountIndex(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringEcdsaSignature(
-    const pd_EcdsaSignature_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringEd25519Signature(
-    const pd_Ed25519Signature_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringMultiLocationV0(
-    const pd_MultiLocationV0_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringMultiLocationV1(
-    const pd_MultiLocationV1_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringMultiLocationV2(
     const pd_MultiLocationV2_t* v,
     char* outValue,
@@ -861,13 +617,6 @@ parser_error_t _toStringMultiLocationV3(
 
 parser_error_t _toStringProxyType(
     const pd_ProxyType_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringSr25519Signature(
-    const pd_Sr25519Signature_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -952,13 +701,6 @@ parser_error_t _toStringClassIdOfTTokenIdOfT(
 
 parser_error_t _toStringLookupasStaticLookupSource(
     const pd_LookupasStaticLookupSource_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringMultiSignature(
-    const pd_MultiSignature_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,
@@ -1069,13 +811,6 @@ parser_error_t _toStringOverweightIndex(
     uint8_t pageIdx,
     uint8_t* pageCount);
 
-parser_error_t _toStringPerbill(
-    const pd_Perbill_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
 parser_error_t _toStringPoolTokenIndex(
     const pd_PoolTokenIndex_t* v,
     char* outValue,
@@ -1113,13 +848,6 @@ parser_error_t _toStringVecBalance(
 
 parser_error_t _toStringVecu8(
     const pd_Vecu8_t* v,
-    char* outValue,
-    uint16_t outValueLen,
-    uint8_t pageIdx,
-    uint8_t* pageCount);
-
-parser_error_t _toStringXcmWeight(
-    const pd_XcmWeight_t* v,
     char* outValue,
     uint16_t outValueLen,
     uint8_t pageIdx,

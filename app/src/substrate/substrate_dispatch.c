@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,8 +28,6 @@ parser_error_t _readMethod(
     switch (c->tx_obj->transactionVersion) {
     case 3:
         return _readMethod_V3(c, moduleIdx, callIdx, &method->V3);
-    case 2:
-        return _readMethod_V2(c, moduleIdx, callIdx, &method->V2);
     default:
         return parser_tx_version_not_supported;
     }
@@ -40,10 +38,8 @@ uint8_t _getMethod_NumItems(uint32_t transactionVersion, uint8_t moduleIdx, uint
     switch (transactionVersion) {
     case 3:
         return _getMethod_NumItems_V3(moduleIdx, callIdx);
-    case 2:
-        return _getMethod_NumItems_V2(moduleIdx, callIdx);
     default:
-        return parser_tx_version_not_supported;
+        return 0;
     }
 }
 
@@ -52,8 +48,6 @@ const char* _getMethod_ModuleName(uint32_t transactionVersion, uint8_t moduleIdx
     switch (transactionVersion) {
     case 3:
         return _getMethod_ModuleName_V3(moduleIdx);
-    case 2:
-        return _getMethod_ModuleName_V2(moduleIdx);
     default:
         return NULL;
     }
@@ -64,10 +58,8 @@ const char* _getMethod_Name(uint32_t transactionVersion, uint8_t moduleIdx, uint
     switch (transactionVersion) {
     case 3:
         return _getMethod_Name_V3(moduleIdx, callIdx);
-    case 2:
-        return _getMethod_Name_V2(moduleIdx, callIdx);
     default:
-        return 0;
+        return NULL;
     }
 }
 
@@ -76,8 +68,6 @@ const char* _getMethod_ItemName(uint32_t transactionVersion, uint8_t moduleIdx, 
     switch (transactionVersion) {
     case 3:
         return _getMethod_ItemName_V3(moduleIdx, callIdx, itemIdx);
-    case 2:
-        return _getMethod_ItemName_V2(moduleIdx, callIdx, itemIdx);
     default:
         return NULL;
     }
@@ -91,9 +81,6 @@ parser_error_t _getMethod_ItemValue(uint32_t transactionVersion, pd_Method_t* m,
     case 3:
         return _getMethod_ItemValue_V3(&m->V3, moduleIdx, callIdx, itemIdx, outValue,
             outValueLen, pageIdx, pageCount);
-    case 2:
-        return _getMethod_ItemValue_V2(&m->V2, moduleIdx, callIdx, itemIdx, outValue,
-            outValueLen, pageIdx, pageCount);
     default:
         return parser_tx_version_not_supported;
     }
@@ -104,8 +91,6 @@ bool _getMethod_ItemIsExpert(uint32_t transactionVersion, uint8_t moduleIdx, uin
     switch (transactionVersion) {
     case 3:
         return _getMethod_ItemIsExpert_V3(moduleIdx, callIdx, itemIdx);
-    case 2:
-        return _getMethod_ItemIsExpert_V2(moduleIdx, callIdx, itemIdx);
     default:
         return false;
     }
@@ -116,8 +101,6 @@ bool _getMethod_IsNestingSupported(uint32_t transactionVersion, uint8_t moduleId
     switch (transactionVersion) {
     case 3:
         return _getMethod_IsNestingSupported_V3(moduleIdx, callIdx);
-    case 2:
-        return _getMethod_IsNestingSupported_V2(moduleIdx, callIdx);
     default:
         return false;
     }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -46,6 +46,7 @@ extern "C" {
 #define PD_CALL_DEMOCRACY_V3 69
 #define PD_CALL_DEX_V3 91
 #define PD_CALL_AGGREGATEDDEX_V3 93
+#define PD_CALL_EARNING_V3 94
 #define PD_CALL_HONZON_V3 102
 #define PD_CALL_HOMA_V3 116
 #define PD_CALL_INCENTIVES_V3 120
@@ -69,27 +70,11 @@ typedef struct {
     pd_VecCall_t calls;
 } pd_utility_force_batch_V3_t;
 
-#define PD_CALL_BALANCES_TRANSFER_ALL_V3 4
-typedef struct {
-    pd_AccountIdLookupOfT_t dest;
-    pd_bool_t keep_alive;
-} pd_balances_transfer_all_V3_t;
-
-#define PD_CALL_SESSION_SET_KEYS_V3 0
-typedef struct {
-    pd_Keys_t keys;
-    pd_Bytes_t proof;
-} pd_session_set_keys_V3_t;
-
-#define PD_CALL_SESSION_PURGE_KEYS_V3 1
-typedef struct {
-} pd_session_purge_keys_V3_t;
-
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #define PD_CALL_XTOKENS_TRANSFER_V3 0
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Balance_t amount;
     pd_BoxVersionedMultiLocation_t dest;
     pd_WeightLimit_t dest_weight_limit;
@@ -105,22 +90,6 @@ typedef struct {
 #define PD_CALL_PROXY_REMOVE_PROXIES_V3 3
 typedef struct {
 } pd_proxy_remove_proxies_V3_t;
-
-#define PD_CALL_PROXY_CREATE_PURE_V3 4
-typedef struct {
-    pd_ProxyType_t proxy_type;
-    pd_BlockNumber_t delay;
-    pd_u16_t index;
-} pd_proxy_create_pure_V3_t;
-
-#define PD_CALL_PROXY_KILL_PURE_V3 5
-typedef struct {
-    pd_AccountIdLookupOfT_t spawner;
-    pd_ProxyType_t proxy_type;
-    pd_u16_t index;
-    pd_Compactu32_t height;
-    pd_Compactu32_t ext_index;
-} pd_proxy_kill_pure_V3_t;
 
 #define PD_CALL_PROXY_ANNOUNCE_V3 6
 typedef struct {
@@ -154,16 +123,27 @@ typedef struct {
     pd_Balance_t amount;
 } pd_balances_force_unreserve_V3_t;
 
+#define PD_CALL_BALANCES_UPGRADE_ACCOUNTS_V3 6
+typedef struct {
+    pd_VecAccountId_t who;
+} pd_balances_upgrade_accounts_V3_t;
+
+#define PD_CALL_BALANCES_FORCE_SET_BALANCE_V3 8
+typedef struct {
+    pd_AccountIdLookupOfT_t who;
+    pd_CompactBalance_t new_free;
+} pd_balances_force_set_balance_V3_t;
+
 #define PD_CALL_CURRENCIES_UPDATE_BALANCE_V3 2
 typedef struct {
     pd_LookupasStaticLookupSource_t who;
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Amount_t amount;
 } pd_currencies_update_balance_V3_t;
 
 #define PD_CALL_CURRENCIES_SWEEP_DUST_V3 3
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_VecAccountId_t accounts;
 } pd_currencies_sweep_dust_V3_t;
 
@@ -178,7 +158,7 @@ typedef struct {
 
 #define PD_CALL_TRANSACTIONPAYMENT_DISABLE_CHARGE_FEE_POOL_V3 2
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
 } pd_transactionpayment_disable_charge_fee_pool_V3_t;
 
 #define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_PATH_V3 3
@@ -189,16 +169,9 @@ typedef struct {
 
 #define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_CURRENCY_V3 4
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Call_t call;
 } pd_transactionpayment_with_fee_currency_V3_t;
-
-#define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_PAID_BY_V3 5
-typedef struct {
-    pd_Call_t call;
-    pd_AccountId_t payer_addr;
-    pd_MultiSignature_t payer_sig;
-} pd_transactionpayment_with_fee_paid_by_V3_t;
 
 #define PD_CALL_TRANSACTIONPAYMENT_WITH_FEE_AGGREGATED_PATH_V3 6
 typedef struct {
@@ -365,14 +338,14 @@ typedef struct {
 
 #define PD_CALL_DEMOCRACY_FAST_TRACK_V3 7
 typedef struct {
-    pd_H256_t proposal_hash;
+    pd_Hash_t proposal_hash;
     pd_BlockNumber_t voting_period;
     pd_BlockNumber_t delay;
 } pd_democracy_fast_track_V3_t;
 
 #define PD_CALL_DEMOCRACY_VETO_EXTERNAL_V3 8
 typedef struct {
-    pd_H256_t proposal_hash;
+    pd_Hash_t proposal_hash;
 } pd_democracy_veto_external_V3_t;
 
 #define PD_CALL_DEMOCRACY_CANCEL_REFERENDUM_V3 9
@@ -407,8 +380,8 @@ typedef struct {
 
 #define PD_CALL_DEX_ADD_PROVISION_V3 3
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
     pd_Compactu128_t amount_a;
     pd_Compactu128_t amount_b;
 } pd_dex_add_provision_V3_t;
@@ -416,14 +389,14 @@ typedef struct {
 #define PD_CALL_DEX_CLAIM_DEX_SHARE_V3 4
 typedef struct {
     pd_AccountId_t owner;
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_claim_dex_share_V3_t;
 
 #define PD_CALL_DEX_LIST_PROVISIONING_V3 6
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
     pd_Compactu128_t min_contribution_a;
     pd_Compactu128_t min_contribution_b;
     pd_Compactu128_t target_provision_a;
@@ -433,8 +406,8 @@ typedef struct {
 
 #define PD_CALL_DEX_UPDATE_PROVISIONING_PARAMETERS_V3 7
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
     pd_Compactu128_t min_contribution_a;
     pd_Compactu128_t min_contribution_b;
     pd_Compactu128_t target_provision_a;
@@ -444,56 +417,56 @@ typedef struct {
 
 #define PD_CALL_DEX_END_PROVISIONING_V3 8
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_end_provisioning_V3_t;
 
 #define PD_CALL_DEX_ENABLE_TRADING_PAIR_V3 9
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_enable_trading_pair_V3_t;
 
 #define PD_CALL_DEX_DISABLE_TRADING_PAIR_V3 10
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_disable_trading_pair_V3_t;
 
 #define PD_CALL_DEX_REFUND_PROVISION_V3 11
 typedef struct {
     pd_AccountId_t owner;
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_refund_provision_V3_t;
 
 #define PD_CALL_DEX_ABORT_PROVISIONING_V3 12
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
 } pd_dex_abort_provisioning_V3_t;
 
 #define PD_CALL_HONZON_CLOSE_LOAN_HAS_DEBIT_BY_DEX_V3 1
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Compactu128_t max_collateral_amount;
 } pd_honzon_close_loan_has_debit_by_dex_V3_t;
 
 #define PD_CALL_HONZON_TRANSFER_LOAN_FROM_V3 2
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_LookupasStaticLookupSource_t from;
 } pd_honzon_transfer_loan_from_V3_t;
 
 #define PD_CALL_HONZON_AUTHORIZE_V3 3
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_LookupasStaticLookupSource_t to;
 } pd_honzon_authorize_V3_t;
 
 #define PD_CALL_HONZON_UNAUTHORIZE_V3 4
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_LookupasStaticLookupSource_t to;
 } pd_honzon_unauthorize_V3_t;
 
@@ -503,29 +476,29 @@ typedef struct {
 
 #define PD_CALL_HONZON_EXPAND_POSITION_COLLATERAL_V3 6
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Balance_t increase_debit_value;
     pd_Balance_t min_increase_collateral;
 } pd_honzon_expand_position_collateral_V3_t;
 
 #define PD_CALL_HONZON_SHRINK_POSITION_DEBIT_V3 7
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Balance_t decrease_collateral;
     pd_Balance_t min_decrease_debit_value;
 } pd_honzon_shrink_position_debit_V3_t;
 
 #define PD_CALL_HONZON_ADJUST_LOAN_BY_DEBIT_VALUE_V3 8
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Amount_t collateral_adjustment;
     pd_Amount_t debit_value_adjustment;
 } pd_honzon_adjust_loan_by_debit_value_V3_t;
 
 #define PD_CALL_HONZON_TRANSFER_DEBIT_V3 9
 typedef struct {
-    pd_CurrencyId_V3_t from_currency;
-    pd_CurrencyId_V3_t to_currency;
+    pd_CurrencyId_t from_currency;
+    pd_CurrencyId_t to_currency;
     pd_Balance_t debit_transfer;
 } pd_honzon_transfer_debit_V3_t;
 
@@ -546,7 +519,7 @@ typedef struct {
 
 #define PD_CALL_INCENTIVES_DEPOSIT_DEX_SHARE_V3 0
 typedef struct {
-    pd_CurrencyId_V3_t lp_currency_id;
+    pd_CurrencyId_t lp_currency_id;
     pd_Compactu128_t amount;
 } pd_incentives_deposit_dex_share_V3_t;
 
@@ -692,22 +665,19 @@ typedef union {
     pd_utility_batch_V3_t utility_batch_V3;
     pd_utility_batch_all_V3_t utility_batch_all_V3;
     pd_utility_force_batch_V3_t utility_force_batch_V3;
-    pd_balances_transfer_all_V3_t balances_transfer_all_V3;
-    pd_session_set_keys_V3_t session_set_keys_V3;
-    pd_session_purge_keys_V3_t session_purge_keys_V3;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
     pd_xtokens_transfer_V3_t xtokens_transfer_V3;
 #endif
     pd_utility_with_weight_V3_t utility_with_weight_V3;
     pd_proxy_remove_proxies_V3_t proxy_remove_proxies_V3;
-    pd_proxy_create_pure_V3_t proxy_create_pure_V3;
-    pd_proxy_kill_pure_V3_t proxy_kill_pure_V3;
     pd_proxy_announce_V3_t proxy_announce_V3;
     pd_proxy_remove_announcement_V3_t proxy_remove_announcement_V3;
     pd_proxy_reject_announcement_V3_t proxy_reject_announcement_V3;
     pd_proxy_proxy_announced_V3_t proxy_proxy_announced_V3;
     pd_balances_force_unreserve_V3_t balances_force_unreserve_V3;
+    pd_balances_upgrade_accounts_V3_t balances_upgrade_accounts_V3;
+    pd_balances_force_set_balance_V3_t balances_force_set_balance_V3;
     pd_currencies_update_balance_V3_t currencies_update_balance_V3;
     pd_currencies_sweep_dust_V3_t currencies_sweep_dust_V3;
     pd_vesting_claim_V3_t vesting_claim_V3;
@@ -715,7 +685,6 @@ typedef union {
     pd_transactionpayment_disable_charge_fee_pool_V3_t transactionpayment_disable_charge_fee_pool_V3;
     pd_transactionpayment_with_fee_path_V3_t transactionpayment_with_fee_path_V3;
     pd_transactionpayment_with_fee_currency_V3_t transactionpayment_with_fee_currency_V3;
-    pd_transactionpayment_with_fee_paid_by_V3_t transactionpayment_with_fee_paid_by_V3;
     pd_transactionpayment_with_fee_aggregated_path_V3_t transactionpayment_with_fee_aggregated_path_V3;
     pd_bounties_propose_bounty_V3_t bounties_propose_bounty_V3;
     pd_bounties_approve_bounty_V3_t bounties_approve_bounty_V3;
@@ -822,11 +791,11 @@ typedef struct {
     pd_BlockNumber_t delay;
 } pd_proxy_remove_proxy_V3_t;
 
-#define PD_CALL_BALANCES_TRANSFER_V3 0
+#define PD_CALL_BALANCES_TRANSFER_ALLOW_DEATH_V3 0
 typedef struct {
     pd_AccountIdLookupOfT_t dest;
     pd_CompactBalance_t amount;
-} pd_balances_transfer_V3_t;
+} pd_balances_transfer_allow_death_V3_t;
 
 #define PD_CALL_BALANCES_FORCE_TRANSFER_V3 2
 typedef struct {
@@ -841,12 +810,28 @@ typedef struct {
     pd_CompactBalance_t amount;
 } pd_balances_transfer_keep_alive_V3_t;
 
+#define PD_CALL_BALANCES_TRANSFER_ALL_V3 4
+typedef struct {
+    pd_AccountIdLookupOfT_t dest;
+    pd_bool_t keep_alive;
+} pd_balances_transfer_all_V3_t;
+
 #define PD_CALL_CURRENCIES_TRANSFER_V3 0
 typedef struct {
     pd_LookupasStaticLookupSource_t dest;
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Compactu128_t amount;
 } pd_currencies_transfer_V3_t;
+
+#define PD_CALL_SESSION_SET_KEYS_V3 0
+typedef struct {
+    pd_Keys_t keys;
+    pd_Bytes_t proof;
+} pd_session_set_keys_V3_t;
+
+#define PD_CALL_SESSION_PURGE_KEYS_V3 1
+typedef struct {
+} pd_session_purge_keys_V3_t;
 
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
@@ -908,12 +893,21 @@ typedef struct {
     pd_H256_t call_hash;
 } pd_multisig_cancel_as_multi_V3_t;
 
-#define PD_CALL_BALANCES_SET_BALANCE_V3 1
+#define PD_CALL_PROXY_CREATE_PURE_V3 4
 typedef struct {
-    pd_AccountIdLookupOfT_t who;
-    pd_CompactBalance_t new_free;
-    pd_CompactBalance_t new_reserved;
-} pd_balances_set_balance_V3_t;
+    pd_ProxyType_t proxy_type;
+    pd_BlockNumber_t delay;
+    pd_u16_t index;
+} pd_proxy_create_pure_V3_t;
+
+#define PD_CALL_PROXY_KILL_PURE_V3 5
+typedef struct {
+    pd_AccountIdLookupOfT_t spawner;
+    pd_ProxyType_t proxy_type;
+    pd_u16_t index;
+    pd_Compactu32_t height;
+    pd_Compactu32_t ext_index;
+} pd_proxy_kill_pure_V3_t;
 
 #define PD_CALL_CURRENCIES_TRANSFER_NATIVE_CURRENCY_V3 1
 typedef struct {
@@ -930,8 +924,8 @@ typedef struct {
 
 #define PD_CALL_DEX_ADD_LIQUIDITY_V3 2
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
     pd_Compactu128_t max_amount_a;
     pd_Compactu128_t max_amount_b;
     pd_Compactu128_t min_share_increment;
@@ -940,8 +934,8 @@ typedef struct {
 
 #define PD_CALL_DEX_REMOVE_LIQUIDITY_V3 5
 typedef struct {
-    pd_CurrencyId_V3_t currency_id_a;
-    pd_CurrencyId_V3_t currency_id_b;
+    pd_CurrencyId_t currency_id_a;
+    pd_CurrencyId_t currency_id_b;
     pd_Compactu128_t remove_share;
     pd_Compactu128_t min_withdrawn_a;
     pd_Compactu128_t min_withdrawn_b;
@@ -967,9 +961,33 @@ typedef struct {
     pd_VecTupleCurrencyIdCurrencyIdOptionVecSwapPath_t updates;
 } pd_aggregateddex_update_aggregated_swap_paths_V3_t;
 
+#define PD_CALL_EARNING_BOND_V3 0
+typedef struct {
+    pd_Compactu128_t amount;
+} pd_earning_bond_V3_t;
+
+#define PD_CALL_EARNING_UNBOND_V3 1
+typedef struct {
+    pd_Compactu128_t amount;
+} pd_earning_unbond_V3_t;
+
+#define PD_CALL_EARNING_UNBOND_INSTANT_V3 2
+typedef struct {
+    pd_Compactu128_t amount;
+} pd_earning_unbond_instant_V3_t;
+
+#define PD_CALL_EARNING_REBOND_V3 3
+typedef struct {
+    pd_Compactu128_t amount;
+} pd_earning_rebond_V3_t;
+
+#define PD_CALL_EARNING_WITHDRAW_UNBONDED_V3 4
+typedef struct {
+} pd_earning_withdraw_unbonded_V3_t;
+
 #define PD_CALL_HONZON_ADJUST_LOAN_V3 0
 typedef struct {
-    pd_CurrencyId_V3_t currency_id;
+    pd_CurrencyId_t currency_id;
     pd_Amount_t collateral_adjustment;
     pd_Amount_t debit_adjustment;
 } pd_honzon_adjust_loan_V3_t;
@@ -997,7 +1015,7 @@ typedef struct {
 
 #define PD_CALL_INCENTIVES_WITHDRAW_DEX_SHARE_V3 1
 typedef struct {
-    pd_CurrencyId_V3_t lp_currency_id;
+    pd_CurrencyId_t lp_currency_id;
     pd_Compactu128_t amount;
 } pd_incentives_withdraw_dex_share_V3_t;
 
@@ -1007,10 +1025,13 @@ typedef union {
     pd_proxy_proxy_V3_t proxy_proxy_V3;
     pd_proxy_add_proxy_V3_t proxy_add_proxy_V3;
     pd_proxy_remove_proxy_V3_t proxy_remove_proxy_V3;
-    pd_balances_transfer_V3_t balances_transfer_V3;
+    pd_balances_transfer_allow_death_V3_t balances_transfer_allow_death_V3;
     pd_balances_force_transfer_V3_t balances_force_transfer_V3;
     pd_balances_transfer_keep_alive_V3_t balances_transfer_keep_alive_V3;
+    pd_balances_transfer_all_V3_t balances_transfer_all_V3;
     pd_currencies_transfer_V3_t currencies_transfer_V3;
+    pd_session_set_keys_V3_t session_set_keys_V3;
+    pd_session_purge_keys_V3_t session_purge_keys_V3;
 #ifdef SUBSTRATE_PARSER_FULL
 #ifndef TARGET_NANOS
 #endif
@@ -1023,7 +1044,8 @@ typedef union {
     pd_multisig_as_multi_V3_t multisig_as_multi_V3;
     pd_multisig_approve_as_multi_V3_t multisig_approve_as_multi_V3;
     pd_multisig_cancel_as_multi_V3_t multisig_cancel_as_multi_V3;
-    pd_balances_set_balance_V3_t balances_set_balance_V3;
+    pd_proxy_create_pure_V3_t proxy_create_pure_V3;
+    pd_proxy_kill_pure_V3_t proxy_kill_pure_V3;
     pd_currencies_transfer_native_currency_V3_t currencies_transfer_native_currency_V3;
     pd_dex_swap_with_exact_supply_V3_t dex_swap_with_exact_supply_V3;
     pd_dex_add_liquidity_V3_t dex_add_liquidity_V3;
@@ -1031,6 +1053,11 @@ typedef union {
     pd_aggregateddex_swap_with_exact_supply_V3_t aggregateddex_swap_with_exact_supply_V3;
     pd_aggregateddex_swap_with_exact_target_V3_t aggregateddex_swap_with_exact_target_V3;
     pd_aggregateddex_update_aggregated_swap_paths_V3_t aggregateddex_update_aggregated_swap_paths_V3;
+    pd_earning_bond_V3_t earning_bond_V3;
+    pd_earning_unbond_V3_t earning_unbond_V3;
+    pd_earning_unbond_instant_V3_t earning_unbond_instant_V3;
+    pd_earning_rebond_V3_t earning_rebond_V3;
+    pd_earning_withdraw_unbonded_V3_t earning_withdraw_unbonded_V3;
     pd_honzon_adjust_loan_V3_t honzon_adjust_loan_V3;
     pd_homa_mint_V3_t homa_mint_V3;
     pd_homa_request_redeem_V3_t homa_request_redeem_V3;

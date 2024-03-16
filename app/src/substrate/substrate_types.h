@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -175,14 +175,6 @@ typedef struct {
         pd_Bytes_t named;
         pd_Compactu32_t index;
     };
-} pd_BodyId_t;
-
-typedef struct {
-    uint8_t value;
-    union {
-        pd_Bytes_t named;
-        pd_Compactu32_t index;
-    };
 } pd_BodyIdV2_t;
 
 typedef struct {
@@ -216,11 +208,6 @@ typedef struct {
 typedef struct {
     uint8_t value;
     pd_Bytes_t named;
-} pd_NetworkId_t;
-
-typedef struct {
-    uint8_t value;
-    pd_Bytes_t named;
 } pd_NetworkIdV2_t;
 
 typedef struct {
@@ -233,11 +220,6 @@ typedef struct {
 } pd_u8_array_20_t;
 
 typedef struct {
-    pd_NetworkId_t networkId;
-    pd_u8_array_32_t key;
-} pd_AccountId32_t;
-
-typedef struct {
     pd_NetworkIdV2_t networkId;
     pd_u8_array_32_t key;
 } pd_AccountId32V2_t;
@@ -248,11 +230,6 @@ typedef struct {
 } pd_AccountId32V3_t;
 
 typedef struct {
-    pd_NetworkId_t networkId;
-    pd_Compactu64_t index;
-} pd_AccountIndex64_t;
-
-typedef struct {
     pd_NetworkIdV2_t networkId;
     pd_Compactu64_t index;
 } pd_AccountIndex64V2_t;
@@ -261,11 +238,6 @@ typedef struct {
     pd_OptionNetworkIdV3_t networkId;
     pd_Compactu64_t index;
 } pd_AccountIndex64V3_t;
-
-typedef struct {
-    pd_NetworkId_t networkId;
-    pd_u8_array_20_t key;
-} pd_AccountKey20_t;
 
 typedef struct {
     pd_NetworkIdV2_t networkId;
@@ -283,11 +255,6 @@ typedef struct {
     uint8_t length;
     pd_u8_array_32_t data;
 } pd_GeneralKeyV3_t;
-
-typedef struct {
-    pd_BodyId_t id;
-    pd_BodyPart_t part;
-} pd_Plurality_t;
 
 typedef struct {
     pd_BodyIdV2_t id;
@@ -310,34 +277,6 @@ typedef struct {
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_VecCurrencyId_t;
-
-typedef struct {
-    uint8_t value;
-    union {
-        pd_Compactu32_t parachain;
-        pd_AccountId32_t accountId32;
-        pd_AccountIndex64_t accountIndex64;
-        pd_AccountKey20_t accountKey20;
-        uint8_t palletInstance;
-        pd_Compactu128_t generalIndex;
-        pd_Bytes_t generalKey;
-        pd_Plurality_t plurality;
-    };
-} pd_JunctionV0_t;
-
-typedef struct {
-    uint8_t value;
-    union {
-        pd_Compactu32_t parachain;
-        pd_AccountId32_t accountId32;
-        pd_AccountIndex64_t accountIndex64;
-        pd_AccountKey20_t accountKey20;
-        uint8_t palletInstance;
-        pd_Compactu128_t generalIndex;
-        pd_Bytes_t generalKey;
-        pd_Plurality_t plurality;
-    };
-} pd_JunctionV1_t;
 
 typedef struct {
     uint8_t value;
@@ -379,126 +318,6 @@ typedef struct {
 typedef struct {
     const uint8_t* _ptr;
 } pd_H256_t;
-
-typedef struct {
-    pd_JunctionV0_t junction;
-} pd_JunctionV0X1_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-} pd_JunctionV0X2_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-} pd_JunctionV0X3_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-    pd_JunctionV0_t junction3;
-} pd_JunctionV0X4_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-    pd_JunctionV0_t junction3;
-    pd_JunctionV0_t junction4;
-} pd_JunctionV0X5_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-    pd_JunctionV0_t junction3;
-    pd_JunctionV0_t junction4;
-    pd_JunctionV0_t junction5;
-} pd_JunctionV0X6_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-    pd_JunctionV0_t junction3;
-    pd_JunctionV0_t junction4;
-    pd_JunctionV0_t junction5;
-    pd_JunctionV0_t junction6;
-} pd_JunctionV0X7_t;
-
-typedef struct {
-    pd_JunctionV0_t junction0;
-    pd_JunctionV0_t junction1;
-    pd_JunctionV0_t junction2;
-    pd_JunctionV0_t junction3;
-    pd_JunctionV0_t junction4;
-    pd_JunctionV0_t junction5;
-    pd_JunctionV0_t junction6;
-    pd_JunctionV0_t junction7;
-} pd_JunctionV0X8_t;
-
-typedef struct {
-    pd_JunctionV1_t junction;
-} pd_JunctionV1X1_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-} pd_JunctionV1X2_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-} pd_JunctionV1X3_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-    pd_JunctionV1_t junction3;
-} pd_JunctionV1X4_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-    pd_JunctionV1_t junction3;
-    pd_JunctionV1_t junction4;
-} pd_JunctionV1X5_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-    pd_JunctionV1_t junction3;
-    pd_JunctionV1_t junction4;
-    pd_JunctionV1_t junction5;
-} pd_JunctionV1X6_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-    pd_JunctionV1_t junction3;
-    pd_JunctionV1_t junction4;
-    pd_JunctionV1_t junction5;
-    pd_JunctionV1_t junction6;
-} pd_JunctionV1X7_t;
-
-typedef struct {
-    pd_JunctionV1_t junction0;
-    pd_JunctionV1_t junction1;
-    pd_JunctionV1_t junction2;
-    pd_JunctionV1_t junction3;
-    pd_JunctionV1_t junction4;
-    pd_JunctionV1_t junction5;
-    pd_JunctionV1_t junction6;
-    pd_JunctionV1_t junction7;
-} pd_JunctionV1X8_t;
 
 typedef struct {
     pd_JunctionV2_t junction;
@@ -629,34 +448,6 @@ typedef struct {
 typedef struct {
     uint8_t value;
     union {
-        pd_JunctionV0X1_t x1;
-        pd_JunctionV0X2_t x2;
-        pd_JunctionV0X3_t x3;
-        pd_JunctionV0X4_t x4;
-        pd_JunctionV0X5_t x5;
-        pd_JunctionV0X6_t x6;
-        pd_JunctionV0X7_t x7;
-        pd_JunctionV0X8_t x8;
-    };
-} pd_JunctionsV0_t;
-
-typedef struct {
-    uint8_t value;
-    union {
-        pd_JunctionV1X1_t x1;
-        pd_JunctionV1X2_t x2;
-        pd_JunctionV1X3_t x3;
-        pd_JunctionV1X4_t x4;
-        pd_JunctionV1X5_t x5;
-        pd_JunctionV1X6_t x6;
-        pd_JunctionV1X7_t x7;
-        pd_JunctionV1X8_t x8;
-    };
-} pd_JunctionsV1_t;
-
-typedef struct {
-    uint8_t value;
-    union {
         pd_JunctionV2X1_t x1;
         pd_JunctionV2X2_t x2;
         pd_JunctionV2X3_t x3;
@@ -721,23 +512,6 @@ typedef struct {
 } pd_CompactAccountIndex_t;
 
 typedef struct {
-    const uint8_t* _ptr;
-} pd_EcdsaSignature_t;
-
-typedef struct {
-    const uint8_t* _ptr;
-} pd_Ed25519Signature_t;
-
-typedef struct {
-    pd_JunctionsV0_t junctions;
-} pd_MultiLocationV0_t;
-
-typedef struct {
-    uint8_t parents;
-    pd_JunctionsV1_t interior;
-} pd_MultiLocationV1_t;
-
-typedef struct {
     uint8_t parents;
     pd_JunctionsV2_t interior;
 } pd_MultiLocationV2_t;
@@ -750,10 +524,6 @@ typedef struct {
 typedef struct {
     uint8_t value;
 } pd_ProxyType_t;
-
-typedef struct {
-    const uint8_t* _ptr;
-} pd_Sr25519Signature_t;
 
 typedef struct {
     pd_BlockNumber_t height;
@@ -831,15 +601,6 @@ typedef struct {
 } pd_LookupasStaticLookupSource_t;
 
 typedef struct {
-    uint8_t value;
-    union {
-        pd_Ed25519Signature_t ed25519;
-        pd_Sr25519Signature_t sr25519;
-        pd_EcdsaSignature_t ecdsa;
-    };
-} pd_MultiSignature_t;
-
-typedef struct {
     uint8_t some;
     pd_Timepoint_t contained;
 } pd_OptionTimepoint_t;
@@ -914,10 +675,6 @@ typedef struct {
 
 typedef struct {
     uint32_t value;
-} pd_Perbill_t;
-
-typedef struct {
-    uint32_t value;
 } pd_PoolTokenIndex_t;
 
 typedef struct {
@@ -945,10 +702,6 @@ typedef struct {
     const uint8_t* _ptr;
     uint64_t _lenBuffer;
 } pd_Vecu8_t;
-
-typedef struct {
-    uint64_t value;
-} pd_XcmWeight_t;
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- *  (c) 2019 - 2023 Zondax AG
+ *  (c) 2019 - 2024 Zondax AG
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -70,8 +70,8 @@ __Z_INLINE parser_error_t _readMethod_proxy_remove_proxy_V3(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_transfer_V3(
-    parser_context_t* c, pd_balances_transfer_V3_t* m)
+__Z_INLINE parser_error_t _readMethod_balances_transfer_allow_death_V3(
+    parser_context_t* c, pd_balances_transfer_allow_death_V3_t* m)
 {
     CHECK_ERROR(_readAccountIdLookupOfT(c, &m->dest))
     CHECK_ERROR(_readCompactBalance(c, &m->amount))
@@ -107,7 +107,7 @@ __Z_INLINE parser_error_t _readMethod_currencies_transfer_V3(
     parser_context_t* c, pd_currencies_transfer_V3_t* m)
 {
     CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->dest))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -133,7 +133,7 @@ __Z_INLINE parser_error_t _readMethod_session_purge_keys_V3(
 __Z_INLINE parser_error_t _readMethod_xtokens_transfer_V3(
     parser_context_t* c, pd_xtokens_transfer_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->amount))
     CHECK_ERROR(_readBoxVersionedMultiLocation(c, &m->dest))
     CHECK_ERROR(_readWeightLimit(c, &m->dest_weight_limit))
@@ -285,20 +285,26 @@ __Z_INLINE parser_error_t _readMethod_proxy_proxy_announced_V3(
     return parser_ok;
 }
 
-__Z_INLINE parser_error_t _readMethod_balances_set_balance_V3(
-    parser_context_t* c, pd_balances_set_balance_V3_t* m)
-{
-    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
-    CHECK_ERROR(_readCompactBalance(c, &m->new_free))
-    CHECK_ERROR(_readCompactBalance(c, &m->new_reserved))
-    return parser_ok;
-}
-
 __Z_INLINE parser_error_t _readMethod_balances_force_unreserve_V3(
     parser_context_t* c, pd_balances_force_unreserve_V3_t* m)
 {
     CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
     CHECK_ERROR(_readBalance(c, &m->amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_balances_upgrade_accounts_V3(
+    parser_context_t* c, pd_balances_upgrade_accounts_V3_t* m)
+{
+    CHECK_ERROR(_readVecAccountId(c, &m->who))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_balances_force_set_balance_V3(
+    parser_context_t* c, pd_balances_force_set_balance_V3_t* m)
+{
+    CHECK_ERROR(_readAccountIdLookupOfT(c, &m->who))
+    CHECK_ERROR(_readCompactBalance(c, &m->new_free))
     return parser_ok;
 }
 
@@ -314,7 +320,7 @@ __Z_INLINE parser_error_t _readMethod_currencies_update_balance_V3(
     parser_context_t* c, pd_currencies_update_balance_V3_t* m)
 {
     CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->who))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readAmount(c, &m->amount))
     return parser_ok;
 }
@@ -322,7 +328,7 @@ __Z_INLINE parser_error_t _readMethod_currencies_update_balance_V3(
 __Z_INLINE parser_error_t _readMethod_currencies_sweep_dust_V3(
     parser_context_t* c, pd_currencies_sweep_dust_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readVecAccountId(c, &m->accounts))
     return parser_ok;
 }
@@ -345,7 +351,7 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_set_alternative_fee_swa
 __Z_INLINE parser_error_t _readMethod_transactionpayment_disable_charge_fee_pool_V3(
     parser_context_t* c, pd_transactionpayment_disable_charge_fee_pool_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     return parser_ok;
 }
 
@@ -360,17 +366,8 @@ __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_path_V3(
 __Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_currency_V3(
     parser_context_t* c, pd_transactionpayment_with_fee_currency_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCall(c, &m->call))
-    return parser_ok;
-}
-
-__Z_INLINE parser_error_t _readMethod_transactionpayment_with_fee_paid_by_V3(
-    parser_context_t* c, pd_transactionpayment_with_fee_paid_by_V3_t* m)
-{
-    CHECK_ERROR(_readCall(c, &m->call))
-    CHECK_ERROR(_readAccountId(c, &m->payer_addr))
-    CHECK_ERROR(_readMultiSignature(c, &m->payer_sig))
     return parser_ok;
 }
 
@@ -614,7 +611,7 @@ __Z_INLINE parser_error_t _readMethod_democracy_external_propose_default_V3(
 __Z_INLINE parser_error_t _readMethod_democracy_fast_track_V3(
     parser_context_t* c, pd_democracy_fast_track_V3_t* m)
 {
-    CHECK_ERROR(_readH256(c, &m->proposal_hash))
+    CHECK_ERROR(_readHash(c, &m->proposal_hash))
     CHECK_ERROR(_readBlockNumber(c, &m->voting_period))
     CHECK_ERROR(_readBlockNumber(c, &m->delay))
     return parser_ok;
@@ -623,7 +620,7 @@ __Z_INLINE parser_error_t _readMethod_democracy_fast_track_V3(
 __Z_INLINE parser_error_t _readMethod_democracy_veto_external_V3(
     parser_context_t* c, pd_democracy_veto_external_V3_t* m)
 {
-    CHECK_ERROR(_readH256(c, &m->proposal_hash))
+    CHECK_ERROR(_readHash(c, &m->proposal_hash))
     return parser_ok;
 }
 
@@ -685,8 +682,8 @@ __Z_INLINE parser_error_t _readMethod_dex_swap_with_exact_target_V3(
 __Z_INLINE parser_error_t _readMethod_dex_add_liquidity_V3(
     parser_context_t* c, pd_dex_add_liquidity_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->max_amount_a))
     CHECK_ERROR(_readCompactu128(c, &m->max_amount_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_share_increment))
@@ -697,8 +694,8 @@ __Z_INLINE parser_error_t _readMethod_dex_add_liquidity_V3(
 __Z_INLINE parser_error_t _readMethod_dex_add_provision_V3(
     parser_context_t* c, pd_dex_add_provision_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->amount_a))
     CHECK_ERROR(_readCompactu128(c, &m->amount_b))
     return parser_ok;
@@ -708,16 +705,16 @@ __Z_INLINE parser_error_t _readMethod_dex_claim_dex_share_V3(
     parser_context_t* c, pd_dex_claim_dex_share_V3_t* m)
 {
     CHECK_ERROR(_readAccountId(c, &m->owner))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_remove_liquidity_V3(
     parser_context_t* c, pd_dex_remove_liquidity_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->remove_share))
     CHECK_ERROR(_readCompactu128(c, &m->min_withdrawn_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_withdrawn_b))
@@ -728,8 +725,8 @@ __Z_INLINE parser_error_t _readMethod_dex_remove_liquidity_V3(
 __Z_INLINE parser_error_t _readMethod_dex_list_provisioning_V3(
     parser_context_t* c, pd_dex_list_provisioning_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_b))
     CHECK_ERROR(_readCompactu128(c, &m->target_provision_a))
@@ -741,8 +738,8 @@ __Z_INLINE parser_error_t _readMethod_dex_list_provisioning_V3(
 __Z_INLINE parser_error_t _readMethod_dex_update_provisioning_parameters_V3(
     parser_context_t* c, pd_dex_update_provisioning_parameters_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_a))
     CHECK_ERROR(_readCompactu128(c, &m->min_contribution_b))
     CHECK_ERROR(_readCompactu128(c, &m->target_provision_a))
@@ -754,24 +751,24 @@ __Z_INLINE parser_error_t _readMethod_dex_update_provisioning_parameters_V3(
 __Z_INLINE parser_error_t _readMethod_dex_end_provisioning_V3(
     parser_context_t* c, pd_dex_end_provisioning_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_enable_trading_pair_V3(
     parser_context_t* c, pd_dex_enable_trading_pair_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_disable_trading_pair_V3(
     parser_context_t* c, pd_dex_disable_trading_pair_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
@@ -779,16 +776,16 @@ __Z_INLINE parser_error_t _readMethod_dex_refund_provision_V3(
     parser_context_t* c, pd_dex_refund_provision_V3_t* m)
 {
     CHECK_ERROR(_readAccountId(c, &m->owner))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
 __Z_INLINE parser_error_t _readMethod_dex_abort_provisioning_V3(
     parser_context_t* c, pd_dex_abort_provisioning_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_a))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id_b))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_a))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id_b))
     return parser_ok;
 }
 
@@ -817,10 +814,46 @@ __Z_INLINE parser_error_t _readMethod_aggregateddex_update_aggregated_swap_paths
     return parser_ok;
 }
 
+__Z_INLINE parser_error_t _readMethod_earning_bond_V3(
+    parser_context_t* c, pd_earning_bond_V3_t* m)
+{
+    CHECK_ERROR(_readCompactu128(c, &m->amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_earning_unbond_V3(
+    parser_context_t* c, pd_earning_unbond_V3_t* m)
+{
+    CHECK_ERROR(_readCompactu128(c, &m->amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_earning_unbond_instant_V3(
+    parser_context_t* c, pd_earning_unbond_instant_V3_t* m)
+{
+    CHECK_ERROR(_readCompactu128(c, &m->amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_earning_rebond_V3(
+    parser_context_t* c, pd_earning_rebond_V3_t* m)
+{
+    CHECK_ERROR(_readCompactu128(c, &m->amount))
+    return parser_ok;
+}
+
+__Z_INLINE parser_error_t _readMethod_earning_withdraw_unbonded_V3(
+    parser_context_t* c, pd_earning_withdraw_unbonded_V3_t* m)
+{
+    UNUSED(c);
+    UNUSED(m);
+    return parser_ok;
+}
+
 __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_V3(
     parser_context_t* c, pd_honzon_adjust_loan_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readAmount(c, &m->collateral_adjustment))
     CHECK_ERROR(_readAmount(c, &m->debit_adjustment))
     return parser_ok;
@@ -829,7 +862,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_close_loan_has_debit_by_dex_V3(
     parser_context_t* c, pd_honzon_close_loan_has_debit_by_dex_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->max_collateral_amount))
     return parser_ok;
 }
@@ -837,7 +870,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_close_loan_has_debit_by_dex_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_transfer_loan_from_V3(
     parser_context_t* c, pd_honzon_transfer_loan_from_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->from))
     return parser_ok;
 }
@@ -845,7 +878,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_transfer_loan_from_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_authorize_V3(
     parser_context_t* c, pd_honzon_authorize_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->to))
     return parser_ok;
 }
@@ -853,7 +886,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_authorize_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_V3(
     parser_context_t* c, pd_honzon_unauthorize_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readLookupasStaticLookupSource(c, &m->to))
     return parser_ok;
 }
@@ -869,7 +902,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_unauthorize_all_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_expand_position_collateral_V3(
     parser_context_t* c, pd_honzon_expand_position_collateral_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->increase_debit_value))
     CHECK_ERROR(_readBalance(c, &m->min_increase_collateral))
     return parser_ok;
@@ -878,7 +911,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_expand_position_collateral_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_shrink_position_debit_V3(
     parser_context_t* c, pd_honzon_shrink_position_debit_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readBalance(c, &m->decrease_collateral))
     CHECK_ERROR(_readBalance(c, &m->min_decrease_debit_value))
     return parser_ok;
@@ -887,7 +920,7 @@ __Z_INLINE parser_error_t _readMethod_honzon_shrink_position_debit_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_by_debit_value_V3(
     parser_context_t* c, pd_honzon_adjust_loan_by_debit_value_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->currency_id))
     CHECK_ERROR(_readAmount(c, &m->collateral_adjustment))
     CHECK_ERROR(_readAmount(c, &m->debit_value_adjustment))
     return parser_ok;
@@ -896,8 +929,8 @@ __Z_INLINE parser_error_t _readMethod_honzon_adjust_loan_by_debit_value_V3(
 __Z_INLINE parser_error_t _readMethod_honzon_transfer_debit_V3(
     parser_context_t* c, pd_honzon_transfer_debit_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->from_currency))
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->to_currency))
+    CHECK_ERROR(_readCurrencyId(c, &m->from_currency))
+    CHECK_ERROR(_readCurrencyId(c, &m->to_currency))
     CHECK_ERROR(_readBalance(c, &m->debit_transfer))
     return parser_ok;
 }
@@ -955,7 +988,7 @@ __Z_INLINE parser_error_t _readMethod_homa_fast_match_redeems_completely_V3(
 __Z_INLINE parser_error_t _readMethod_incentives_deposit_dex_share_V3(
     parser_context_t* c, pd_incentives_deposit_dex_share_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->lp_currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->lp_currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -963,7 +996,7 @@ __Z_INLINE parser_error_t _readMethod_incentives_deposit_dex_share_V3(
 __Z_INLINE parser_error_t _readMethod_incentives_withdraw_dex_share_V3(
     parser_context_t* c, pd_incentives_withdraw_dex_share_V3_t* m)
 {
-    CHECK_ERROR(_readCurrencyId_V3(c, &m->lp_currency_id))
+    CHECK_ERROR(_readCurrencyId(c, &m->lp_currency_id))
     CHECK_ERROR(_readCompactu128(c, &m->amount))
     return parser_ok;
 }
@@ -1181,7 +1214,7 @@ parser_error_t _readMethod_V3(
         CHECK_ERROR(_readMethod_proxy_remove_proxy_V3(c, &method->nested.proxy_remove_proxy_V3))
         break;
     case 2560: /* module 10 call 0 */
-        CHECK_ERROR(_readMethod_balances_transfer_V3(c, &method->nested.balances_transfer_V3))
+        CHECK_ERROR(_readMethod_balances_transfer_allow_death_V3(c, &method->nested.balances_transfer_allow_death_V3))
         break;
     case 2562: /* module 10 call 2 */
         CHECK_ERROR(_readMethod_balances_force_transfer_V3(c, &method->nested.balances_force_transfer_V3))
@@ -1190,16 +1223,16 @@ parser_error_t _readMethod_V3(
         CHECK_ERROR(_readMethod_balances_transfer_keep_alive_V3(c, &method->nested.balances_transfer_keep_alive_V3))
         break;
     case 2564: /* module 10 call 4 */
-        CHECK_ERROR(_readMethod_balances_transfer_all_V3(c, &method->basic.balances_transfer_all_V3))
+        CHECK_ERROR(_readMethod_balances_transfer_all_V3(c, &method->nested.balances_transfer_all_V3))
         break;
     case 3072: /* module 12 call 0 */
         CHECK_ERROR(_readMethod_currencies_transfer_V3(c, &method->nested.currencies_transfer_V3))
         break;
     case 10752: /* module 42 call 0 */
-        CHECK_ERROR(_readMethod_session_set_keys_V3(c, &method->basic.session_set_keys_V3))
+        CHECK_ERROR(_readMethod_session_set_keys_V3(c, &method->nested.session_set_keys_V3))
         break;
     case 10753: /* module 42 call 1 */
-        CHECK_ERROR(_readMethod_session_purge_keys_V3(c, &method->basic.session_purge_keys_V3))
+        CHECK_ERROR(_readMethod_session_purge_keys_V3(c, &method->nested.session_purge_keys_V3))
         break;
 
 #ifdef SUBSTRATE_PARSER_FULL
@@ -1242,10 +1275,10 @@ parser_error_t _readMethod_V3(
         CHECK_ERROR(_readMethod_proxy_remove_proxies_V3(c, &method->basic.proxy_remove_proxies_V3))
         break;
     case 1284: /* module 5 call 4 */
-        CHECK_ERROR(_readMethod_proxy_create_pure_V3(c, &method->basic.proxy_create_pure_V3))
+        CHECK_ERROR(_readMethod_proxy_create_pure_V3(c, &method->nested.proxy_create_pure_V3))
         break;
     case 1285: /* module 5 call 5 */
-        CHECK_ERROR(_readMethod_proxy_kill_pure_V3(c, &method->basic.proxy_kill_pure_V3))
+        CHECK_ERROR(_readMethod_proxy_kill_pure_V3(c, &method->nested.proxy_kill_pure_V3))
         break;
     case 1286: /* module 5 call 6 */
         CHECK_ERROR(_readMethod_proxy_announce_V3(c, &method->basic.proxy_announce_V3))
@@ -1259,11 +1292,14 @@ parser_error_t _readMethod_V3(
     case 1289: /* module 5 call 9 */
         CHECK_ERROR(_readMethod_proxy_proxy_announced_V3(c, &method->basic.proxy_proxy_announced_V3))
         break;
-    case 2561: /* module 10 call 1 */
-        CHECK_ERROR(_readMethod_balances_set_balance_V3(c, &method->nested.balances_set_balance_V3))
-        break;
     case 2565: /* module 10 call 5 */
         CHECK_ERROR(_readMethod_balances_force_unreserve_V3(c, &method->basic.balances_force_unreserve_V3))
+        break;
+    case 2566: /* module 10 call 6 */
+        CHECK_ERROR(_readMethod_balances_upgrade_accounts_V3(c, &method->basic.balances_upgrade_accounts_V3))
+        break;
+    case 2568: /* module 10 call 8 */
+        CHECK_ERROR(_readMethod_balances_force_set_balance_V3(c, &method->basic.balances_force_set_balance_V3))
         break;
     case 3073: /* module 12 call 1 */
         CHECK_ERROR(_readMethod_currencies_transfer_native_currency_V3(c, &method->nested.currencies_transfer_native_currency_V3))
@@ -1288,9 +1324,6 @@ parser_error_t _readMethod_V3(
         break;
     case 3588: /* module 14 call 4 */
         CHECK_ERROR(_readMethod_transactionpayment_with_fee_currency_V3(c, &method->basic.transactionpayment_with_fee_currency_V3))
-        break;
-    case 3589: /* module 14 call 5 */
-        CHECK_ERROR(_readMethod_transactionpayment_with_fee_paid_by_V3(c, &method->basic.transactionpayment_with_fee_paid_by_V3))
         break;
     case 3590: /* module 14 call 6 */
         CHECK_ERROR(_readMethod_transactionpayment_with_fee_aggregated_path_V3(c, &method->basic.transactionpayment_with_fee_aggregated_path_V3))
@@ -1456,6 +1489,21 @@ parser_error_t _readMethod_V3(
         break;
     case 23810: /* module 93 call 2 */
         CHECK_ERROR(_readMethod_aggregateddex_update_aggregated_swap_paths_V3(c, &method->nested.aggregateddex_update_aggregated_swap_paths_V3))
+        break;
+    case 24064: /* module 94 call 0 */
+        CHECK_ERROR(_readMethod_earning_bond_V3(c, &method->nested.earning_bond_V3))
+        break;
+    case 24065: /* module 94 call 1 */
+        CHECK_ERROR(_readMethod_earning_unbond_V3(c, &method->nested.earning_unbond_V3))
+        break;
+    case 24066: /* module 94 call 2 */
+        CHECK_ERROR(_readMethod_earning_unbond_instant_V3(c, &method->nested.earning_unbond_instant_V3))
+        break;
+    case 24067: /* module 94 call 3 */
+        CHECK_ERROR(_readMethod_earning_rebond_V3(c, &method->nested.earning_rebond_V3))
+        break;
+    case 24068: /* module 94 call 4 */
+        CHECK_ERROR(_readMethod_earning_withdraw_unbonded_V3(c, &method->nested.earning_withdraw_unbonded_V3))
         break;
     case 26112: /* module 102 call 0 */
         CHECK_ERROR(_readMethod_honzon_adjust_loan_V3(c, &method->nested.honzon_adjust_loan_V3))
@@ -1625,6 +1673,8 @@ const char* _getMethod_ModuleName_V3(uint8_t moduleIdx)
         return STR_MO_DEX;
     case 93:
         return STR_MO_AGGREGATEDDEX;
+    case 94:
+        return STR_MO_EARNING;
     case 102:
         return STR_MO_HONZON;
     case 116:
@@ -1665,7 +1715,7 @@ const char* _getMethod_Name_V3(uint8_t moduleIdx, uint8_t callIdx)
     case 1282: /* module 5 call 2 */
         return STR_ME_REMOVE_PROXY;
     case 2560: /* module 10 call 0 */
-        return STR_ME_TRANSFER;
+        return STR_ME_TRANSFER_ALLOW_DEATH;
     case 2562: /* module 10 call 2 */
         return STR_ME_FORCE_TRANSFER;
     case 2563: /* module 10 call 3 */
@@ -1689,10 +1739,6 @@ const char* _getMethod_Name_V3_ParserFull(uint16_t callPrivIdx)
 {
     switch (callPrivIdx) {
 #ifdef SUBSTRATE_PARSER_FULL
-#ifndef TARGET_NANOS
-    case 13824: /* module 54 call 0 */
-        return STR_ME_TRANSFER;
-#endif
     case 0: /* module 0 call 0 */
         return STR_ME_REMARK;
     case 1: /* module 0 call 1 */
@@ -1727,10 +1773,12 @@ const char* _getMethod_Name_V3_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REJECT_ANNOUNCEMENT;
     case 1289: /* module 5 call 9 */
         return STR_ME_PROXY_ANNOUNCED;
-    case 2561: /* module 10 call 1 */
-        return STR_ME_SET_BALANCE;
     case 2565: /* module 10 call 5 */
         return STR_ME_FORCE_UNRESERVE;
+    case 2566: /* module 10 call 6 */
+        return STR_ME_UPGRADE_ACCOUNTS;
+    case 2568: /* module 10 call 8 */
+        return STR_ME_FORCE_SET_BALANCE;
     case 3073: /* module 12 call 1 */
         return STR_ME_TRANSFER_NATIVE_CURRENCY;
     case 3074: /* module 12 call 2 */
@@ -1747,8 +1795,6 @@ const char* _getMethod_Name_V3_ParserFull(uint16_t callPrivIdx)
         return STR_ME_WITH_FEE_PATH;
     case 3588: /* module 14 call 4 */
         return STR_ME_WITH_FEE_CURRENCY;
-    case 3589: /* module 14 call 5 */
-        return STR_ME_WITH_FEE_PAID_BY;
     case 3590: /* module 14 call 6 */
         return STR_ME_WITH_FEE_AGGREGATED_PATH;
     case 5376: /* module 21 call 0 */
@@ -1859,6 +1905,16 @@ const char* _getMethod_Name_V3_ParserFull(uint16_t callPrivIdx)
         return STR_ME_SWAP_WITH_EXACT_TARGET;
     case 23810: /* module 93 call 2 */
         return STR_ME_UPDATE_AGGREGATED_SWAP_PATHS;
+    case 24064: /* module 94 call 0 */
+        return STR_ME_BOND;
+    case 24065: /* module 94 call 1 */
+        return STR_ME_UNBOND;
+    case 24066: /* module 94 call 2 */
+        return STR_ME_UNBOND_INSTANT;
+    case 24067: /* module 94 call 3 */
+        return STR_ME_REBOND;
+    case 24068: /* module 94 call 4 */
+        return STR_ME_WITHDRAW_UNBONDED;
     case 26112: /* module 102 call 0 */
         return STR_ME_ADJUST_LOAN;
     case 26113: /* module 102 call 1 */
@@ -1937,6 +1993,10 @@ const char* _getMethod_Name_V3_ParserFull(uint16_t callPrivIdx)
         return STR_ME_REDEEM_SINGLE;
     case 51205: /* module 200 call 5 */
         return STR_ME_REDEEM_MULTI;
+#ifndef TARGET_NANOS
+    case 13824: /* module 54 call 0 */
+        return STR_ME_TRANSFER;
+#endif
 #endif
     default:
         return NULL;
@@ -2015,9 +2075,11 @@ uint8_t _getMethod_NumItems_V3(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 1289: /* module 5 call 9 */
         return 4;
-    case 2561: /* module 10 call 1 */
-        return 3;
     case 2565: /* module 10 call 5 */
+        return 2;
+    case 2566: /* module 10 call 6 */
+        return 1;
+    case 2568: /* module 10 call 8 */
         return 2;
     case 3073: /* module 12 call 1 */
         return 2;
@@ -2035,8 +2097,6 @@ uint8_t _getMethod_NumItems_V3(uint8_t moduleIdx, uint8_t callIdx)
         return 2;
     case 3588: /* module 14 call 4 */
         return 2;
-    case 3589: /* module 14 call 5 */
-        return 3;
     case 3590: /* module 14 call 6 */
         return 2;
     case 5376: /* module 21 call 0 */
@@ -2147,6 +2207,16 @@ uint8_t _getMethod_NumItems_V3(uint8_t moduleIdx, uint8_t callIdx)
         return 3;
     case 23810: /* module 93 call 2 */
         return 1;
+    case 24064: /* module 94 call 0 */
+        return 1;
+    case 24065: /* module 94 call 1 */
+        return 1;
+    case 24066: /* module 94 call 2 */
+        return 1;
+    case 24067: /* module 94 call 3 */
+        return 1;
+    case 24068: /* module 94 call 4 */
+        return 0;
     case 26112: /* module 102 call 0 */
         return 3;
     case 26113: /* module 102 call 1 */
@@ -2538,23 +2608,28 @@ const char* _getMethod_ItemName_V3(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         default:
             return NULL;
         }
-    case 2561: /* module 10 call 1 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_who;
-        case 1:
-            return STR_IT_new_free;
-        case 2:
-            return STR_IT_new_reserved;
-        default:
-            return NULL;
-        }
     case 2565: /* module 10 call 5 */
         switch (itemIdx) {
         case 0:
             return STR_IT_who;
         case 1:
             return STR_IT_amount;
+        default:
+            return NULL;
+        }
+    case 2566: /* module 10 call 6 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_who;
+        default:
+            return NULL;
+        }
+    case 2568: /* module 10 call 8 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_who;
+        case 1:
+            return STR_IT_new_free;
         default:
             return NULL;
         }
@@ -2621,17 +2696,6 @@ const char* _getMethod_ItemName_V3(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
             return STR_IT_currency_id;
         case 1:
             return STR_IT_call;
-        default:
-            return NULL;
-        }
-    case 3589: /* module 14 call 5 */
-        switch (itemIdx) {
-        case 0:
-            return STR_IT_call;
-        case 1:
-            return STR_IT_payer_addr;
-        case 2:
-            return STR_IT_payer_sig;
         default:
             return NULL;
         }
@@ -3105,6 +3169,39 @@ const char* _getMethod_ItemName_V3(uint8_t moduleIdx, uint8_t callIdx, uint8_t i
         switch (itemIdx) {
         case 0:
             return STR_IT_updates;
+        default:
+            return NULL;
+        }
+    case 24064: /* module 94 call 0 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_amount;
+        default:
+            return NULL;
+        }
+    case 24065: /* module 94 call 1 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_amount;
+        default:
+            return NULL;
+        }
+    case 24066: /* module 94 call 2 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_amount;
+        default:
+            return NULL;
+        }
+    case 24067: /* module 94 call 3 */
+        switch (itemIdx) {
+        case 0:
+            return STR_IT_amount;
+        default:
+            return NULL;
+        }
+    case 24068: /* module 94 call 4 */
+        switch (itemIdx) {
         default:
             return NULL;
         }
@@ -3594,14 +3691,14 @@ parser_error_t _getMethod_ItemValue_V3(
         }
     case 2560: /* module 10 call 0 */
         switch (itemIdx) {
-        case 0: /* balances_transfer_V3 - dest */;
+        case 0: /* balances_transfer_allow_death_V3 - dest */;
             return _toStringAccountIdLookupOfT(
-                &m->nested.balances_transfer_V3.dest,
+                &m->nested.balances_transfer_allow_death_V3.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
-        case 1: /* balances_transfer_V3 - amount */;
+        case 1: /* balances_transfer_allow_death_V3 - amount */;
             return _toStringCompactBalance(
-                &m->nested.balances_transfer_V3.amount,
+                &m->nested.balances_transfer_allow_death_V3.amount,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3646,12 +3743,12 @@ parser_error_t _getMethod_ItemValue_V3(
         switch (itemIdx) {
         case 0: /* balances_transfer_all_V3 - dest */;
             return _toStringAccountIdLookupOfT(
-                &m->basic.balances_transfer_all_V3.dest,
+                &m->nested.balances_transfer_all_V3.dest,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* balances_transfer_all_V3 - keep_alive */;
             return _toStringbool(
-                &m->basic.balances_transfer_all_V3.keep_alive,
+                &m->nested.balances_transfer_all_V3.keep_alive,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3665,7 +3762,7 @@ parser_error_t _getMethod_ItemValue_V3(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* currencies_transfer_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.currencies_transfer_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3681,12 +3778,12 @@ parser_error_t _getMethod_ItemValue_V3(
         switch (itemIdx) {
         case 0: /* session_set_keys_V3 - keys */;
             return _toStringKeys(
-                &m->basic.session_set_keys_V3.keys,
+                &m->nested.session_set_keys_V3.keys,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* session_set_keys_V3 - proof */;
             return _toStringBytes(
-                &m->basic.session_set_keys_V3.proof,
+                &m->nested.session_set_keys_V3.proof,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3702,7 +3799,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 13824: /* module 54 call 0 */
         switch (itemIdx) {
         case 0: /* xtokens_transfer_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.xtokens_transfer_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -3899,17 +3996,17 @@ parser_error_t _getMethod_ItemValue_V3(
         switch (itemIdx) {
         case 0: /* proxy_create_pure_V3 - proxy_type */;
             return _toStringProxyType(
-                &m->basic.proxy_create_pure_V3.proxy_type,
+                &m->nested.proxy_create_pure_V3.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_create_pure_V3 - delay */;
             return _toStringBlockNumber(
-                &m->basic.proxy_create_pure_V3.delay,
+                &m->nested.proxy_create_pure_V3.delay,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_create_pure_V3 - index */;
             return _toStringu16(
-                &m->basic.proxy_create_pure_V3.index,
+                &m->nested.proxy_create_pure_V3.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -3919,27 +4016,27 @@ parser_error_t _getMethod_ItemValue_V3(
         switch (itemIdx) {
         case 0: /* proxy_kill_pure_V3 - spawner */;
             return _toStringAccountIdLookupOfT(
-                &m->basic.proxy_kill_pure_V3.spawner,
+                &m->nested.proxy_kill_pure_V3.spawner,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* proxy_kill_pure_V3 - proxy_type */;
             return _toStringProxyType(
-                &m->basic.proxy_kill_pure_V3.proxy_type,
+                &m->nested.proxy_kill_pure_V3.proxy_type,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* proxy_kill_pure_V3 - index */;
             return _toStringu16(
-                &m->basic.proxy_kill_pure_V3.index,
+                &m->nested.proxy_kill_pure_V3.index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 3: /* proxy_kill_pure_V3 - height */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V3.height,
+                &m->nested.proxy_kill_pure_V3.height,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 4: /* proxy_kill_pure_V3 - ext_index */;
             return _toStringCompactu32(
-                &m->basic.proxy_kill_pure_V3.ext_index,
+                &m->nested.proxy_kill_pure_V3.ext_index,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4015,26 +4112,6 @@ parser_error_t _getMethod_ItemValue_V3(
         default:
             return parser_no_data;
         }
-    case 2561: /* module 10 call 1 */
-        switch (itemIdx) {
-        case 0: /* balances_set_balance_V3 - who */;
-            return _toStringAccountIdLookupOfT(
-                &m->nested.balances_set_balance_V3.who,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* balances_set_balance_V3 - new_free */;
-            return _toStringCompactBalance(
-                &m->nested.balances_set_balance_V3.new_free,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 2: /* balances_set_balance_V3 - new_reserved */;
-            return _toStringCompactBalance(
-                &m->nested.balances_set_balance_V3.new_reserved,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
     case 2565: /* module 10 call 5 */
         switch (itemIdx) {
         case 0: /* balances_force_unreserve_V3 - who */;
@@ -4045,6 +4122,31 @@ parser_error_t _getMethod_ItemValue_V3(
         case 1: /* balances_force_unreserve_V3 - amount */;
             return _toStringBalance(
                 &m->basic.balances_force_unreserve_V3.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 2566: /* module 10 call 6 */
+        switch (itemIdx) {
+        case 0: /* balances_upgrade_accounts_V3 - who */;
+            return _toStringVecAccountId(
+                &m->basic.balances_upgrade_accounts_V3.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 2568: /* module 10 call 8 */
+        switch (itemIdx) {
+        case 0: /* balances_force_set_balance_V3 - who */;
+            return _toStringAccountIdLookupOfT(
+                &m->basic.balances_force_set_balance_V3.who,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        case 1: /* balances_force_set_balance_V3 - new_free */;
+            return _toStringCompactBalance(
+                &m->basic.balances_force_set_balance_V3.new_free,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4073,7 +4175,7 @@ parser_error_t _getMethod_ItemValue_V3(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* currencies_update_balance_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.currencies_update_balance_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4088,7 +4190,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 3075: /* module 12 call 3 */
         switch (itemIdx) {
         case 0: /* currencies_sweep_dust_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.currencies_sweep_dust_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4118,7 +4220,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 3586: /* module 14 call 2 */
         switch (itemIdx) {
         case 0: /* transactionpayment_disable_charge_fee_pool_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.transactionpayment_disable_charge_fee_pool_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4143,33 +4245,13 @@ parser_error_t _getMethod_ItemValue_V3(
     case 3588: /* module 14 call 4 */
         switch (itemIdx) {
         case 0: /* transactionpayment_with_fee_currency_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.transactionpayment_with_fee_currency_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* transactionpayment_with_fee_currency_V3 - call */;
             return _toStringCall(
                 &m->basic.transactionpayment_with_fee_currency_V3.call,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        default:
-            return parser_no_data;
-        }
-    case 3589: /* module 14 call 5 */
-        switch (itemIdx) {
-        case 0: /* transactionpayment_with_fee_paid_by_V3 - call */;
-            return _toStringCall(
-                &m->basic.transactionpayment_with_fee_paid_by_V3.call,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 1: /* transactionpayment_with_fee_paid_by_V3 - payer_addr */;
-            return _toStringAccountId(
-                &m->basic.transactionpayment_with_fee_paid_by_V3.payer_addr,
-                outValue, outValueLen,
-                pageIdx, pageCount);
-        case 2: /* transactionpayment_with_fee_paid_by_V3 - payer_sig */;
-            return _toStringMultiSignature(
-                &m->basic.transactionpayment_with_fee_paid_by_V3.payer_sig,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         default:
@@ -4513,7 +4595,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 17671: /* module 69 call 7 */
         switch (itemIdx) {
         case 0: /* democracy_fast_track_V3 - proposal_hash */;
-            return _toStringH256(
+            return _toStringHash(
                 &m->basic.democracy_fast_track_V3.proposal_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4533,7 +4615,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 17672: /* module 69 call 8 */
         switch (itemIdx) {
         case 0: /* democracy_veto_external_V3 - proposal_hash */;
-            return _toStringH256(
+            return _toStringHash(
                 &m->basic.democracy_veto_external_V3.proposal_hash,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4623,12 +4705,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23298: /* module 91 call 2 */
         switch (itemIdx) {
         case 0: /* dex_add_liquidity_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.dex_add_liquidity_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_add_liquidity_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.dex_add_liquidity_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4658,12 +4740,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23299: /* module 91 call 3 */
         switch (itemIdx) {
         case 0: /* dex_add_provision_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_add_provision_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_add_provision_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_add_provision_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4688,12 +4770,12 @@ parser_error_t _getMethod_ItemValue_V3(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_claim_dex_share_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_claim_dex_share_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* dex_claim_dex_share_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_claim_dex_share_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4703,12 +4785,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23301: /* module 91 call 5 */
         switch (itemIdx) {
         case 0: /* dex_remove_liquidity_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.dex_remove_liquidity_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_remove_liquidity_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.dex_remove_liquidity_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4738,12 +4820,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23302: /* module 91 call 6 */
         switch (itemIdx) {
         case 0: /* dex_list_provisioning_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_list_provisioning_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_list_provisioning_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_list_provisioning_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4778,12 +4860,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23303: /* module 91 call 7 */
         switch (itemIdx) {
         case 0: /* dex_update_provisioning_parameters_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_update_provisioning_parameters_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_update_provisioning_parameters_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_update_provisioning_parameters_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4818,12 +4900,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23304: /* module 91 call 8 */
         switch (itemIdx) {
         case 0: /* dex_end_provisioning_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_end_provisioning_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_end_provisioning_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_end_provisioning_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4833,12 +4915,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23305: /* module 91 call 9 */
         switch (itemIdx) {
         case 0: /* dex_enable_trading_pair_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_enable_trading_pair_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_enable_trading_pair_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_enable_trading_pair_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4848,12 +4930,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23306: /* module 91 call 10 */
         switch (itemIdx) {
         case 0: /* dex_disable_trading_pair_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_disable_trading_pair_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_disable_trading_pair_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_disable_trading_pair_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4868,12 +4950,12 @@ parser_error_t _getMethod_ItemValue_V3(
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_refund_provision_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_refund_provision_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 2: /* dex_refund_provision_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_refund_provision_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4883,12 +4965,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 23308: /* module 91 call 12 */
         switch (itemIdx) {
         case 0: /* dex_abort_provisioning_V3 - currency_id_a */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_abort_provisioning_V3.currency_id_a,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* dex_abort_provisioning_V3 - currency_id_b */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.dex_abort_provisioning_V3.currency_id_b,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4945,10 +5027,55 @@ parser_error_t _getMethod_ItemValue_V3(
         default:
             return parser_no_data;
         }
+    case 24064: /* module 94 call 0 */
+        switch (itemIdx) {
+        case 0: /* earning_bond_V3 - amount */;
+            return _toStringCompactu128(
+                &m->nested.earning_bond_V3.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 24065: /* module 94 call 1 */
+        switch (itemIdx) {
+        case 0: /* earning_unbond_V3 - amount */;
+            return _toStringCompactu128(
+                &m->nested.earning_unbond_V3.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 24066: /* module 94 call 2 */
+        switch (itemIdx) {
+        case 0: /* earning_unbond_instant_V3 - amount */;
+            return _toStringCompactu128(
+                &m->nested.earning_unbond_instant_V3.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 24067: /* module 94 call 3 */
+        switch (itemIdx) {
+        case 0: /* earning_rebond_V3 - amount */;
+            return _toStringCompactu128(
+                &m->nested.earning_rebond_V3.amount,
+                outValue, outValueLen,
+                pageIdx, pageCount);
+        default:
+            return parser_no_data;
+        }
+    case 24068: /* module 94 call 4 */
+        switch (itemIdx) {
+        default:
+            return parser_no_data;
+        }
     case 26112: /* module 102 call 0 */
         switch (itemIdx) {
         case 0: /* honzon_adjust_loan_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.honzon_adjust_loan_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4968,7 +5095,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26113: /* module 102 call 1 */
         switch (itemIdx) {
         case 0: /* honzon_close_loan_has_debit_by_dex_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_close_loan_has_debit_by_dex_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4983,7 +5110,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26114: /* module 102 call 2 */
         switch (itemIdx) {
         case 0: /* honzon_transfer_loan_from_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_loan_from_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -4998,7 +5125,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26115: /* module 102 call 3 */
         switch (itemIdx) {
         case 0: /* honzon_authorize_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_authorize_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5013,7 +5140,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26116: /* module 102 call 4 */
         switch (itemIdx) {
         case 0: /* honzon_unauthorize_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_unauthorize_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5033,7 +5160,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26118: /* module 102 call 6 */
         switch (itemIdx) {
         case 0: /* honzon_expand_position_collateral_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_expand_position_collateral_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5053,7 +5180,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26119: /* module 102 call 7 */
         switch (itemIdx) {
         case 0: /* honzon_shrink_position_debit_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_shrink_position_debit_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5073,7 +5200,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26120: /* module 102 call 8 */
         switch (itemIdx) {
         case 0: /* honzon_adjust_loan_by_debit_value_V3 - currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_adjust_loan_by_debit_value_V3.currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5093,12 +5220,12 @@ parser_error_t _getMethod_ItemValue_V3(
     case 26121: /* module 102 call 9 */
         switch (itemIdx) {
         case 0: /* honzon_transfer_debit_V3 - from_currency */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_debit_V3.from_currency,
                 outValue, outValueLen,
                 pageIdx, pageCount);
         case 1: /* honzon_transfer_debit_V3 - to_currency */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.honzon_transfer_debit_V3.to_currency,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5188,7 +5315,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 30720: /* module 120 call 0 */
         switch (itemIdx) {
         case 0: /* incentives_deposit_dex_share_V3 - lp_currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->basic.incentives_deposit_dex_share_V3.lp_currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5203,7 +5330,7 @@ parser_error_t _getMethod_ItemValue_V3(
     case 30721: /* module 120 call 1 */
         switch (itemIdx) {
         case 0: /* incentives_withdraw_dex_share_V3 - lp_currency_id */;
-            return _toStringCurrencyId_V3(
+            return _toStringCurrencyId(
                 &m->nested.incentives_withdraw_dex_share_V3.lp_currency_id,
                 outValue, outValueLen,
                 pageIdx, pageCount);
@@ -5624,14 +5751,13 @@ bool _getMethod_IsNestingSupported_V3(uint8_t moduleIdx, uint8_t callIdx)
     case 772: // Utility:Force batch
     case 773: // Utility:With weight
     case 1283: // Proxy:Remove proxies
-    case 1284: // Proxy:Create pure
-    case 1285: // Proxy:Kill pure
     case 1286: // Proxy:Announce
     case 1287: // Proxy:Remove announcement
     case 1288: // Proxy:Reject announcement
     case 1289: // Proxy:Proxy announced
-    case 2564: // Balances:Transfer all
     case 2565: // Balances:Force unreserve
+    case 2566: // Balances:Upgrade accounts
+    case 2568: // Balances:Force set balance
     case 3074: // Currencies:Update balance
     case 3075: // Currencies:Sweep dust
     case 3328: // Vesting:Claim
@@ -5639,7 +5765,6 @@ bool _getMethod_IsNestingSupported_V3(uint8_t moduleIdx, uint8_t callIdx)
     case 3586: // TransactionPayment:Disable charge fee pool
     case 3587: // TransactionPayment:With fee path
     case 3588: // TransactionPayment:With fee currency
-    case 3589: // TransactionPayment:With fee paid by
     case 3590: // TransactionPayment:With fee aggregated path
     case 5376: // Bounties:Propose bounty
     case 5377: // Bounties:Approve bounty
@@ -5657,8 +5782,6 @@ bool _getMethod_IsNestingSupported_V3(uint8_t moduleIdx, uint8_t callIdx)
     case 10500: // CollatorSelection:Register candidate
     case 10501: // CollatorSelection:Leave intent
     case 10502: // CollatorSelection:Withdraw bond
-    case 10752: // Session:Set keys
-    case 10753: // Session:Purge keys
     case 12800: // XcmpQueue:Service overweight
     case 12801: // XcmpQueue:Suspend xcm execution
     case 12802: // XcmpQueue:Resume xcm execution
