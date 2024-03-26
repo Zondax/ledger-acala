@@ -1010,7 +1010,7 @@ parser_error_t _readPoolId(parser_context_t* c, pd_PoolId_t* v)
 {
     CHECK_INPUT()
     CHECK_ERROR(_readUInt8(c, &v->value))
-    if (v->value > 1) {
+    if (v->value > 2) {
         return parser_unexpected_value;
     }
     CHECK_ERROR(_readCurrencyId(c, &v->currencyid))
@@ -3934,7 +3934,7 @@ parser_error_t _toStringPoolId(
     uint8_t* pageCount)
 {
     CLEAN_AND_CHECK()
-    if (v->value > 1) {
+    if (v->value > 2) {
         return parser_unexpected_value;
     }
     CHECK_ERROR(_toStringCurrencyId(&v->currencyid, outValue, outValueLen, pageIdx, pageCount))
