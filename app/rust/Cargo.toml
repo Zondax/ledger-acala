@@ -10,7 +10,7 @@ name = "rslib"
 crate-type = ["staticlib"]
 
 [dependencies]
-rand={ version = "0.7.3", default-features = false}
+rand={ version = "0.8.6", default-features = false}
 merlin = {version = "2.0.0", default-features=false}
 zeroize = {version = "1.1.1", default-features=false}
 
